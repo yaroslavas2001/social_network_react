@@ -1,5 +1,5 @@
 import './App.css';
-
+import BaseLayout from './layouts/base-layout';
 // function App() {
 //   return (
 //     <div className="App">
@@ -22,24 +22,8 @@ import './App.css';
 // }
 const App = () => {
   return (
-    <div className="App">
-      <Header />
-      <Technologgies />
-    </div>
+    <BaseLayout/>
   );
 }
-const Technologgies = () => {
-  return (<div>
-    123456789
-  </div>);
-}
-const Header = () => {
-  return (
-    <div>
-      <li>2</li>
-      <li>3</li>
-      <li>4</li>
-    </div>
-  );
-}
+
 export default App;

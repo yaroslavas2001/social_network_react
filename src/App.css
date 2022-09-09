@@ -1,11 +1,40 @@
-.App {
-  text-align: center;
-  color: #091d23;
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.main-row {
+  display: flex;
+  width: 100%;
+  min-height: 100%;
+  background-color: darksalmon;
+}
+
+.header {
+  background-color: greenyellow;
+  margin: 10px 0px;
+  height: 60px;
+}
+
+.header-logo {
+  height: 50px;
+  width: 70px;
+}
+
+.nav {
+  width: 30%;
+  background-color: aquamarine;
+  min-height: 100%;
+}
+
+.content {
+  width: 70%;
+  background-color: burlywood;
+  height: 100%;
+}
+.profile-img{
+  width: 100%;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -33,6 +62,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
