@@ -1,0 +1,11 @@
+.nav {
+  width: 30%;
+  background-color: aquamarine;
+  min-height: 100%;
+}
+/* div{
+  background-color: red !important;
+} */
+.link.active{
+  color:red;
+}
