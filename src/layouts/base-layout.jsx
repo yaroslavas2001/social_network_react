@@ -1,6 +1,8 @@
-import Headers from "../component/header"
-import Sidebar from "../component/sidebar";
-import Info from "../pages/profile";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Headers from "../component/Header/header"
+import Sidebar from "../component/Sidebar/sidebar";
+import Dialog from "../pages/dialog/Dialog";
+import Profile from "../pages/profile/Profile";
 import s from "./base-layout.module.css"
 const BaseLayout = () => {
   return (
@@ -8,7 +10,13 @@ const BaseLayout = () => {
       <Headers />
       <div className={s.main_row}>
         <Sidebar />
-        <Info />
+        <div className="content">
+          <Routes>
+            <Route path="/" element={<Profile />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/dialog" element={<Dialog />} />
+          </Routes>
+        </div>
       </div>
     </div>
   );
