@@ -1,8 +1,9 @@
 import MyPosts from "./MyPosts/MyPosts"
-const Profile = () => {
-
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
+const Profile = (props) => {
   return (<div>
-    <MyPosts />
+    <ProfileInfo/>
+    <MyPosts posts={props.profilePage.posts} />
   </div>);
 }
 
