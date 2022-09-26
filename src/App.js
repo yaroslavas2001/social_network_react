@@ -5,7 +5,6 @@ import Sidebar from "./component/Sidebar/sidebar";
 import Dialog from "./pages/dialog/Dialog";
 import Profile from "./pages/profile/Profile";
 const App = (props) => {
-  console.log(props)
   return (
     <BrowserRouter>
       <div className='app'>
@@ -15,10 +14,17 @@ const App = (props) => {
           <div className='content'>
             <Routes>
               {/* <Route path="/" render={()=><Profile  posts={posts}  />} />  не работает, не та версия*/}
-              <Route path="/" element={<Profile profilePage={props.state.profilePage} />} />
+              <Route path="/" element={<Profile
+                profilePage={props.state.profilePage}
+                addPost={props.addPost}
+                updateNewPostText={props.updateNewPostText}
+              />} />
               <Route path="/profile"
-                element={<Profile profilePage={props.state.profilePage}
-                  addPost={props.addPost} />} />
+                element={<Profile
+                  profilePage={props.state.profilePage}
+                  addPost={props.addPost}
+                  updateNewPostText={props.updateNewPostText}
+                />} />
               <Route path="/dialog"
                 element={<Dialog dialogsPage={props.state.dialogsPage} />} />
             </Routes>

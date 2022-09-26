@@ -5,18 +5,15 @@ const MyPosts = (props) => {
   let postsElements = props.posts.map((el, index) => <Post key={index} message={el.name} />)
   let newPostElement = React.createRef();
   let addPost = () => {
-    // alert("work")
-    // debugger
-    props.addPost(newPostElement.current.value)
-    console.log(newPostElement.current.value)
+    props.addPost()
   }
   let onChangeValue = (e) => {
-    console.log("e", e.target.value)
+    props.updateNewPostText(e.target.value)
   }
   return (<div className="content">
     <h3>My posts</h3>
     <div>
-      <textarea ref={newPostElement} onChange={onChangeValue}></textarea>
+      <textarea ref={newPostElement} onChange={onChangeValue} value={props.newPostText}/>
       <button onClick={addPost}>Add post</button>
     </div>
     {postsElements}

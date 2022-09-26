@@ -1,12 +1,13 @@
-import { rerenderEntireTree } from "../render"
-
+let rerenderEntireTree = () => {
+  console.log("Сюда не зайдет, так как функция переопределена при запуске")
+}
 let state = {
   profilePage: {
     posts: [
       { id: 0, name: "How are you?", like: 3 },
       { id: 1, name: "It's my first post", like: 0 },
     ],
-
+    newPostText: "текст нового сообщения",
   },
   dialogsPage: {
     dialogs: [
@@ -27,17 +28,21 @@ let state = {
     ],
   },
 }
-export let addPost=(PostMessage)=>{
-  let newPost={
-    id:5,
-    name:PostMessage,
-    like:0
+export const addPost = () => {
+  let newPost = {
+    id: 5,
+    name: state.profilePage.newPostText,
+    like: 0
   }
   state.profilePage.posts.push(newPost)
+  state.profilePage.newPostText = ""
   rerenderEntireTree(state);
 }
-export let onChange=(value)=>{
-
+export const updateNewPostText = (newText) => {
+  state.profilePage.newPostText = newText
   rerenderEntireTree(state);
+}
+export const subscribe = (observer) => {
+  rerenderEntireTree = observer // observer - наблюдатель / AddEventListner / publishin-subcriber патерны
 }
 export default state
