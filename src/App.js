@@ -16,17 +16,17 @@ const App = (props) => {
               {/* <Route path="/" render={()=><Profile  posts={posts}  />} />  не работает, не та версия*/}
               <Route path="/" element={<Profile
                 profilePage={props.state.profilePage}
-                addPost={props.addPost}
-                updateNewPostText={props.updateNewPostText}
+                distpatch={props.distpatch}
               />} />
               <Route path="/profile"
                 element={<Profile
                   profilePage={props.state.profilePage}
-                  addPost={props.addPost}
-                  updateNewPostText={props.updateNewPostText}
+                  distpatch={props.distpatch}
                 />} />
               <Route path="/dialog"
-                element={<Dialog dialogsPage={props.state.dialogsPage} />} />
+                element={<Dialog
+                  dialogsPage={props.state.dialogsPage}
+                  distpatch={props.distpatch} />} />
             </Routes>
           </div>
         </div>
