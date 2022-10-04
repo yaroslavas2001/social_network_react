@@ -2,7 +2,7 @@ import reportWebVitals from './reportWebVitals';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import store from './redux/state';
+import store from './redux/redux-store';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 let rerenderEntireTree = (store) => {
@@ -10,13 +10,15 @@ let rerenderEntireTree = (store) => {
     <React.StrictMode>
       <App
         state={store.getState()}
-        distpatch={store.distpatch.bind(store)}
+        distpatch={store.dispatch.bind(store)}
       />
     </React.StrictMode>
   );
 }
 rerenderEntireTree(store);
-store.subscribe(rerenderEntireTree)
+store.subscribe(()=>{
+  rerenderEntireTree(store)
+})
 
 //   addPost={store.addPost}  мы не передаем контекст, поэтому когда мы вызовем в компоненте контекст возмется из попследних props
 //   addPost={store.addPost.bind(store)} мы передаем контекст стора, поэтому когда мы вызовем и вызов дойдет до state на месте this будет все в порядке
