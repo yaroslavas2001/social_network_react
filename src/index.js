@@ -3,22 +3,28 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import store from './redux/redux-store';
+import { Provider } from 'react-redux';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 let rerenderEntireTree = (store) => {
   root.render(
     <React.StrictMode>
-      <App
-        state={store.getState()}
-        distpatch={store.dispatch.bind(store)}
-      />
+      <Provider store={store}>
+        <App
+          // store={store}
+          // state={store.getState()}
+          // dispatch={store.dispatch.bind(store)}
+        />
+      </Provider>
+
     </React.StrictMode>
   );
 }
 rerenderEntireTree(store);
-store.subscribe(()=>{
-  rerenderEntireTree(store)
-})
+// так как у connect своя перерисовка, то можно эту подписку убрать 
+// store.subscribe(() => {
+//   rerenderEntireTree(store)
+// })
 
 //   addPost={store.addPost}  мы не передаем контекст, поэтому когда мы вызовем в компоненте контекст возмется из попследних props
 //   addPost={store.addPost.bind(store)} мы передаем контекст стора, поэтому когда мы вызовем и вызов дойдет до state на месте this будет все в порядке

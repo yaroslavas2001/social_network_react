@@ -2,9 +2,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Headers from "./component/Header/header"
 import Sidebar from "./component/Sidebar/sidebar";
-import Dialog from "./pages/dialog/Dialog";
+import DialogContainer from './pages/dialog/DialogContainer';
 import Profile from "./pages/profile/Profile";
-const App = (props) => {
+const App = () => {
   return (
     <BrowserRouter>
       <div className='app'>
@@ -14,19 +14,9 @@ const App = (props) => {
           <div className='content'>
             <Routes>
               {/* <Route path="/" render={()=><Profile  posts={posts}  />} />  не работает, не та версия*/}
-              <Route path="/" element={<Profile
-                profilePage={props.state.profilePage}
-                distpatch={props.distpatch}
-              />} />
-              <Route path="/profile"
-                element={<Profile
-                  profilePage={props.state.profilePage}
-                  distpatch={props.distpatch}
-                />} />
-              <Route path="/dialog"
-                element={<Dialog
-                  dialogsPage={props.state.dialogsPage}
-                  distpatch={props.distpatch} />} />
+              <Route path="/" element={<Profile />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/dialog" element={<DialogContainer />} />
             </Routes>
           </div>
         </div>
