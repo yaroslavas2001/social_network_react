@@ -4,6 +4,7 @@ import Headers from "./component/Header/header"
 import Sidebar from "./component/Sidebar/sidebar";
 import DialogContainer from './pages/dialog/DialogContainer';
 import Profile from "./pages/profile/Profile";
+import UsersContainer from './pages/users/UsersContainer';
 const App = () => {
   return (
     <BrowserRouter>
@@ -17,6 +18,7 @@ const App = () => {
               <Route path="/" element={<Profile />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/dialog" element={<DialogContainer />} />
+              <Route path="/users" element={<UsersContainer />} />
             </Routes>
           </div>
         </div>
