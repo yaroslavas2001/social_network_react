@@ -11,7 +11,7 @@ const MyPosts = (props) => {
   let onChangeValue = (e) => {
     props.updateNewPostText(newPostElement.current.value)
   }
-  return (<div className="content">
+  return (<div >
     <h3>My posts</h3>
     <div>
       <textarea ref={newPostElement} onChange={onChangeValue} value={props.newPostText} />

@@ -30,7 +30,7 @@ const Users = (props) => {
         countru: "Ukrain"
       }
     },])
-  return (<div key="1">
+  return (<div className="test">
     {
       props.users.map(el => <div key={el.id}>
         <div>{el.fullName}</div>

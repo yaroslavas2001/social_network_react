@@ -1,7 +1,12 @@
-.content {
-  width: 70%;
-  background-color: burlywood;
-  height: 100%;
+body{
+  margin: 0px;
+  padding: 0px;
+  min-height: 100vh;
+  font-family:'Times New Roman', Times, sans-serif ;
+
+}
+#root{
+  min-height: 100vh;
 }
 .profile-img{
   width: 100%;
@@ -10,10 +15,27 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-color: #dce1e6 ;
 }
-
 .row {
   display: flex;
   width: 100%;
   min-height: 100%;
+  flex-grow: 1;
+  max-width: 900px;
+  margin: 0px auto;
+}
+.content_block {
+  width: 70%;
+  flex-grow: 1;
+  box-sizing: border-box;
+}
+.content{
+  margin: 20px;
+  background-color: #fff;
+  height: auto;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.16);;
+  border-radius: 14px;
+  padding: 20px;
 }

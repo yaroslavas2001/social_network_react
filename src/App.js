@@ -12,15 +12,18 @@ const App = () => {
         <Headers />
         <div className='row'>
           <Sidebar />
-          <div className='content'>
-            <Routes>
-              {/* <Route path="/" render={()=><Profile  posts={posts}  />} />  не работает, не та версия*/}
-              <Route path="/" element={<Profile />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/dialog" element={<DialogContainer />} />
-              <Route path="/users" element={<UsersContainer />} />
-            </Routes>
+          <div className='content_block'>
+            <div className='content'>
+              <Routes >
+                {/* <Route path="/" render={()=><Profile  posts={posts}  />} />  не работает, не та версия*/}
+                <Route path="/" element={<Profile />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/dialog" element={<DialogContainer />} />
+                <Route path="/users" element={<UsersContainer />} />
+              </Routes>
+            </div>
           </div>
+
         </div>
       </div>
     </BrowserRouter>
