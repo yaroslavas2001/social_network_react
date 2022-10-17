@@ -3,6 +3,7 @@ import { addMessageCreator, updateNewMessageTextCreator } from "../../redux/dial
 import StoreContext from "../../redux/store-context";
 import Dialog from "./Dialog";
 import {connect} from "react-redux"
+import DialogClass from "./DialogClass";
 // const DialogContainer = () => {
 //   return (
 //     <StoreContext.Consumer>
@@ -42,5 +43,5 @@ let mapDispatchToProps = (dispatch) => {
     }
   }
 }
-const SuperDialogContainer = connect(mapStateToProps, mapDispatchToProps)(Dialog)
+const SuperDialogContainer = connect(mapStateToProps, mapDispatchToProps)(DialogClass)
 export default SuperDialogContainer;
