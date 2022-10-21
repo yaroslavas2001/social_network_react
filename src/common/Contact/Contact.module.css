@@ -1,0 +1,12 @@
+.contact{
+    display: flex;
+}
+.link{
+    text-decoration: none;
+    color: #000;
+    cursor: pointer;
+    transition: 0.9s;
+}
+.link:hover{
+    color: rgb(123, 123, 239);
+}

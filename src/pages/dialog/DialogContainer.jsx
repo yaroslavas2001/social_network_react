@@ -1,6 +1,6 @@
 import React from "react";
-import { addMessageCreator, updateNewMessageTextCreator } from "../../redux/dialogs-reducer";
-import StoreContext from "../../redux/store-context";
+import { addMessage, updateNewMessageText} from "../../redux/dialogs-reducer";
+import StoreContext from "../../redux/dont-use/store-context";
 import Dialog from "./Dialog";
 import {connect} from "react-redux"
 import DialogClass from "./DialogClass";
@@ -34,14 +34,16 @@ let mapStateToProps = (state) => {
     newMessageText: state.dialogsPage.newMessageText
   }
 }
-let mapDispatchToProps = (dispatch) => {
-  return {
-    sendMessage: () => { dispatch(addMessageCreator()) },
-    onChangeValue: (text) => {
-      let action = updateNewMessageTextCreator(text)
-      dispatch(action)
-    }
-  }
-}
-const SuperDialogContainer = connect(mapStateToProps, mapDispatchToProps)(DialogClass)
-export default SuperDialogContainer;
+// let mapDispatchToProps = (dispatch) => {
+//   return {
+//     sendMessage: () => { dispatch(addMessageCreator()) },
+//     onChangeValue: (text) => {
+//       let action = updateNewMessageTextCreator(text)
+//       dispatch(action)
+//     }
+//   }
+// }
+export default  connect(mapStateToProps, {
+  addMessage,updateNewMessageText
+})(DialogClass)
+

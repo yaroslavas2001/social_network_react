@@ -1,8 +1,8 @@
 import React from "react";
-import { addPostCreator, updateNewPostTextCreator } from "../../../redux/profile-reducer";
-import StoreContext from "../../../redux/store-context";
+import { addPost, updateNewPostText } from "../../../redux/profile-reducer";
+import StoreContext from "../../../redux/dont-use/store-context";
 import MyPosts from "./MyPosts";
-import {connect} from "react-redux"
+import { connect } from "react-redux"
 
 // const MyPostsContainer = () => {
 //   return (
@@ -32,18 +32,19 @@ import {connect} from "react-redux"
 // }
 let mapStateToProps = (state) => {
   return {
-    newPostText:state.profilePage.newPostText,
-    posts:state.profilePage.posts
+    newPostText: state.profilePage.newPostText,
+    posts: state.profilePage.posts
   }
 }
-let mapDispatchToProps = (dispatch) => {
-  return {
-    addPost: () => { dispatch(addPostCreator()) },
-    updateNewPostText: (text) => {
-      let action = updateNewPostTextCreator(text)
-      dispatch(action)
-    }
-  }
-}
-const SuperMyPostContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
-export default SuperMyPostContainer;
+// let mapDispatchToProps = (dispatch) => {
+//   return {
+//     addPost: () => { dispatch(addPostCreator()) },
+//     updateNewPostText: (text) => {
+//       let action = updateNewPostTextCreator(text)
+//       dispatch(action)
+//     }
+//   }
+// }
+export default connect(mapStateToProps,
+  { addPost, updateNewPostText }
+)(MyPosts)

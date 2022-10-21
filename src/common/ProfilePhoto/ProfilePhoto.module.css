@@ -1,0 +1,15 @@
+.photo{
+    position: relative;
+}
+.islookingForAJob{
+    position: absolute;
+    bottom: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin-bottom: 7px;
+    background: radial-gradient( rgba(70, 112, 49, 1), rgba(253, 254, 255, 0.0));
+    color: #fff;
+}

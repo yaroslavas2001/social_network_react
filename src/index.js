@@ -2,25 +2,25 @@ import reportWebVitals from './reportWebVitals';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import store from './redux/redux-store';
+import ReduxStore from './redux/redux-store';
 import { Provider } from 'react-redux';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 {/* <React.StrictMode>  - возможно по этому 2 раза отрисовывал*/}
 
-let rerenderEntireTree = (store) => {
+let rerenderEntireTree = (ReduxStore) => {
   root.render(
-      <Provider store={store}>
+      <Provider store={ReduxStore}>
         <App
           // store={store}
           // state={store.getState()}
           // dispatch={store.dispatch.bind(store)}
         />
-      </Provider>
+       </Provider>
    
   );
 }
 {/* </React.StrictMode> */}
-rerenderEntireTree(store);
+rerenderEntireTree(ReduxStore);
 // так как у connect своя перерисовка, то можно эту подписку убрать 
 // store.subscribe(() => {
 //   rerenderEntireTree(store)

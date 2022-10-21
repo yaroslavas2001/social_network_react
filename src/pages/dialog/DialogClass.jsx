@@ -9,10 +9,10 @@ class DialogClass extends React.Component {
     super(props)
   }
   onChangeValue = (e) => {
-    this.props.onChangeValue(e.target.value)
+    this.props.updateNewMessageText(e.target.value)
   }
   sendMessage = () => {
-    this.props.sendMessage()
+    this.props.addMessage()
   }
   render() {
     let dialogsElement = this.props.dialogs.map((el, index) => <DialogItem key={index} name={el.name} id={el.id} />)

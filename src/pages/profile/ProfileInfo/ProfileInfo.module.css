@@ -1,4 +1,12 @@
-.profile_img{
-  height: 20px;
-  width: 200px;
+.content{
+  display: flex;
+  flex-wrap: wrap;
+}
+.info{
+  padding: 5px 0px 0px 20px;
+}
+.name{
+  margin: 0px 0px 20px 0px;
+  font-size: 21px;
+  font-weight: bold;
 }
