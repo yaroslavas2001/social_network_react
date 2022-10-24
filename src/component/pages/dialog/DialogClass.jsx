@@ -1,13 +1,12 @@
 import React from "react";
-import { addMessageCreator, updateNewMessageTextCreator } from "../../redux/dialogs-reducer";
 import s from "./Dialog.module.css"
 import DialogItem from "./dialogItem/DialogItem";
 import Message from "./message/Message";
 
 class DialogClass extends React.Component {
-  constructor(props) {
-    super(props)
-  }
+  // constructor(props) {
+  //   super(props)
+  // }
   onChangeValue = (e) => {
     this.props.updateNewMessageText(e.target.value)
   }

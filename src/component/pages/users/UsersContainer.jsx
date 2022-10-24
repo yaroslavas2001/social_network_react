@@ -1,9 +1,9 @@
 import Users from "./Users"
 import { connect } from "react-redux"
-import { follow, setCurrentPage, setIsFetching, setTotalUsersCount, setUsers, unFollow } from "../../redux/users-reducer"
+import { follow, setCurrentPage, setIsFetching, setTotalUsersCount, setUsers, unFollow } from "../../../redux/users-reducer"
+import { usersAPI } from "../../../api/api"
 import React from "react"
-import axios from "axios"
-import Preloader from "../../common/Preloader/Preloader"
+import Preloader from "../../../common/Preloader/Preloader"
 // import UsersApiComponent from "./UsersApiComponent"
 class UsersContainer extends React.Component {
   /*  если наш конструктор только и делает что делегирует конструирование
@@ -17,19 +17,19 @@ class UsersContainer extends React.Component {
   // }
   componentDidMount() {
     this.props.setIsFetching(true)
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
-      this.props.setUsers(response.data.items)
-      this.props.setTotalUsersCount(response.data.totalCount)
+    usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(response => {
+      this.props.setUsers(response.items)
+      this.props.setTotalUsersCount(response.totalCount)
       this.props.setIsFetching(false)
+      console.log("users", response.items)
     })
 
   }
-  onPageCanged = (p) => {
-    this.props.setCurrentPage(p)
+  onPageCanged = (pageNumber) => {
+    this.props.setCurrentPage(pageNumber)
     this.props.setIsFetching(true)
-
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`).then(response => {
-      this.props.setUsers(response.data.items)
+    usersAPI.getUsers(pageNumber, this.props.pageSize).then(response => {
+      this.props.setUsers(response.items)
       this.props.setIsFetching(false)
     })
   }

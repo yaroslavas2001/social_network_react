@@ -1,7 +1,4 @@
-import React from "react";
-import { addMessage, updateNewMessageText} from "../../redux/dialogs-reducer";
-import StoreContext from "../../redux/dont-use/store-context";
-import Dialog from "./Dialog";
+import { addMessage, updateNewMessageText} from "../../../redux/dialogs-reducer";
 import {connect} from "react-redux"
 import DialogClass from "./DialogClass";
 // const DialogContainer = () => {

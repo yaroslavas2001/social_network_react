@@ -1,15 +1,15 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import Headers from "./component/Header/header"
+import HeaderContainer from './component/Header/HeaderContainer';
 import Sidebar from "./component/Sidebar/sidebar";
-import DialogContainer from './pages/dialog/DialogContainer';
-import ProfileContainer from './pages/profile/ProfileContainer';
-import UsersContainer from './pages/users/UsersContainer';
+import DialogContainer from './component/pages/dialog/DialogContainer';
+import ProfileContainer from './component/pages/profile/ProfileContainer';
+import UsersContainer from './component/pages/users/UsersContainer';
 const App = () => {
   return (
     <BrowserRouter>
       <div className='app'>
-        <Headers />
+        <HeaderContainer />
         <div className='row'>
           <Sidebar />
           <div className='content_block'>

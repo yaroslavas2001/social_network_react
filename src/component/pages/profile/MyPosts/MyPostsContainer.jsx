@@ -1,6 +1,4 @@
-import React from "react";
-import { addPost, updateNewPostText } from "../../../redux/profile-reducer";
-import StoreContext from "../../../redux/dont-use/store-context";
+import { addPost, updateNewPostText } from "../../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
 import { connect } from "react-redux"
 
