@@ -1,6 +1,10 @@
 import Users from "./Users"
 import { connect } from "react-redux"
-import { follow, setCurrentPage, setIsFetching, setTotalUsersCount, setUsers, unFollow } from "../../../redux/users-reducer"
+import {
+  follow, setCurrentPage, setUsers,
+  unFollow, setIsFollowingProgress, 
+  getUsersThunkCreator
+} from "../../../redux/users-reducer"
 import { usersAPI } from "../../../api/api"
 import React from "react"
 import Preloader from "../../../common/Preloader/Preloader"
@@ -16,22 +20,10 @@ class UsersContainer extends React.Component {
   //   super(props)
   // }
   componentDidMount() {
-    this.props.setIsFetching(true)
-    usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(response => {
-      this.props.setUsers(response.items)
-      this.props.setTotalUsersCount(response.totalCount)
-      this.props.setIsFetching(false)
-      console.log("users", response.items)
-    })
-
+    this.props.getUsers(this.props.currentPage, this.props.pageSize)
   }
   onPageCanged = (pageNumber) => {
-    this.props.setCurrentPage(pageNumber)
-    this.props.setIsFetching(true)
-    usersAPI.getUsers(pageNumber, this.props.pageSize).then(response => {
-      this.props.setUsers(response.items)
-      this.props.setIsFetching(false)
-    })
+    this.props.getUsers(pageNumber, this.props.pageSize)
   }
   render() {
     return (
@@ -44,6 +36,7 @@ class UsersContainer extends React.Component {
           onPageCanged={this.onPageCanged}
           unFollow={this.props.unFollow}
           follow={this.props.follow}
+          followingInProgress={this.props.followingInProgress}
         />
       </div>
     )
@@ -55,7 +48,8 @@ let mapStateToProps = (state) => {
     pageSize: state.userPage.pageSize,
     totalUsersCount: state.userPage.totalUsersCount,
     currentPage: state.userPage.currentPage,
-    isFetching: state.userPage.isFetching
+    isFetching: state.userPage.isFetching,
+    followingInProgress: state.userPage.followingInProgress
   }
 }
 // let mapDispatchToProps = (dispatch) => {
@@ -84,7 +78,8 @@ let mapStateToProps = (state) => {
 // export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
 export default connect(mapStateToProps,
   {
-    follow, unFollow, setUsers,
-    setCurrentPage, setTotalUsersCount, setIsFetching
+    follow, unFollow,
+    setCurrentPage, setIsFollowingProgress,
+    getUsers: getUsersThunkCreator
   }
 )(UsersContainer)
