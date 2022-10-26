@@ -2,6 +2,7 @@ import Contact from "../../../../common/Contact/Contact";
 import Preloader from "../../../../common/Preloader/Preloader";
 import ProfilePhoto from "../../../../common/ProfilePhoto/ProfilePhoto";
 import s from "./ProfileInfo.module.css"
+import ProfileStatus from "./ProfileStatus";
 const ProfileInfo = (props) => {
   if (!props.profile) {
     return <Preloader />
@@ -27,7 +28,7 @@ const ProfileInfo = (props) => {
 
     </div>
 
-
+    <ProfileStatus status={'test'}></ProfileStatus>
   </div>);
 }
 

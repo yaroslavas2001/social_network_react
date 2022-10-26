@@ -1,5 +1,6 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
+import { withAuthRedirect } from "../../../hoc/withAuthRedirect";
 import s from "./Dialog.module.css"
 import DialogItem from "./dialogItem/DialogItem";
 import Message from "./message/Message";
@@ -19,8 +20,8 @@ class DialogClass extends React.Component {
   render() {
     let dialogsElement = this.props.dialogs.map((el, index) => <DialogItem key={index} name={el.name} id={el.id} />)
     let messagesElement = this.props.messages.map((el, index) => <Message key={index} message={el.message} id={el.id} />)
-    if (!this.props.isAuth)
-    return <Navigate to="/login" />
+    // if (!this.props.isAuth)
+    // return <Navigate to="/login" />
 
     return (
       <div className={s.dialogs}>
@@ -40,5 +41,6 @@ class DialogClass extends React.Component {
     )
   }
 }
+let AuthRedirectComponent = withAuthRedirect(DialogClass)
 
-export default DialogClass;
+export default AuthRedirectComponent;
