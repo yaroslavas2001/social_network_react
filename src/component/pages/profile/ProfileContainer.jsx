@@ -14,13 +14,8 @@ class ProfileContainer extends React.Component {
     let profileId = this.props.router.params.profileId !== undefined ? this.props.router.params.profileId : 2;
     this.props.setProfile(profileId)
     this.props.getStatus(profileId)
-    console.log("componentDidMount")
-
   }
-
   render() {
-
-
     return (<Profile {...this.props} />)
   }
 }

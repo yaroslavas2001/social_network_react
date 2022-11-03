@@ -31,6 +31,12 @@ export const AuthAPI = {
     authMe() {
         return instance.get(`auth/me`).then(response => response.data)
     },
+    login(email, password, rememberMe, captcha) {
+        return instance.post(`auth/login`, { email, password, rememberMe, captcha }).then(response => response.data)
+    },
+    logout() {
+        return instance.delete(`auth/login`).then(response => response.data)
+    },
 }
 export const usersAPI = {
     getUsers(currentPage = 1, pageSize = 10) {
@@ -41,5 +47,10 @@ export const usersAPI = {
     },
     unFollowUser(userId) {
         return instance.delete(`follow/${userId}`).then(response => response.data)
+    },
+}
+export const securityAPI = {
+    getCaptchaURL() {
+        return instance.get(`security/get-captcha-url`).then(response => response.data)
     },
 }

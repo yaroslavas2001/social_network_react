@@ -1,9 +1,9 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import { withAuthRedirect } from "../../../hoc/withAuthRedirect";
+import { withAuthRedirect } from "../../../../hoc/withAuthRedirect";
 import s from "./Dialog.module.css"
-import DialogItem from "./dialogItem/DialogItem";
-import Message from "./message/Message";
+import DialogItem from "../dialogItem/DialogItem";
+import Message from "../message/Message";
 
 class DialogClass extends React.Component {
   constructor(props) {
