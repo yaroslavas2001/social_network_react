@@ -2,12 +2,12 @@ import Users from "./Users"
 import { connect } from "react-redux"
 import {
   follow, setCurrentPage, setUsers,
-  unFollow, setIsFollowingProgress, 
+  unFollow, setIsFollowingProgress,
   getUsersThunkCreator
 } from "../../../redux/users-reducer"
-import { usersAPI } from "../../../api/api"
 import React from "react"
 import Preloader from "../../../common/Preloader/Preloader"
+import { getCurrentPage, getFollowingInProgress, getIsFetching, getPageSize, getTotalUsersCount, getUsers } from "../../../redux/users-selectors"
 // import UsersApiComponent from "./UsersApiComponent"
 class UsersContainer extends React.Component {
   /*  если наш конструктор только и делает что делегирует конструирование
@@ -44,14 +44,21 @@ class UsersContainer extends React.Component {
 }
 let mapStateToProps = (state) => {
   return {
-    users: state.userPage.users,
-    pageSize: state.userPage.pageSize,
-    totalUsersCount: state.userPage.totalUsersCount,
-    currentPage: state.userPage.currentPage,
-    isFetching: state.userPage.isFetching,
-    followingInProgress: state.userPage.followingInProgress
+    users: getUsers(state),
+    pageSize: getPageSize(state),
+    totalUsersCount: getTotalUsersCount(state),
+    currentPage: getCurrentPage(state),
+    isFetching: getIsFetching(state),
+    followingInProgress: getFollowingInProgress(state)
   }
 }
+export default connect(mapStateToProps,
+  {
+    follow, unFollow,
+    setCurrentPage, setIsFollowingProgress,
+    getUsers: getUsersThunkCreator
+  }
+)(UsersContainer)
 // let mapDispatchToProps = (dispatch) => {
 //   return {
 //     follow: (userId) => {
@@ -75,11 +82,15 @@ let mapStateToProps = (state) => {
 //   }
 // }
 //mapDispatchToProps - ссылки на вызовы
+// let mapStateToProps = (state) => {
+//   return {
+//     users: state.userPage.users,
+//     pageSize: state.userPage.pageSize,
+//     totalUsersCount: state.userPage.totalUsersCount,
+//     currentPage: state.userPage.currentPage,
+//     isFetching: state.userPage.isFetching,
+//     followingInProgress: state.userPage.followingInProgress
+//   }
+// }
 // export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
-export default connect(mapStateToProps,
-  {
-    follow, unFollow,
-    setCurrentPage, setIsFollowingProgress,
-    getUsers: getUsersThunkCreator
-  }
-)(UsersContainer)
+

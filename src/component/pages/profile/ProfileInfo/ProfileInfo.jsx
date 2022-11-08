@@ -5,7 +5,7 @@ import s from "./ProfileInfo.module.css"
 import ProfileStatus from "./ProfileStatus";
 const ProfileInfo = (props) => {
   if (!props.profile) {
-    return <Preloader />
+    return <Preloader isFetching={!props.profile}/>
   }
   return (
     <div className={s.content}>

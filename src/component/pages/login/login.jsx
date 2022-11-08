@@ -3,6 +3,7 @@ import { Field, reduxForm } from "redux-form"
 import { Input } from "../../../common/FormsControls/FormsControls"
 import Preloader from "../../../common/Preloader/Preloader"
 import { maxLenghtCreator, required } from "../../../utils/validator/validators"
+import style from "./../../../common/FormsControls/FormsControls.module.css"
 const maxLenght50 = maxLenghtCreator(50)
 const maxLenght10 = maxLenghtCreator(10)
 
@@ -26,8 +27,11 @@ const LoginForm = (props) => {
                     component={'input'} />
                 Remember Me
             </div>
+            {props.error && <div className={style.formSummaryError}>
+                {props.error}
+            </div>}
             <div>
-                <button>Login</button>
+                <button disabled={props.isShowCapcha}>Login</button>
             </div>
         </form>
     )
@@ -60,18 +64,20 @@ const Login = (props) => {
         )
     }
     const onSubmitCaptha = (formData) => {
-        if (formData.captcha.lenght > 4) props.finishСheckingCapcha()
+        if (formData.captcha.length > 4) props.finishСheckingCapcha()
     }
     if (props.isAuth) {
         return <Navigate to="/profile" />
     }
     return (<div>
         <h1>Login</h1>
-        <ReduxLoginForm onSubmit={onSubmit} />
+        <ReduxLoginForm {...props} onSubmit={onSubmit} />
         <div>
-            Капча
             {props.isShowCapcha ?
+
                 <div>
+                    Капча
+
                     <Preloader isFetching={props.isWaitingCapcha} />
                     {!props.isWaitingCapcha ?
                         <ReduxCaptchaForm {...props} onSubmit={onSubmitCaptha} />
