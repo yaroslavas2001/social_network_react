@@ -3,9 +3,10 @@ import Preloader from "../../../../common/Preloader/Preloader";
 import ProfilePhoto from "../../../../common/ProfilePhoto/ProfilePhoto";
 import s from "./ProfileInfo.module.css"
 import ProfileStatus from "./ProfileStatus";
+import ProfileStatusWithHook from "./ProfileStatusWithHook";
 const ProfileInfo = (props) => {
   if (!props.profile) {
-    return <Preloader isFetching={!props.profile}/>
+    return <Preloader isFetching={!props.profile} />
   }
   return (
     <div className={s.content}>
@@ -27,7 +28,7 @@ const ProfileInfo = (props) => {
         </div>
         ) : null}
         Статус:
-        <ProfileStatus status={props.status} updateStatus={props.updateStatus}></ProfileStatus>
+        <ProfileStatusWithHook status={props.status} updateStatus={props.updateStatus} />
 
       </div>
     </div>);
