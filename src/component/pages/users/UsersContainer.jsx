@@ -1,7 +1,7 @@
 import Users from "./Users"
 import { connect } from "react-redux"
 import {
-  follow, setCurrentPage, setUsers,
+  follow, setCurrentPage,
   unFollow, setIsFollowingProgress,
   getUsersThunkCreator
 } from "../../../redux/users-reducer"

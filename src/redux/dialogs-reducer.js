@@ -1,4 +1,4 @@
-const SEND_MESSAGE = "SEND-MESSAGE"
+const SEND_MESSAGE = "dialog/SEND-MESSAGE"
 // const UPDETE_NEW_MESSAGE_TEXT = 'UPDETE-NEW-MESSAGE-TEXT'
 let initialState = {
   dialogs: [

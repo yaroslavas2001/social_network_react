@@ -18,14 +18,13 @@ class UsersClass extends React.Component {
     })
 
   }
-  onPageCanged=(p)=>{
+  onPageCanged = async (p) => {
     this.props.setCurrentPage(p)
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`).then(response => {
-      this.props.setUsers(response.data.items)
-    })
+    const response = await axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`)
+    this.props.setUsers(response.data.items)
   }
   render() {
-    let pagesCount =Math.ceil(this.props.totalUsersCount / this.props.pageSize) 
+    let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
     let pages = []
     for (let i = 1; i <= pagesCount; i++) {
       pages.push(i)
@@ -33,7 +32,7 @@ class UsersClass extends React.Component {
     }
     return (<div className="test">
       <div>
-        {pages.map(p => <span key={p} className={this.props.currentPage == p ? s.select : s.item} onClick={()=>this.onPageCanged(p)}> {p}</span>)}
+        {pages.map(p => <span key={p} className={this.props.currentPage === p ? s.select : s.item} onClick={() => this.onPageCanged(p)}> {p}</span>)}
       </div>
       {
         this.props.users.map(el => <div key={el.id}>

@@ -6,24 +6,25 @@ import ReduxStore from './redux/redux-store';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 const root = ReactDOM.createRoot(document.getElementById('root'));
-{/* <React.StrictMode>  - возможно по этому 2 раза отрисовывал*/}
 
 let rerenderEntireTree = (ReduxStore) => {
   root.render(
-      <Provider store={ReduxStore}>
-              <BrowserRouter>
+    <Provider store={ReduxStore}>
+      <BrowserRouter>
 
         <App
-          // store={store}
-          // state={store.getState()}
-          // dispatch={store.dispatch.bind(store)}
+        // store={store}
+        // state={store.getState()}
+        // dispatch={store.dispatch.bind(store)}
+        /* <React.StrictMode>  - возможно по этому 2 раза отрисовывал*/ 
+
         />
-        </BrowserRouter>
-       </Provider>
-   
+      </BrowserRouter>
+    </Provider>
+
   );
 }
-{/* </React.StrictMode> */}
+/* </React.StrictMode> */ 
 rerenderEntireTree(ReduxStore);
 // так как у connect своя перерисовка, то можно эту подписку убрать 
 // store.subscribe(() => {

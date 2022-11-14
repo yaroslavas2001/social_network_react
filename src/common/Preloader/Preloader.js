@@ -2,7 +2,7 @@ import loading from "./../../style/Loading.gif"
 
 let Preloader = (props) => {
     return (<div>
-        {props.isFetching ? <img src={loading} /> : null}
+        {props.isFetching ? <img src={loading} alt="preloader"/> : null}
     </div>)
 }
 export default Preloader

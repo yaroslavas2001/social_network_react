@@ -1,45 +1,38 @@
 import { Navigate } from "react-router-dom"
 import { Field, reduxForm } from "redux-form"
-import { Input } from "../../../common/FormsControls/FormsControls"
+import { createField, Input } from "../../../common/FormsControls/FormsControls"
 import Preloader from "../../../common/Preloader/Preloader"
 import { maxLenghtCreator, required } from "../../../utils/validator/validators"
 import style from "./../../../common/FormsControls/FormsControls.module.css"
 const maxLenght50 = maxLenghtCreator(50)
 const maxLenght10 = maxLenghtCreator(10)
 
-const LoginForm = (props) => {
+const LoginForm = ({ handleSubmit, error, isShowCapcha }) => {
     return (
-        <form onSubmit={props.handleSubmit}>
-            <div>
-                <Field name={'email'} component={Input}
+        <form onSubmit={handleSubmit}>
+            {createField("Login", 'email', [required, maxLenght50], Input)}
+            {/* <Field name={'email'} component={Input}
                     placeholder="Login"
                     validate={[required, maxLenght50]}
-                />
-            </div>
-            <div>
-                <Field name={'password'} component={Input}
-                    placeholder="Password"
-                    validate={[required, maxLenght50]}
-                />
-            </div>
-            <div>
-                <Field name={'rememberMe'} type="checkbox"
-                    component={'input'} />
-                Remember Me
-            </div>
-            {props.error && <div className={style.formSummaryError}>
-                {props.error}
+                /> */}
+            {createField("Password", 'password', [required, maxLenght50],
+                Input, { type: "password" })}
+
+            {createField(null, 'rememberMe', [],
+                'input', { type: "checkbox" },"Remember me")}      
+            {error && <div className={style.formSummaryError}>
+                {error}
             </div>}
             <div>
-                <button disabled={props.isShowCapcha}>Login</button>
+                <button disabled={isShowCapcha}>Login</button>
             </div>
         </form>
     )
 }
-const CaptchaForm = (props) => {
+const CaptchaForm = ({ handleSubmit, capchaUrl }) => {
     return (
-        <form onSubmit={props.handleSubmit}>
-            <img src={props.capchaUrl} alt="capchaUrl" />
+        <form onSubmit={handleSubmit}>
+            <img src={capchaUrl} alt="capchaUrl" />
             <div>
                 <Field name={'captcha'} component={Input}
                     placeholder="captcha"

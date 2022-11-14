@@ -17,7 +17,7 @@ const instance = axios.create({
 //   }
 // })
 export const profileAPI = {
-    getProfile(profileId) {
+   getProfile(profileId) {
         return instance.get(`profile/${profileId}`).then(response => response.data)
     },
     getStatus(userId) {

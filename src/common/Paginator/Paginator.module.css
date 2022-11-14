@@ -1,0 +1,10 @@
+.select {
+  color: blueviolet;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.item {
+  color: blue;
+  cursor: pointer;
+}

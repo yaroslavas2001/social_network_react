@@ -1,13 +1,13 @@
 import { AuthAPI, securityAPI } from "../api/api"
-import { stopSubmit, StopSubmitAction } from "redux-form"
-const SET_USER_DATA = "SET_USER_DATA"
-const LOGIN = "LOGIN"
-const LOGOUT = "LOGOUT"
-const ISSHOWCAPTCHA = "ISSHOWCAPTCHA"
-const SETCAPTCHA = "SETCAPTCHA"
+import { stopSubmit } from "redux-form"
+const SET_USER_DATA = "auth/SET_USER_DATA"
+const LOGIN = "auth/LOGIN"
+const LOGOUT = "auth/LOGOUT"
+const ISSHOWCAPTCHA = "auth/ISSHOWCAPTCHA"
+const SETCAPTCHA = "auth/SETCAPTCHA"
 
-const SETCAPTCHASTATUS = "SETCAPTCHASTATUS"
-const FINISHСHECKINGCAPCHA = "FINISHСHECKINGCAPCHA"
+const SETCAPTCHASTATUS = "auth/SETCAPTCHASTATUS"
+const FINISHСHECKINGCAPCHA = "auth/FINISHСHECKINGCAPCHA"
 
 let initialState = {
   userId: null,
@@ -89,45 +89,44 @@ export const authMe = () => {
     }
   }
 }
-export const getCapchaUrl = () => {
-  return (dispatch) => {
-    securityAPI.getCaptchaURL().then(data => {
-      dispatch(setCapcha(data.url))
-      dispatch(setCapchaStatus(false))
-    })
-  }
+// export const getCapchaUrl = () => {
+//   return (dispatch) => {
+//     securityAPI.getCaptchaURL().then(data => {
+//       dispatch(setCapcha(data.url))
+//       dispatch(setCapchaStatus(false))
+//     })
+//   }
+// }
+export const getCapchaUrl = () => async (dispatch) => {
+  const data = await securityAPI.getCaptchaURL()
+  dispatch(setCapcha(data.url))
+  dispatch(setCapchaStatus(false))
+
 }
-export const logintMe = (email, password, rememberMe, captcha) => {
-
-  return (dispatch) => {
-
-
-    AuthAPI.login(email, password, rememberMe, captcha).then(data => {
-      if (data.resultCode === 0) {
-        dispatch(authMe())
-        dispatch(setAuthUserLogin(email, password, rememberMe, captcha))
-      }
-      if (data.resultCode === 10) {
-        //капча
-        dispatch(showCapcha(true))
-        dispatch(setCapchaStatus(true))
-        dispatch(getCapchaUrl())
-      }
-      if (data.resultCode === 1) {
-        // не правильное значение
-        let errorText = data.messages.length > 0 ? data.messages[0] : "Some error"
-        dispatch(stopSubmit("login", { _error: errorText }))
-      }
-    })
+export const logintMe = (email, password, rememberMe, captcha) => async (dispatch) => {
+  const data = await AuthAPI.login(email, password, rememberMe, captcha)
+  if (data.resultCode === 0) {
+    dispatch(authMe())
+    dispatch(setAuthUserLogin(email, password, rememberMe, captcha))
   }
+  if (data.resultCode === 10) {
+    //капча
+    dispatch(showCapcha(true))
+    dispatch(setCapchaStatus(true))
+    dispatch(getCapchaUrl())
+  }
+  if (data.resultCode === 1) {
+    // не правильное значение
+    let errorText = data.messages.length > 0 ? data.messages[0] : "Some error"
+    dispatch(stopSubmit("login", { _error: errorText }))
+  }
+
 }
-export const logoutMe = () => {
-  return (dispatch) => {
-    AuthAPI.logout().then(data => {
-      if (data.resultCode === 0) {
-        dispatch(setAuthUserLogout(null, null, null))
-      }
-    })
+export const logoutMe = () => async (dispatch) => {
+  const data = await AuthAPI.logout()
+  if (data.resultCode === 0) {
+    dispatch(setAuthUserLogout(null, null, null))
   }
+
 }
 export default authReducer

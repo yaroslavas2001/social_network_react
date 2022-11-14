@@ -1,5 +1,5 @@
 import { authMe } from "./auth-reducer"
-const INITIALIZED_SUCCESS = "INITIALIZED_SUCCESS"
+const INITIALIZED_SUCCESS = "app/INITIALIZED_SUCCESS"
 
 
 let initialState = {
@@ -22,15 +22,12 @@ const appReducer = (state = initialState, action) => {
 export const initializedSuccess = () => ({ type: INITIALIZED_SUCCESS })
 
 
-export const initializeApp = () => {
-  return (dispatch) => {
-    let promise = dispatch(authMe())
-    // если несоколько промисов, тогда all и массив
-    Promise.all([promise]).then(() => {
-      dispatch(initializedSuccess())
-    })
-    // console.log("dispatchResult", promis)
-  }
+export const initializeApp = () => async (dispatch) => {
+  let promise = dispatch(authMe())
+  // если несоколько промисов, тогда all и массив
+  await Promise.all([promise])
+  dispatch(initializedSuccess())
+  // console.log("dispatchResult", promis)
 }
 
 export default appReducer
