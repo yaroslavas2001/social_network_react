@@ -13,8 +13,8 @@ class ProfileStatus extends React.Component {
     })
   }
   componentDidUpdate(prevProps, prevState) {
-   
-    if(prevProps.status!==this.props.status){
+
+    if (prevProps.status !== this.props.status) {
       this.setState({
         status: this.props.status
       })
@@ -24,11 +24,11 @@ class ProfileStatus extends React.Component {
     //если все таки нужно, то обязательно исппользовать условие
   }
   activateEditMode = () => {
-    console.log("before setState", this.state.editMode)
+    // console.log("before setState", this.state.editMode)
     this.setState({
       editMode: true
     })
-    console.log("after setState", this.state.editMode)
+    // console.log("after setState", this.state.editMode)
     // setState ассинхронный, поэтому оба console.log покажут false
     //setState - штука из React.Component которая меняет локальный стейт и перерисовывает ui
     // this.state.editMode=true
@@ -42,8 +42,9 @@ class ProfileStatus extends React.Component {
   render() {
     return (<div>
       {!this.state.editMode &&
-        <div onDoubleClick={this.activateEditMode}>{
-          this.props.status || "---"}</div>
+          <span onDoubleClick={this.activateEditMode}>
+            {this.props.status || "---"}
+          </span>
       }
       {this.state.editMode &&
         <div>

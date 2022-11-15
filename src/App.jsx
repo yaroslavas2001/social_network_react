@@ -1,17 +1,24 @@
-import { Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import style from './App.module.css';
 import HeaderContainer from './component/Header/HeaderContainer';
 import Sidebar from "./component/Sidebar/sidebar";
-import DialogContainer from './component/pages/dialog/DialogContainer';
-import ProfileContainer from './component/pages/profile/ProfileContainer';
-import UsersContainer from './component/pages/users/UsersContainer';
-import LoginContainer from "./component/pages/login/LoginContainer"
-import React from 'react';
-import { connect } from 'react-redux';
+
+
+// import DialogContainer from './component/pages/dialog/DialogContainer';
+// import ProfileContainer from './component/pages/profile/ProfileContainer';
+// import UsersContainer from './component/pages/users/UsersContainer';
+// import LoginContainer from "./component/pages/login/LoginContainer"
+import React, { Suspense } from 'react';
+import { connect, Provider } from 'react-redux';
 import { compose } from 'redux';
 import { withRouter } from './hoc/withRouter';
 import { initializeApp } from "./redux/app-reducer"
 import Preloader from './common/Preloader/Preloader';
+import ReduxStore from './redux/redux-store';
+const DialogContainer = React.lazy(() => import('./component/pages/dialog/DialogContainer'))
+const ProfileContainer = React.lazy(() => import('./component/pages/profile/ProfileContainer'))
+const UsersContainer = React.lazy(() => import('./component/pages/users/UsersContainer'))
+const LoginContainer = React.lazy(() => import('./component/pages/login/LoginContainer'))
 class App extends React.Component {
   componentDidMount() {
     this.props.initializeApp()
@@ -20,12 +27,13 @@ class App extends React.Component {
     if (!this.props.initialized)
       return <Preloader isFetching={!this.props.initialized} />
     return (
-      <div className={style.app}>
+      <div className={style.app}  >
         <HeaderContainer />
         <div className={style.row}>
           <Sidebar />
           <div className={style.content_block}>
             <div className={style.content}>
+            <Suspense fallback={<div><Preloader /></div>}>
               <Routes >
                 {/* <Route path="/" render={()=><Profile  posts={posts}  />} />  не работает, не та версия*/}
                 <Route path="/" element={<ProfileContainer />} />
@@ -38,6 +46,7 @@ class App extends React.Component {
                 <Route path="/users/*" element={<UsersContainer />} />
                 <Route path="/login" element={<LoginContainer />} />
               </Routes>
+              </Suspense>
             </div>
           </div>
         </div>
@@ -55,8 +64,18 @@ let mapStateToProps = (state) => {
     // isAuth: state.auth.isAuth
   }
 }
-export default compose(
-
+let AppContainer = compose(
   connect(mapStateToProps, { initializeApp }),
-  withRouter,
-)(App);;
+  withRouter,)(App);;
+
+let MainApp = (props) => {
+  return (
+    <Provider store={ReduxStore}>
+      <BrowserRouter>
+        <AppContainer />
+      </BrowserRouter>
+    </Provider>
+  )
+}
+
+export default MainApp

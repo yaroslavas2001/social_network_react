@@ -1,4 +1,5 @@
 import Paginator from "../../../common/Paginator/Paginator";
+import PaginatorOld from "../../../common/Paginator/PaginatorOld";
 import User from "./User";
 
 const Users = ({ totalUsersCount, pageSize, currentPage, onPageCanged, ...props }) => {
@@ -10,7 +11,7 @@ const Users = ({ totalUsersCount, pageSize, currentPage, onPageCanged, ...props 
   // }
   return (<div className="test">
     <Paginator currentPage={currentPage}
-      totalUsersCount={totalUsersCount}
+      totalItemsCount={totalUsersCount}
       pageSize={pageSize}
       onPageCanged={onPageCanged}
     />

@@ -27,7 +27,6 @@ export const initializeApp = () => async (dispatch) => {
   // если несоколько промисов, тогда all и массив
   await Promise.all([promise])
   dispatch(initializedSuccess())
-  // console.log("dispatchResult", promis)
 }
 
 export default appReducer
