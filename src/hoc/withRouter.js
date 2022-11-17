@@ -7,12 +7,13 @@ import {
 export const withRouter = (Component) => {
     function ComponentWithRouterProp(props) {
         let location = useLocation();
-        let navigate = useNavigate();
+        let navigation = useNavigate();
         let params = useParams();
         return (
             <Component
                 {...props}
-                router={{ location, navigate, params }}
+                router={{ location, navigation, params }}
+                navigation={navigation}
             />
         );
     }

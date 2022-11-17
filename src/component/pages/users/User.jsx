@@ -1,13 +1,12 @@
 import { NavLink } from "react-router-dom"
 import style from "./Users.module.css"
-
+import imgDefault from "./../../../style/avatar.png"
 const User = ({ user, ...props }) => {
-  const imgDefaultUser = "https://www.w3schools.com/howto/img_avatar2.png"
-
+  const photo = user.photos.large ? user.photos.large : imgDefault
   return (<div key={user.id}>
     <div>{user.name}</div>
     <NavLink to={`/profile/` + user.id}>
-      <img className={style.photo} src={user.photos.large ? user.photos.large : imgDefaultUser} alt="" />
+      <img className={style.photo} src={photo} alt="photo_user" />
     </NavLink>
     {user.followed ?
       <button disabled={props.followingInProgress.some(id => id === user.id)}

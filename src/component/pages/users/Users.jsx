@@ -14,6 +14,7 @@ const Users = ({ totalUsersCount, pageSize, currentPage, onPageCanged, ...props 
       totalItemsCount={totalUsersCount}
       pageSize={pageSize}
       onPageCanged={onPageCanged}
+      portionSize={300}
     />
     {
       props.users.map(user =>

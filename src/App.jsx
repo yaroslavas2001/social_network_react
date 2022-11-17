@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter,HashRouter, Route, Routes } from 'react-router-dom';
 import style from './App.module.css';
 import HeaderContainer from './component/Header/HeaderContainer';
 import Sidebar from "./component/Sidebar/sidebar";
@@ -71,9 +71,9 @@ let AppContainer = compose(
 let MainApp = (props) => {
   return (
     <Provider store={ReduxStore}>
-      <BrowserRouter>
+      <HashRouter basename='/'>
         <AppContainer />
-      </BrowserRouter>
+      </HashRouter>
     </Provider>
   )
 }
