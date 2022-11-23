@@ -1,8 +1,9 @@
-import { addPost } from "../../../../redux/profile-reducer.ts";
+import { addPost } from "../../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
 import { connect } from "react-redux"
+import { AppReducerType } from "../../../../redux/redux-store";
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state:AppReducerType) => {
   return {
     newPostText: state.profilePage.newPostText,
     posts: state.profilePage.posts

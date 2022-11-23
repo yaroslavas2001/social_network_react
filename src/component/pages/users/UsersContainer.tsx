@@ -28,7 +28,6 @@ type MapDispatchToPropsType = {
 }
 type OwnPropsType = {
   pageTitle: string
-
 }
 type PropsType = MapStateToPropsType & MapDispatchToPropsType & OwnPropsType
 class UsersContainer extends React.Component<PropsType> {

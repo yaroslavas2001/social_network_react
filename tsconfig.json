@@ -38,6 +38,6 @@
     "**/*.png",
     "**/*.gif",
     "**/*.module.css"
-  ],
+, "src/hoc/withRouter.js"  ],
   "exclude": ["node_modules"]
 }

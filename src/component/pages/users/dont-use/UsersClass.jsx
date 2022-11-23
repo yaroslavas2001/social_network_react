@@ -1,6 +1,6 @@
 import axios from "axios"
 import React from "react"
-import s from "./../Users.module.css"
+import style from "./../Users.module.css"
 class UsersClass extends React.Component {
   /*  если наш конструктор только и делает что делегирует конструирование
      родительскому конструктору, то его писать не нужно
@@ -32,15 +32,15 @@ class UsersClass extends React.Component {
     }
     return (<div className="test">
       <div>
-        {pages.map(p => <span key={p} className={this.props.currentPage === p ? s.select : s.item} onClick={() => this.onPageCanged(p)}> {p}</span>)}
+        {pages.map(p => <span key={p} className={this.props.currentPage === p ? style.select : style.item} onClick={() => this.onPageCanged(p)}> {p}</span>)}
       </div>
       {
         this.props.users.map(el => <div key={el.id}>
           <div>{el.name}</div>
-          <img className={s.photo} src={el.photos.large ? el.photos.large : "https://www.w3schools.com/howto/img_avatar2.png"} alt="" />
+          <img className={style.photo} src={el.photos.large ? el.photos.large : "https://www.w3schools.com/howto/img_avatar2.png"} alt="" />
           {el.followed ?
-            <button className={[s.btn, s.unfollow].join(' ')} onClick={() => { this.props.unFollow(el.id) }}>UnFollow</button> :
-            <button className={[s.btn, s.follow].join(' ')} onClick={() => { this.props.follow(el.id) }}>Follow</button>}
+            <button className={[style.btn, style.unfollow].join(' ')} onClick={() => { this.props.unFollow(el.id) }}>UnFollow</button> :
+            <button className={[style.btn, style.follow].join(' ')} onClick={() => { this.props.follow(el.id) }}>Follow</button>}
         </div>)
       }
     </div>

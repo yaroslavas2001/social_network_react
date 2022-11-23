@@ -17,40 +17,50 @@ const instance = axios.create({
 //   }
 // })
 export const profileAPI = {
-   getProfile(profileId:number) {
-        return instance.get(`profile/${profileId}`).then(response => response.data)
+   async getProfile(profileId:number) {
+        const response = await instance.get(`profile/${profileId}`)
+        return response.data
     },
-    getStatus(userId:number) {
-        return instance.get(`profile/status/${userId}`).then(response => response.data)
+    async getStatus(userId:number) {
+        const response = await instance.get(`profile/status/${userId}`)
+        return response.data
     },
-    updateStatus(statusText:string) {
-        return instance.put(`profile/status`, { status: statusText }).then(response => response.data)
+    async updateStatus(statusText:string) {
+        const response = await instance.put(`profile/status`, { status: statusText })
+        return response.data
     },
 }
 export const AuthAPI = {
-    authMe() {
-        return instance.get(`auth/me`).then(response => response.data)
+    async authMe() {
+        const response = await instance.get(`auth/me`)
+        return response.data
     },
-    login(email:string, password:string, rememberMe:boolean, captcha:string) {
-        return instance.post(`auth/login`, { email, password, rememberMe, captcha }).then(response => response.data)
+    async login(email:string, password:string, rememberMe:boolean, captcha:string) {
+        const response = await instance.post(`auth/login`, { email, password, rememberMe, captcha })
+        return response.data
     },
-    logout() {
-        return instance.delete(`auth/login`).then(response => response.data)
+    async logout() {
+        const response = await instance.delete(`auth/login`)
+        return response.data
     },
 }
 export const usersAPI = {
-    getUsers(currentPage = 1, pageSize = 10) {
-        return instance.get(`users?page=${currentPage}&count=${pageSize}`).then(response => response.data)
+    async getUsers(currentPage = 1, pageSize = 10) {
+        const response = await instance.get(`users?page=${currentPage}&count=${pageSize}`)
+        return response.data
     },
-    followUser(userId:number) {
-        return instance.post(`follow/${userId}`).then(response => response.data)
+    async followUser(userId:number) {
+        const response = await instance.post(`follow/${userId}`)
+        return response.data
     },
-    unFollowUser(userId:number) {
-        return instance.delete(`follow/${userId}`).then(response => response.data)
+    async unFollowUser(userId:number) {
+        const response = await instance.delete(`follow/${userId}`)
+        return response.data
     },
 }
 export const securityAPI = {
-    getCaptchaURL() {
-        return instance.get(`security/get-captcha-url`).then(response => response.data)
+    async getCaptchaURL() {
+        const response = await instance.get(`security/get-captcha-url`)
+        return response.data
     },
 }

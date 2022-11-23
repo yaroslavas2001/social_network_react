@@ -9,7 +9,7 @@ type PostType = {
   name: string
   like: number | null
 }
-type ProfileContactsType = {
+export type ProfileContactsType = {
   github: string
   vk: string
   facebook: string
@@ -19,7 +19,7 @@ type ProfileContactsType = {
   youtube: string
   mainLink: string
 }
-type ProfileType = {
+export type ProfileType = {
   userId: number
   lookingForAJob: boolean
   lookingForAJobDescription: boolean
@@ -34,6 +34,7 @@ type InitialStateType = {
   posts: Array<PostType>
   profile: ProfileType | null
   status: string
+  newPostText:string
 }
 let initialState: InitialStateType = {
   posts: [
@@ -42,6 +43,7 @@ let initialState: InitialStateType = {
   ],
   profile: null,
   status: '',
+  newPostText:''
 }
 const profileReducer = (state: InitialStateType = initialState, action: any): InitialStateType => {
   switch (action.type) {

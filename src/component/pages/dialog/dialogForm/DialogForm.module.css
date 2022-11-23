@@ -1,0 +1,18 @@
+.dialogs{
+  display: flex;
+}
+.dialogs_items{
+  display: flex;
+  flex-direction: column;
+}
+.messages{
+  display: flex;
+  flex-direction: column;
+}
+.message{
+  display: flex;
+  flex-direction: column;
+}
+.add_new_message_block{
+  display: flex;
+}
