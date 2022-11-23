@@ -5,11 +5,18 @@ const LOGIN = "auth/LOGIN"
 const LOGOUT = "auth/LOGOUT"
 const ISSHOWCAPTCHA = "auth/ISSHOWCAPTCHA"
 const SETCAPTCHA = "auth/SETCAPTCHA"
-
 const SETCAPTCHASTATUS = "auth/SETCAPTCHASTATUS"
 const FINISHСHECKINGCAPCHA = "auth/FINISHСHECKINGCAPCHA"
-
-let initialState = {
+export type InitialStateType = {
+  userId: number | null,
+  email: string | null,
+  login: string | null,
+  isAuth: boolean,
+  isShowCapcha: boolean,
+  capchaUrl: string,
+  isWaitingCapcha: boolean
+}
+let initialState: InitialStateType = {
   userId: null,
   email: null,
   login: null,
@@ -19,7 +26,7 @@ let initialState = {
   isWaitingCapcha: false
 }
 
-const authReducer = (state = initialState, action) => {
+const authReducer = (state: InitialStateType = initialState, action: any): InitialStateType => {
   switch (action.type) {
     case SET_USER_DATA: {
       return {
@@ -70,18 +77,62 @@ const authReducer = (state = initialState, action) => {
     default: return state
   }
 }
-export const setAuthUserData = (userId, email, login) => ({ type: SET_USER_DATA, data: { userId, email, login } })
-export const setAuthUserLogin = (email, password, rememberMe, captcha) => ({ type: SET_USER_DATA, data: { email, password, rememberMe, captcha } })
-export const setAuthUserLogout = (userId, email, login) => ({ type: LOGOUT, data: { userId, email, login } })
+type setAuthUserDataPreloadType = {
+  userId: number | null
+  email: string | null
+  login: string | null
+}
+type setAuthUserDataType = {
+  type: typeof SET_USER_DATA
+  data: setAuthUserDataPreloadType
+}
+export const setAuthUserData = (userId: number, email: string, login: string): setAuthUserDataType =>
+  ({ type: SET_USER_DATA, data: { userId, email, login } })
 
+type setAuthUserLoginPreloadType = {
+  email: string | null
+  password: string | null
+  rememberMe: boolean
+  captcha: string
+}
+type setAuthUserLoginType = {
+  type: typeof SET_USER_DATA
+  data: setAuthUserLoginPreloadType
+}
+export const setAuthUserLogin = (email: string, password: string, rememberMe: boolean, captcha: string): setAuthUserLoginType =>
+  ({ type: SET_USER_DATA, data: { email, password, rememberMe, captcha } })
 
-export const showCapcha = (isShowCapcha) => ({ type: ISSHOWCAPTCHA, isShowCapcha })
-export const setCapcha = (capchaUrl) => ({ type: SETCAPTCHA, capchaUrl })
-export const setCapchaStatus = (isWaitingCapcha) => ({ type: SETCAPTCHASTATUS, isWaitingCapcha })
-export const finishСheckingCapcha = () => ({ type: FINISHСHECKINGCAPCHA })
+type setAuthUserLogoutType = {
+  type: typeof LOGOUT
+  data: setAuthUserDataPreloadType
+}
+export const setAuthUserLogout = (userId: number | null, email: string, login: string): setAuthUserLogoutType => ({ type: LOGOUT, data: { userId, email, login } })
+
+type showCapchaType = {
+  type: typeof ISSHOWCAPTCHA
+  isShowCapcha: boolean
+}
+export const showCapcha = (isShowCapcha: boolean): showCapchaType => ({ type: ISSHOWCAPTCHA, isShowCapcha })
+
+type setCapchaType = {
+  type: typeof SETCAPTCHA
+  capchaUrl: string
+}
+export const setCapcha = (capchaUrl: string): setCapchaType => ({ type: SETCAPTCHA, capchaUrl })
+
+type setCapchaStatusType = {
+  type: typeof SETCAPTCHASTATUS
+  isWaitingCapcha: boolean
+}
+export const setCapchaStatus = (isWaitingCapcha: boolean): setCapchaStatusType => ({ type: SETCAPTCHASTATUS, isWaitingCapcha })
+
+type finishСheckingCapchaType = {
+  type: typeof FINISHСHECKINGCAPCHA
+}
+export const finishСheckingCapcha = (): finishСheckingCapchaType => ({ type: FINISHСHECKINGCAPCHA })
 
 export const authMe = () => {
-  return async (dispatch) => {
+  return async (dispatch: any) => {
     const data = await AuthAPI.authMe()
     if (data.resultCode === 0) {
       let date = data.data
@@ -97,13 +148,13 @@ export const authMe = () => {
 //     })
 //   }
 // }
-export const getCapchaUrl = () => async (dispatch) => {
+export const getCapchaUrl = () => async (dispatch: any) => {
   const data = await securityAPI.getCaptchaURL()
   dispatch(setCapcha(data.url))
   dispatch(setCapchaStatus(false))
 
 }
-export const logintMe = (email, password, rememberMe, captcha) => async (dispatch) => {
+export const logintMe = (email: string, password: string, rememberMe: boolean, captcha: string) => async (dispatch: any) => {
   const data = await AuthAPI.login(email, password, rememberMe, captcha)
   if (data.resultCode === 0) {
     dispatch(authMe())
@@ -122,10 +173,10 @@ export const logintMe = (email, password, rememberMe, captcha) => async (dispatc
   }
 
 }
-export const logoutMe = () => async (dispatch) => {
+export const logoutMe = () => async (dispatch: any) => {
   const data = await AuthAPI.logout()
   if (data.resultCode === 0) {
-    dispatch(setAuthUserLogout(null, null, null))
+    dispatch(setAuthUserLogout(null, '', ''))
   }
 
 }

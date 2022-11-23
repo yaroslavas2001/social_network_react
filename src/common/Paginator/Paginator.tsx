@@ -1,15 +1,21 @@
-import { useState } from "react"
+import React ,{ FC, useState } from "react"
 import style from "./Paginator.module.css"
-
-const Paginator = ({ totalItemsCount, pageSize, onPageCanged, currentPage, portionSize = 10 }) => {
+type propsType = {
+  totalItemsCount: number
+  pageSize: number
+  onPageCanged: (page:number) => void
+  currentPage: number
+  portionSize?: number
+}
+const Paginator: FC<propsType> = ({ totalItemsCount, pageSize, onPageCanged, currentPage, portionSize = 10 }) => {
   // сколько страниц видит пользователь для переключения
   // let portionSize = 1000
   // колличество страниц в общем
   let pagesCount = Math.ceil(totalItemsCount / pageSize)
   // количество порций этих страничек
   let portionCount = Math.ceil(pagesCount / portionSize)
-  let [portionNumber, setPortionNumber] = useState(0)
-  let pages = []
+  let [portionNumber, setPortionNumber] = useState<number>(0)
+  let pages: Array<number> = []
   for (let i = 1; i <= portionSize; i++) {
     let passedItems = (i + (portionSize * portionNumber)) * pageSize
     let isAllShown = (passedItems - totalItemsCount) < pageSize
@@ -26,14 +32,19 @@ const Paginator = ({ totalItemsCount, pageSize, onPageCanged, currentPage, porti
   const left = () => {
     setPortionNumber(portionNumber - 1)
   }
-  return <div>
+  const changePage = (page: number) => {
+    return () => { onPageCanged(page) }
+  }
+  return (<div>
     {isShowLeft && <button onClick={left}>назад</button>}
     {pages.map(p =>
-      <span key={p} className={currentPage === p ? style.select : style.item}
-        onClick={() => onPageCanged(p)}> {p}</span>
+      <span key={p}
+        className={currentPage === p ? style.select : style.item}
+        onClick={changePage(p)}
+      > {p}</span>
     )}
     {isShowRight && <button onClick={right}>вперед</button>}
-  </div>
+  </div>)
 }
 
 export default Paginator;

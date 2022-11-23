@@ -1,18 +1,21 @@
-import React from "react";
+import React, { FC } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 
-
-const ProfileStatusWithHook = (props) => {
+type propstype = {
+  status: string
+  updateStatus: (status: string) => void
+}
+const ProfileStatusWithHook: FC<propstype> = (props) => {
   // let stateWithSetState = useState(true)
   // let editMode = stateWithSetState[0]
   // let setEditMode = stateWithSetState[1]
   let [editMode, setEditMode] = useState(false)
   let [status, setStatus] = useState(props.status)
-  useEffect(()=>{
+  useEffect(() => {
     // выполняется после отрисовки
     setStatus(props.status)
-  },[props.status])
+  }, [props.status])
   const activateEditMode = () => {
     setEditMode(true)
   }
@@ -21,7 +24,7 @@ const ProfileStatusWithHook = (props) => {
 
     props.updateStatus(status)
   }
-  const changeStatus = (e) => {
+  const changeStatus = (e: any) => {
     setStatus(e.currentTarget.value)
 
   }

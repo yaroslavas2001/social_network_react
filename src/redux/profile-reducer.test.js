@@ -1,4 +1,4 @@
-import profileReducer, { addPost, deletePost } from "./profile-reducer"
+import profileReducer, { addPost, deletePost } from "./profile-reducer.ts"
 let state = {
   posts: [
     { id: 0, name: "How are you?", like: 3 },

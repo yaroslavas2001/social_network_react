@@ -4,8 +4,38 @@ const ADD_POST = "profile/ADD-POST"
 const SET_USER_PROFILE = "profile/SET_USER_PROFILE"
 const SET_STATUS = "profile/SET_STATUS"
 const DELETE_POST = "profile/DELETE_POST"
-
-let initialState = {
+type PostType = {
+  id: number
+  name: string
+  like: number | null
+}
+type ProfileContactsType = {
+  github: string
+  vk: string
+  facebook: string
+  instagram: string
+  twitter: string
+  website: string
+  youtube: string
+  mainLink: string
+}
+type ProfileType = {
+  userId: number
+  lookingForAJob: boolean
+  lookingForAJobDescription: boolean
+  fullName: string
+  contacts: ProfileContactsType
+  photos: {
+    small: string
+    large: string
+  }
+}
+type InitialStateType = {
+  posts: Array<PostType>
+  profile: ProfileType | null
+  status: string
+}
+let initialState: InitialStateType = {
   posts: [
     { id: 0, name: "How are you?", like: 3 },
     { id: 1, name: "It's my first post", like: 0 },
@@ -13,7 +43,7 @@ let initialState = {
   profile: null,
   status: '',
 }
-const profileReducer = (state = initialState, action) => {
+const profileReducer = (state: InitialStateType = initialState, action: any): InitialStateType => {
   switch (action.type) {
     case ADD_POST: {
       let newPost = {
@@ -47,26 +77,26 @@ const profileReducer = (state = initialState, action) => {
     default: return state
   }
 }
-export const addPost = (newPostText) => ({ type: ADD_POST, newPostText })
-export const deletePost = (idPost) => ({ type: DELETE_POST, idPost })
+export const addPost = (newPostText: string) => ({ type: ADD_POST, newPostText })
+export const deletePost = (idPost: number) => ({ type: DELETE_POST, idPost })
 
-export const setUserProfile = (profile) => ({
+export const setUserProfile = (profile:ProfileType) => ({
   type: SET_USER_PROFILE, profile
 })
-export const setStatus = (status) => ({
+export const setStatus = (status: string) => ({
   type: SET_STATUS, status
 })
-export const setProfile = (profileId) => async (dispatch) => {
+export const setProfile = (profileId: number) => async (dispatch: any) => {
   const data = await profileAPI.getProfile(profileId)
   dispatch(setUserProfile(data))
 
 }
-export const getStatus = (userId) => async (dispatch) => {
+export const getStatus = (userId: number) => async (dispatch: any) => {
   const data = await profileAPI.getStatus(userId)
   dispatch(setStatus(data))
 
 }
-export const updateStatus = (statusText) => async (dispatch) => {
+export const updateStatus = (statusText: string) => async (dispatch: any) => {
   const data = await profileAPI.updateStatus(statusText)
 
   if (data.resultCode === 0)

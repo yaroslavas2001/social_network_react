@@ -1,6 +1,6 @@
 import React from "react";
 import Login from "./Login";
-import { logintMe ,getCapchaUrl,finishСheckingCapcha} from "./../../../redux/auth-reducer"
+import { logintMe ,getCapchaUrl,finishСheckingCapcha} from "../../../redux/auth-reducer.ts"
 import { compose } from "redux";
 import { connect } from "react-redux"
 

@@ -8,7 +8,7 @@ import appReduce from "./app-reducer"
 import { reducer as formReducer } from 'redux-form'
 
 
-let reducers = combineReducers({
+let rootReducers = combineReducers({
   profilePage: profileReducer,
   dialogsPage: dialogsReducer,
   userPage: usersReducer,
@@ -16,8 +16,12 @@ let reducers = combineReducers({
   app: appReduce,
   form: formReducer
 })
+type RootReducersType = typeof rootReducers
+export type AppReducerType = ReturnType<RootReducersType>
+// @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));
+
+const store = createStore(rootReducers, composeEnhancers(applyMiddleware(thunk)));
 // let store = createStore(reducers,applyMiddleware(thunk))
 
 

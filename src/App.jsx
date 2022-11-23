@@ -1,4 +1,4 @@
-import { BrowserRouter,HashRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 import style from './App.module.css';
 import HeaderContainer from './component/Header/HeaderContainer';
 import Sidebar from "./component/Sidebar/sidebar";
@@ -12,7 +12,7 @@ import React, { Suspense } from 'react';
 import { connect, Provider } from 'react-redux';
 import { compose } from 'redux';
 import { withRouter } from './hoc/withRouter';
-import { initializeApp } from "./redux/app-reducer"
+import { initializeApp } from "./redux/app-reducer.ts"
 import Preloader from './common/Preloader/Preloader';
 import ReduxStore from './redux/redux-store';
 const DialogContainer = React.lazy(() => import('./component/pages/dialog/DialogContainer'))
@@ -43,7 +43,7 @@ class App extends React.Component {
                 <Route path="/dialog/:dialogId" element={<DialogContainer />} />
                 <Route path="/dialog/" element={<DialogContainer />} />
 
-                <Route path="/users/*" element={<UsersContainer />} />
+                <Route path="/users/*" element={<UsersContainer pageTitle='test' />} />
                 <Route path="/login" element={<LoginContainer />} />
               </Routes>
               </Suspense>

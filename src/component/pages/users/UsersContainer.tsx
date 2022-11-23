@@ -1,15 +1,37 @@
-import Users from "./Users"
 import { connect } from "react-redux"
 import {
-  follow, setCurrentPage,
-  unFollow, setIsFollowingProgress,
+  follow,
+  unFollow,
   getUsersThunkCreator
 } from "../../../redux/users-reducer"
 import React from "react"
 import Preloader from "../../../common/Preloader/Preloader"
-import { getCurrentPage, getFollowingInProgress, getIsFetching, getPageSize, getTotalUsersCount, getUsers } from "../../../redux/users-selectors"
-// import UsersApiComponent from "./UsersApiComponent"
-class UsersContainer extends React.Component {
+import {
+  getCurrentPage, getFollowingInProgress, getIsFetching,
+  getPageSize, getTotalUsersCount, getUsers
+} from "../../../redux/users-selectors"
+import Users from "./Users"
+import { UsersType } from "../../../types/types"
+import { AppReducerType } from "../../../redux/redux-store"
+type MapStateToPropsType = {
+  currentPage: number
+  pageSize: number
+  isFetching: boolean
+  totalUsersCount: number
+  users: Array<UsersType>
+  followingInProgress: Array<number>
+}
+type MapDispatchToPropsType = {
+  unFollow: (id: number) => void
+  follow: (id: number) => void
+  getUsers: (pageNumber: number, pageSize: number) => void
+}
+type OwnPropsType = {
+  pageTitle: string
+
+}
+type PropsType = MapStateToPropsType & MapDispatchToPropsType & OwnPropsType
+class UsersContainer extends React.Component<PropsType> {
   /*  если наш конструктор только и делает что делегирует конструирование
      родительскому конструктору, то его писать не нужно
     constructor(props){
@@ -22,12 +44,13 @@ class UsersContainer extends React.Component {
   componentDidMount() {
     this.props.getUsers(this.props.currentPage, this.props.pageSize)
   }
-  onPageCanged = (pageNumber) => {
+  onPageCanged = (pageNumber: number) => {
     this.props.getUsers(pageNumber, this.props.pageSize)
   }
   render() {
     return (
-      <div>
+      <>
+        <h2>{this.props.pageTitle}</h2>
         <Preloader isFetching={this.props.isFetching} />
         <Users totalUsersCount={this.props.totalUsersCount}
           pageSize={this.props.pageSize}
@@ -38,11 +61,11 @@ class UsersContainer extends React.Component {
           follow={this.props.follow}
           followingInProgress={this.props.followingInProgress}
         />
-      </div>
+      </>
     )
   }
 }
-let mapStateToProps = (state) => {
+let mapStateToProps = (state: AppReducerType): MapStateToPropsType => {
   return {
     users: getUsers(state),
     pageSize: getPageSize(state),
@@ -52,10 +75,10 @@ let mapStateToProps = (state) => {
     followingInProgress: getFollowingInProgress(state)
   }
 }
-export default connect(mapStateToProps,
+//connect - state , dispatch , own , statef
+export default connect<MapStateToPropsType, MapDispatchToPropsType>(mapStateToProps,
   {
     follow, unFollow,
-    setCurrentPage, setIsFollowingProgress,
     getUsers: getUsersThunkCreator
   }
 )(UsersContainer)

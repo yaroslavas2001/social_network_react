@@ -1,10 +1,15 @@
 import reportWebVitals from './reportWebVitals';
 import ReactDOM from 'react-dom/client';
 import MainApp from './App';
+import React from 'react';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 let rerenderEntireTree = () => {
-  root.render(<MainApp />);
+  root.render(
+    // <React.StrictMode>
+      <MainApp />
+    /* </React.StrictMode> */
+    );
 }
 /* </React.StrictMode> */
 rerenderEntireTree();

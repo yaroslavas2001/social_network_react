@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      // "@/*": ["src/*"],
+      // "@assets/*": ["./src/assets/*"],
+      // "@models/*": ["./src/models/*"],
+      // "@components/*": ["./src/components/*"],
+      // "@views/*": ["./src/views/*"],
+      // "@layouts/*": ["./src/views/layouts/*"]
+    },
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+
+
+    // "module": "commonjs",// модуль генерации кода: "None", "CommonJS", "AMD", "System", "UMD", "ES6", "ES2015"или "ESNext"
+    //   "target": "es5",    //целевая версию ECMAScript  
+    //   "moduleResolution": "node",//тип импорта модулей (логика работы import from и required) http://www.typescriptlang.org/docs/handbook/module-resolution.html
+    //   //"esModuleInterop": true,
+    //   "lib": [//Список файлов библиотеки для включения в компиляцию.
+    //     "es2017", "dom"
+    // ],
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "tests/**/*.ts",
+    "tests/**/*.tsx",
+    "**/*.ts",
+    "**/*.jsx",
+    "**/*.png",
+    "**/*.gif",
+    "**/*.module.css"
+  ],
+  "exclude": ["node_modules"]
+}

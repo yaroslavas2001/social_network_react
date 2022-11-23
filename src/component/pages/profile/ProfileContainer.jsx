@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { setProfile, getStatus, updateStatus } from "./../../../redux/profile-reducer"
+import { setProfile, getStatus, updateStatus } from "../../../redux/profile-reducer.ts"
 import Profile from "./Profile";
 import { compose } from "redux";
 import { withRouter } from "./../../../hoc/withRouter"
@@ -14,7 +14,7 @@ class ProfileContainer extends React.Component {
     let profileId = this.props.router.params.profileId ? this.props.router.params.profileId : this.props.autorizedUserId
     if (!profileId) {
       // profileId = 26414
-      console.log("router",this.props.router)
+      // console.log("router",this.props.router)
       this.props.navigation("/login",{})
       // navigation нужно использовать в useEffect
       // не сработает, потому что редиректы не тут нужно сделать
