@@ -1,5 +1,10 @@
 import { AuthAPI, securityAPI } from "../api/api"
 import { stopSubmit } from "redux-form"
+import { Action, Dispatch } from "redux"
+import { HandleThunkActionCreator } from "react-redux"
+import { ThunkAction } from 'redux-thunk'
+import { AppReducerType } from "./redux-store"
+
 const SET_USER_DATA = "auth/SET_USER_DATA"
 const LOGIN = "auth/LOGIN"
 const LOGOUT = "auth/LOGOUT"
@@ -15,6 +20,7 @@ export type InitialStateType = {
   isShowCapcha: boolean,
   capchaUrl: string,
   isWaitingCapcha: boolean
+  rememberMe: boolean
 }
 let initialState: InitialStateType = {
   userId: null,
@@ -23,10 +29,11 @@ let initialState: InitialStateType = {
   isAuth: false,
   isShowCapcha: false,
   capchaUrl: '',
-  isWaitingCapcha: false
+  isWaitingCapcha: false,
+  rememberMe: false
 }
 
-const authReducer = (state: InitialStateType = initialState, action: any): InitialStateType => {
+const authReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
   switch (action.type) {
     case SET_USER_DATA: {
       return {
@@ -77,6 +84,9 @@ const authReducer = (state: InitialStateType = initialState, action: any): Initi
     default: return state
   }
 }
+type ActionsType = setAuthUserDataType | setAuthUserLoginType | setAuthUserLogoutType |
+  showCapchaType | setCapchaType | setCapchaStatusType | finishСheckingCapchaType
+
 type setAuthUserDataPreloadType = {
   userId: number | null
   email: string | null
@@ -93,14 +103,14 @@ type setAuthUserLoginPreloadType = {
   email: string | null
   password: string | null
   rememberMe: boolean
-  captcha: string
+  capchaUrl: string
 }
 type setAuthUserLoginType = {
-  type: typeof SET_USER_DATA
+  type: typeof LOGIN
   data: setAuthUserLoginPreloadType
 }
-export const setAuthUserLogin = (email: string, password: string, rememberMe: boolean, captcha: string): setAuthUserLoginType =>
-  ({ type: SET_USER_DATA, data: { email, password, rememberMe, captcha } })
+export const setAuthUserLogin = (email: string, password: string, rememberMe: boolean, capchaUrl: string): setAuthUserLoginType =>
+  ({ type: LOGIN, data: { email, password, rememberMe, capchaUrl } })
 
 type setAuthUserLogoutType = {
   type: typeof LOGOUT
@@ -131,8 +141,11 @@ type finishСheckingCapchaType = {
 }
 export const finishСheckingCapcha = (): finishСheckingCapchaType => ({ type: FINISHСHECKINGCAPCHA })
 
-export const authMe = () => {
-  return async (dispatch: any) => {
+type ThunkType = ThunkAction<Promise<void>, AppReducerType, unknown, ActionsType>
+type DispatchType = Dispatch<ActionsType>
+
+export const authMe = (): ThunkType => {
+  return async (dispatch: DispatchType) => {
     const data = await AuthAPI.authMe()
     if (data.resultCode === 0) {
       let date = data.data
@@ -148,36 +161,39 @@ export const authMe = () => {
 //     })
 //   }
 // }
-export const getCapchaUrl = () => async (dispatch: any) => {
-  const data = await securityAPI.getCaptchaURL()
-  dispatch(setCapcha(data.url))
-  dispatch(setCapchaStatus(false))
-
-}
-export const logintMe = (email: string, password: string, rememberMe: boolean, captcha: string) => async (dispatch: any) => {
-  const data = await AuthAPI.login(email, password, rememberMe, captcha)
-  if (data.resultCode === 0) {
-    dispatch(authMe())
-    dispatch(setAuthUserLogin(email, password, rememberMe, captcha))
-  }
-  if (data.resultCode === 10) {
-    //капча
-    dispatch(showCapcha(true))
-    dispatch(setCapchaStatus(true))
-    dispatch(getCapchaUrl())
-  }
-  if (data.resultCode === 1) {
-    // не правильное значение
-    let errorText = data.messages.length > 0 ? data.messages[0] : "Some error"
-    dispatch(stopSubmit("login", { _error: errorText }))
+export const getCapchaUrl = (): ThunkType =>
+  async (dispatch: DispatchType) => {
+    const data = await securityAPI.getCaptchaURL()
+    dispatch(setCapcha(data.url))
+    dispatch(setCapchaStatus(false))
   }
 
-}
-export const logoutMe = () => async (dispatch: any) => {
-  const data = await AuthAPI.logout()
-  if (data.resultCode === 0) {
-    dispatch(setAuthUserLogout(null, '', ''))
-  }
+export const logintMe = (email: string, password: string, rememberMe: boolean, captcha: string): ThunkType =>
+  async (dispatch) => {
+    const data = await AuthAPI.login(email, password, rememberMe, captcha)
+    if (data.resultCode === 0) {
+      dispatch(authMe())
+      dispatch(setAuthUserLogin(email, password, rememberMe, captcha))
+    }
+    if (data.resultCode === 10) {
+      //капча
+      dispatch(showCapcha(true))
+      dispatch(setCapchaStatus(true))
+      dispatch(getCapchaUrl())
+    }
+    if (data.resultCode === 1) {
+      // не правильное значение
+      let errorText = data.messages.length > 0 ? data.messages[0] : "Some error"
+      dispatch(stopSubmit("login", { _error: errorText }))
+    }
 
-}
+  }
+export const logoutMe = (): ThunkType =>
+  async (dispatch: DispatchType) => {
+    const data = await AuthAPI.logout()
+    if (data.resultCode === 0) {
+      dispatch(setAuthUserLogout(null, '', ''))
+    }
+
+  }
 export default authReducer

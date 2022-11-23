@@ -38,6 +38,6 @@
     "**/*.png",
     "**/*.gif",
     "**/*.module.css"
-, "src/hoc/withRouter.js"  ],
+, "src/hoc/withAuthRedirect.js", "src/hoc/withRouter.js", "src/hoc/withAuthRedirect.js"  ],
   "exclude": ["node_modules"]
 }
