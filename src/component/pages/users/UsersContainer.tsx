@@ -47,20 +47,18 @@ class UsersContainer extends React.Component<PropsType> {
     this.props.getUsers(pageNumber, this.props.pageSize)
   }
   render() {
+    if (this.props.isFetching)
+      return (<Preloader isFetching={this.props.isFetching} />)
     return (
-      <>
-        <h2>{this.props.pageTitle}</h2>
-        <Preloader isFetching={this.props.isFetching} />
-        <Users totalUsersCount={this.props.totalUsersCount}
-          pageSize={this.props.pageSize}
-          currentPage={this.props.currentPage}
-          users={this.props.users}
-          onPageCanged={this.onPageCanged}
-          unFollow={this.props.unFollow}
-          follow={this.props.follow}
-          followingInProgress={this.props.followingInProgress}
-        />
-      </>
+      <Users totalUsersCount={this.props.totalUsersCount}
+        pageSize={this.props.pageSize}
+        currentPage={this.props.currentPage}
+        users={this.props.users}
+        onPageCanged={this.onPageCanged}
+        unFollow={this.props.unFollow}
+        follow={this.props.follow}
+        followingInProgress={this.props.followingInProgress}
+      />
     )
   }
 }

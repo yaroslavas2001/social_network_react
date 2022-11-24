@@ -3,7 +3,11 @@
   font-size: 20px;
   cursor: pointer;
 }
-
+.btn{
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+}
 .item {
   color: blue;
   cursor: pointer;

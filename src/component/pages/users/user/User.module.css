@@ -1,0 +1,81 @@
+.user {
+  display: flex;
+  /* text-align: center; */
+  align-items: center;
+  vertical-align: middle;
+  height: 90px;
+  padding: 12px 0px;
+  border-bottom: 1px solid #dce1e6;
+}
+
+.user:last-child {
+  border-bottom: 0px solid blue;
+}
+
+.img_block {
+  height: 80px;
+  width: 80px;
+  margin-right: 15px;
+}
+
+.photo {
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+}
+
+.user_block {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 12px 0px 0px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+}
+
+.user_information {
+  display: flex;
+  flex-direction: column;
+  vertical-align: top;
+
+}
+
+.user_name {
+  color: #2a5885;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.user_status {
+  color: #626d7a;
+  font-size: 13px;
+}
+
+.btn_clock {
+  display: flex;
+  align-items: center;
+}
+
+.btn {
+  border: 0px;
+  border-radius: 20px;
+  cursor: pointer;
+  height: 32px;
+  border-radius: 12px;
+  padding: 0px 16px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.unfollow {
+  background-color: #e5ebf1;
+  color: #346297;
+}
+
+.follow {
+  background-color: #447bba;
+  color: #fff;
+
+}

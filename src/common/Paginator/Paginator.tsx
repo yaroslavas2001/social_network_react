@@ -1,9 +1,11 @@
-import React ,{ FC, useState } from "react"
+import React, { FC, useState } from "react"
 import style from "./Paginator.module.css"
+import back from "./../../style/back.png"
+import forward from "./../../style/forward.png"
 type propsType = {
   totalItemsCount: number
   pageSize: number
-  onPageCanged: (page:number) => void
+  onPageCanged: (page: number) => void
   currentPage: number
   portionSize?: number
 }
@@ -35,16 +37,17 @@ const Paginator: FC<propsType> = ({ totalItemsCount, pageSize, onPageCanged, cur
   const changePage = (page: number) => {
     return () => { onPageCanged(page) }
   }
-  return (<div>
-    {isShowLeft && <button onClick={left}>назад</button>}
+  return (<>
+    {isShowLeft && <img src={back} alt="back" className={style.btn} onClick={left} />}
     {pages.map(p =>
       <span key={p}
         className={currentPage === p ? style.select : style.item}
         onClick={changePage(p)}
       > {p}</span>
     )}
-    {isShowRight && <button onClick={right}>вперед</button>}
-  </div>)
+    {isShowRight && <img src={forward} alt="back" className={style.btn} onClick={right} />}
+    {/* <input type="number" onBlur={changePage()} val /> */}
+  </>)
 }
 
 export default Paginator;

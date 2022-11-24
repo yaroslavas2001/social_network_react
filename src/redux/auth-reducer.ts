@@ -1,7 +1,6 @@
-import { AuthAPI, securityAPI } from "../api/api"
+import { AuthAPI, ResultCodeEnum, securityAPI } from "../api/api"
 import { stopSubmit } from "redux-form"
-import { Action, Dispatch } from "redux"
-import { HandleThunkActionCreator } from "react-redux"
+import {  Dispatch } from "redux"
 import { ThunkAction } from 'redux-thunk'
 import { AppReducerType } from "./redux-store"
 
@@ -11,7 +10,7 @@ const LOGOUT = "auth/LOGOUT"
 const ISSHOWCAPTCHA = "auth/ISSHOWCAPTCHA"
 const SETCAPTCHA = "auth/SETCAPTCHA"
 const SETCAPTCHASTATUS = "auth/SETCAPTCHASTATUS"
-const FINISHСHECKINGCAPCHA = "auth/FINISHСHECKINGCAPCHA"
+// const FINISHСHECKINGCAPCHA = "auth/FINISHСHECKINGCAPCHA"
 export type InitialStateType = {
   userId: number | null,
   email: string | null,
@@ -73,19 +72,19 @@ const authReducer = (state: InitialStateType = initialState, action: ActionsType
         isShowCapcha: action.isShowCapcha,
       }
     }
-    case FINISHСHECKINGCAPCHA: {
-      return {
-        ...state,
-        isShowCapcha: false,
-        capchaUrl: '',
-        isWaitingCapcha: false
-      }
-    }
+    // case FINISHСHECKINGCAPCHA: {
+    //   return {
+    //     ...state,
+    //     isShowCapcha: false,
+    //     capchaUrl: '',
+    //     isWaitingCapcha: false
+    //   }
+    // }
     default: return state
   }
 }
 type ActionsType = setAuthUserDataType | setAuthUserLoginType | setAuthUserLogoutType |
-  showCapchaType | setCapchaType | setCapchaStatusType | finishСheckingCapchaType
+  showCapchaType | setCapchaType | setCapchaStatusType 
 
 type setAuthUserDataPreloadType = {
   userId: number | null
@@ -136,10 +135,10 @@ type setCapchaStatusType = {
 }
 export const setCapchaStatus = (isWaitingCapcha: boolean): setCapchaStatusType => ({ type: SETCAPTCHASTATUS, isWaitingCapcha })
 
-type finishСheckingCapchaType = {
-  type: typeof FINISHСHECKINGCAPCHA
-}
-export const finishСheckingCapcha = (): finishСheckingCapchaType => ({ type: FINISHСHECKINGCAPCHA })
+// type finishСheckingCapchaType = {
+//   type: typeof FINISHСHECKINGCAPCHA
+// }
+// export const finishСheckingCapcha = (): finishСheckingCapchaType => ({ type: FINISHСHECKINGCAPCHA })
 
 type ThunkType = ThunkAction<Promise<void>, AppReducerType, unknown, ActionsType>
 type DispatchType = Dispatch<ActionsType>
@@ -147,7 +146,7 @@ type DispatchType = Dispatch<ActionsType>
 export const authMe = (): ThunkType => {
   return async (dispatch: DispatchType) => {
     const data = await AuthAPI.authMe()
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCodeEnum.Success) {
       let date = data.data
       dispatch(setAuthUserData(date.id, date.email, date.login))
     }
@@ -168,30 +167,31 @@ export const getCapchaUrl = (): ThunkType =>
     dispatch(setCapchaStatus(false))
   }
 
-export const logintMe = (email: string, password: string, rememberMe: boolean, captcha: string): ThunkType =>
-  async (dispatch) => {
+export const logintMe = (email: string, password: string, rememberMe: boolean, captcha: string) =>
+  async (dispatch:any) => {
     const data = await AuthAPI.login(email, password, rememberMe, captcha)
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCodeEnum.Success) {
       dispatch(authMe())
       dispatch(setAuthUserLogin(email, password, rememberMe, captcha))
     }
-    if (data.resultCode === 10) {
+    if (data.resultCode === ResultCodeEnum.Capcha) {
       //капча
+      // console.log("nen")
       dispatch(showCapcha(true))
       dispatch(setCapchaStatus(true))
       dispatch(getCapchaUrl())
     }
-    if (data.resultCode === 1) {
+    if (data.resultCode === ResultCodeEnum.Error) {
       // не правильное значение
       let errorText = data.messages.length > 0 ? data.messages[0] : "Some error"
-      dispatch(stopSubmit("login", { _error: errorText }))
+      dispatch(stopSubmit("login", { _error: errorText })) 
     }
 
   }
 export const logoutMe = (): ThunkType =>
   async (dispatch: DispatchType) => {
     const data = await AuthAPI.logout()
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCodeEnum.Success) {
       dispatch(setAuthUserLogout(null, '', ''))
     }
 

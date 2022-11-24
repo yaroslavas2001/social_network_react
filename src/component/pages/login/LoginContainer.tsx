@@ -1,6 +1,6 @@
 import React from "react";
 import Login from "./Login";
-import { logintMe, getCapchaUrl, finishСheckingCapcha } from "../../../redux/auth-reducer"
+import { logintMe, getCapchaUrl } from "../../../redux/auth-reducer"
 import { compose } from "redux";
 import { connect } from "react-redux"
 import { AppReducerType } from "../../../redux/redux-store";
@@ -13,7 +13,6 @@ type MapStateToPropsType = {
 type MapDispatchToPropsType = {
     getCapchaUrl: () => void
     logintMe: (email: string, password: string, rememberMe: boolean, captcha: string) => void
-    finishСheckingCapcha: () => void
 }
 type propsType = MapStateToPropsType & MapDispatchToPropsType
 class LoinContainer extends React.Component<propsType> {
@@ -35,5 +34,5 @@ let mapStateToProps = (state: AppReducerType): MapStateToPropsType => {
 
 
 export default compose(
-    connect<MapStateToPropsType, MapDispatchToPropsType>(mapStateToProps, { logintMe, getCapchaUrl, finishСheckingCapcha }),
+    connect<MapStateToPropsType, MapDispatchToPropsType>(mapStateToProps, { logintMe, getCapchaUrl }),
 )(LoinContainer)

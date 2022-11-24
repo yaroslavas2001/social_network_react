@@ -1,4 +1,7 @@
-import { profileAPI } from "../api/api"
+import { profileAPI, ProfileType, ResultCodeEnum } from "../api/api"
+import { Dispatch } from "redux"
+import { ThunkAction } from 'redux-thunk'
+import { AppReducerType } from "./redux-store"
 
 const ADD_POST = "profile/ADD-POST"
 const SET_USER_PROFILE = "profile/SET_USER_PROFILE"
@@ -9,32 +12,11 @@ type PostType = {
   name: string
   like: number | null
 }
-export type ProfileContactsType = {
-  github: string
-  vk: string
-  facebook: string
-  instagram: string
-  twitter: string
-  website: string
-  youtube: string
-  mainLink: string
-}
-export type ProfileType = {
-  userId: number
-  lookingForAJob: boolean
-  lookingForAJobDescription: boolean
-  fullName: string
-  contacts: ProfileContactsType
-  photos: {
-    small: string
-    large: string
-  }
-}
 type InitialStateType = {
   posts: Array<PostType>
   profile: ProfileType | null
   status: string
-  newPostText:string
+  newPostText: string
 }
 let initialState: InitialStateType = {
   posts: [
@@ -43,9 +25,9 @@ let initialState: InitialStateType = {
   ],
   profile: null,
   status: '',
-  newPostText:''
+  newPostText: ''
 }
-const profileReducer = (state: InitialStateType = initialState, action: any): InitialStateType => {
+const profileReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
   switch (action.type) {
     case ADD_POST: {
       let newPost = {
@@ -79,29 +61,51 @@ const profileReducer = (state: InitialStateType = initialState, action: any): In
     default: return state
   }
 }
-export const addPost = (newPostText: string) => ({ type: ADD_POST, newPostText })
-export const deletePost = (idPost: number) => ({ type: DELETE_POST, idPost })
+type AddPostType = {
+  type: typeof ADD_POST
+  newPostText: string
+}
+export const addPost = (newPostText: string): AddPostType => ({ type: ADD_POST, newPostText })
 
-export const setUserProfile = (profile:ProfileType) => ({
+type DeletePostType = {
+  type: typeof DELETE_POST
+  idPost: number
+}
+export const deletePost = (idPost: number): DeletePostType => ({ type: DELETE_POST, idPost })
+
+type SetUserProfileType = {
+  type: typeof SET_USER_PROFILE
+  profile: ProfileType
+}
+export const setUserProfile = (profile: ProfileType): SetUserProfileType => ({
   type: SET_USER_PROFILE, profile
 })
-export const setStatus = (status: string) => ({
+
+type SetStatusType = {
+  type: typeof SET_STATUS
+  status: string
+}
+export const setStatus = (status: string): SetStatusType => ({
   type: SET_STATUS, status
 })
-export const setProfile = (profileId: number) => async (dispatch: any) => {
+type ActionsType = AddPostType | DeletePostType | SetUserProfileType | SetStatusType
+type ThunkType = ThunkAction<Promise<void>, AppReducerType, unknown, ActionsType>
+type DispatchType = Dispatch<ActionsType>
+
+export const setProfile = (profileId: number): ThunkType => async (dispatch: DispatchType) => {
   const data = await profileAPI.getProfile(profileId)
   dispatch(setUserProfile(data))
 
 }
-export const getStatus = (userId: number) => async (dispatch: any) => {
+export const getStatus = (userId: number): ThunkType => async (dispatch: DispatchType) => {
   const data = await profileAPI.getStatus(userId)
   dispatch(setStatus(data))
 
 }
-export const updateStatus = (statusText: string) => async (dispatch: any) => {
+export const updateStatus = (statusText: string): ThunkType => async (dispatch: DispatchType) => {
   const data = await profileAPI.updateStatus(statusText)
 
-  if (data.resultCode === 0)
+  if (data.resultCode === ResultCodeEnum.Success)
     dispatch(setStatus(statusText))
 
 }

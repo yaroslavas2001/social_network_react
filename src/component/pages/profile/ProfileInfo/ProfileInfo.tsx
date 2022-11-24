@@ -4,7 +4,7 @@ import ProfilePhoto from "../../../../common/ProfilePhoto/ProfilePhoto";
 import style from "./ProfileInfo.module.css"
 import ProfileStatusWithHook from "./ProfileStatusWithHook";
 import React, { FC } from "react"
-import { ProfileContactsType, ProfileType } from "../../../../redux/profile-reducer";
+import { ProfileContactsType, ProfileType } from "../../../../api/api";
 type propsType = {
   profile: ProfileType
   status: string

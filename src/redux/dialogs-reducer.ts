@@ -29,7 +29,7 @@ let initialState: InitialStateType = {
     { id: 5, message: "Where are you?" },
   ],
 }
-const dialogsReducer = (state: InitialStateType = initialState, action: any): InitialStateType => {
+const dialogsReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
   switch (action.type) {
     case SEND_MESSAGE: {
       let newMessage = {
@@ -49,6 +49,6 @@ type sentMessageType = {
   newText: string
 }
 export const sentMessage = (text: string): sentMessageType => ({ type: SEND_MESSAGE, newText: text })
-
+type ActionsType = sentMessageType
 
 export default dialogsReducer
