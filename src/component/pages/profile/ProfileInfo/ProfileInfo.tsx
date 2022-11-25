@@ -5,6 +5,8 @@ import style from "./ProfileInfo.module.css"
 import ProfileStatusWithHook from "./ProfileStatusWithHook";
 import React, { FC } from "react"
 import { ProfileContactsType, ProfileType } from "../../../../api/api";
+import styleMain from "./../../../../App.module.css"
+import { join } from "../../../../utils/function";
 type propsType = {
   profile: ProfileType
   status: string
@@ -16,7 +18,7 @@ const ProfileInfo: FC<propsType> = (props) => {
   }
   const contacts: ProfileContactsType = props.profile.contacts
   return (
-    <div className={style.content}>
+    <div className={join([style.content,styleMain.content])}>
       <ProfilePhoto photo={props.profile.photos.large} lookingForAJob={props.profile.lookingForAJob} />
       <div className={style.info}>
         <p className={style.name}> {props.profile.fullName} </p>

@@ -32,22 +32,18 @@ class App extends React.Component {
         <div className={style.row}>
           <Sidebar />
           <div className={style.content_block}>
-            <div className={style.content}>
-            <Suspense fallback={<div><Preloader /></div>}>
-              <Routes >
-                {/* <Route path="/" render={()=><Profile  posts={posts}  />} />  не работает, не та версия*/}
-                <Route path="/" element={<ProfileContainer />} />
-                <Route path="/profile/:profileId" element={<ProfileContainer />} />
-                <Route path="/profile/" element={<ProfileContainer />} />
-
-                <Route path="/dialog/:dialogId" element={<DialogContainer />} />
-                <Route path="/dialog/" element={<DialogContainer />} />
-
-                <Route path="/users/*" element={<UsersContainer pageTitle='test' />} />
-                <Route path="/login" element={<LoginContainer />} />
-              </Routes>
+              <Suspense fallback={<div><Preloader /></div>}>
+                <Routes >
+                  {/* <Route path="/" render={()=><Profile  posts={posts}  />} />  не работает, не та версия*/}
+                  <Route path="/" element={<ProfileContainer />} />
+                  <Route path="/profile/:profileId" element={<ProfileContainer />} />
+                  <Route path="/profile/" element={<ProfileContainer />} />
+                  <Route path="/dialog/:dialogId" element={<DialogContainer />} />
+                  <Route path="/dialog/" element={<DialogContainer />} />
+                  <Route path="/users/*" element={<UsersContainer pageTitle='test' />} />
+                  <Route path="/login" element={<LoginContainer />} />
+                </Routes>
               </Suspense>
-            </div>
           </div>
         </div>
       </div>

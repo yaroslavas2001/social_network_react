@@ -3,6 +3,7 @@ import style from "./User.module.css"
 import imgDefault from "./../../../../style/default_user.png"
 import React, { FC } from 'react';
 import { UsersType } from "../../../../types/types"
+import { join } from "../../../../utils/function";
 // import React from "react"
 type propsType = {
 
@@ -22,9 +23,7 @@ const User: FC<propsType> = ({ user, unFollow, follow, followingInProgress, ...p
   const disabled = () => {
     return followingInProgress.some((id: number) => id === user.id)
   }
-  const join = (r: Array<string>) => {
-    return r.join(" ")
-  }
+
   return (
     <div className={style.user}>
       <NavLink to={`/profile/` + user.id} className={style.img_block}>

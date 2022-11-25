@@ -30,12 +30,12 @@ body{
   flex-grow: 1;
   box-sizing: border-box;
 }
-.content{
-  margin: 20px;
-  background-color: #fff;
-  height: auto;
-  box-sizing: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.16);;
+.content {
+  border: 1px solid rgba(0, 0, 0, 0.16);
   border-radius: 14px;
+  background-color: #fff;
+  box-sizing: border-box;
   padding: 20px;
+  margin: 20px 10px;
+  height: auto;
 }

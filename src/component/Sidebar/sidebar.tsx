@@ -12,8 +12,8 @@ const Sidebar = () => {
     { path: "/profile", name: "Profile", icon: profile },
     { path: "/dialog", name: "Dialog", icon: dialog },
     { path: "/users", name: "Users", icon: users },
-    { path: "/news", name: "News", icon: news },
-    { path: "/settings", name: "Settings", icon: setting },
+    // { path: "/news", name: "News", icon: news },
+    // { path: "/settings", name: "Settings", icon: setting },
   ]
   const activeStyle = () => {
     return (navData: any) => navData.isActive ? style.active : style.item
