@@ -4,13 +4,15 @@ import { ThunkAction } from 'redux-thunk'
 import { AppReducerType } from "./redux-store"
 
 const ADD_POST = "profile/ADD-POST"
+const UPDATE_POST = "profile/ADD-POST"
+
 const SET_USER_PROFILE = "profile/SET_USER_PROFILE"
 const SET_STATUS = "profile/SET_STATUS"
 const DELETE_POST = "profile/DELETE_POST"
-type PostType = {
+export type PostType = {
   id: number
-  name: string
-  like: number | null
+  text: string
+  userId: number | null
 }
 type InitialStateType = {
   posts: Array<PostType>
@@ -20,8 +22,8 @@ type InitialStateType = {
 }
 let initialState: InitialStateType = {
   posts: [
-    { id: 0, name: "How are you?", like: 3 },
-    { id: 1, name: "It's my first post", like: 0 },
+    { id: 0, text: "How are you?", userId: 3 },
+    { id: 1, text: "It's my first post", userId: 0 },
   ],
   profile: null,
   status: '',
@@ -31,9 +33,9 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionsT
   switch (action.type) {
     case ADD_POST: {
       let newPost = {
-        id: 5,
-        name: action.newPostText,
-        like: 0
+        id: Math.random() ,
+        text: action.newPostText,
+        userId: 0
       }
       return {
         ...state,

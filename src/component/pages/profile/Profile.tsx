@@ -16,7 +16,10 @@ const Profile = (props: propsType) => {
       status={props.status}
       updateStatus={props.updateStatus}
     />
-    {isAutorizedUserId && <MyPostsContainer />}
+    {/* {isAutorizedUserId && // } */}
+    <MyPostsContainer />
+    
+
   </>);
 }
 

@@ -1,4 +1,30 @@
-.profile_img{
-  height: 20px;
-  width: 200px;
+.block{
+  display: flex;
+}
+.block div{
+  width: 100%;
+}
+textarea {
+  resize: none;
+  height: auto;
+  outline: none;
+  border:0px;
+  width: 100%;
+}
+.photo_user{
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+}
+/* .test{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+} */
+.inpute{
+  width: 100%;
+
+}
+.btn{
+  width: 40px;
 }

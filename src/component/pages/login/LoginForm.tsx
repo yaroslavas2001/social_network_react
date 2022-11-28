@@ -13,7 +13,7 @@ type LoginFormPropsType = {
     capchaUrl: string
     handleSubmit: () => void
 }
-type LoginFormFieldType = {
+export type LoginFormFieldType = {
     email: string
     password: string
     rememberMe: boolean

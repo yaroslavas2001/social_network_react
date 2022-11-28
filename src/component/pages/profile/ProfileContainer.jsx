@@ -24,9 +24,12 @@ class ProfileContainer extends React.Component {
   refreshProfile() {
     let profileId = this.props.router.params.profileId ? this.props.router.params.profileId : this.props.autorizedUserId
     if (!profileId) {
-      // profileId = 26414
+      profileId = 26414
+
+      // this.props.navigation("/login", {})
+
+
       // console.log("router",this.props.router)
-      this.props.navigation("/login", {})
       // navigation нужно использовать в useEffect
       // не сработает, потому что редиректы не тут нужно сделать
       // this.props.router.navigate("/login"); 
@@ -53,7 +56,7 @@ class ProfileContainer extends React.Component {
   }
 }
 // AppReducerType
-let mapStateToProps = (state ) => {
+let mapStateToProps = (state) => {
   return {
     profile: state.profilePage.profile,
     status: state.profilePage.status,
