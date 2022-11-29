@@ -1,4 +1,4 @@
-import { profileAPI, ProfileType, ResultCodeEnum } from "../api/api"
+import { profileAPI, ProfileDetailType, ProfileType, ResultCodeEnum } from "../api/api"
 import { Dispatch } from "redux"
 import { ThunkAction } from 'redux-thunk'
 import { AppReducerType } from "./redux-store"
@@ -8,6 +8,8 @@ const ADD_POST = "profile/ADD-POST"
 const UPDATE_POST = "profile/UPDATE_POST"
 
 const SET_USER_PROFILE = "profile/SET_USER_PROFILE"
+const SET_PROFILE_DETAIL = "profile/SET_PROFILE_DETAIL"
+
 const SET_STATUS = "profile/SET_STATUS"
 const DELETE_POST = "profile/DELETE_POST"
 export type PostType = {
@@ -114,6 +116,16 @@ type DispatchType = Dispatch<ActionsType>
 export const setProfile = (profileId: number): ThunkType => async (dispatch: DispatchType) => {
   const data = await profileAPI.getProfile(profileId)
   dispatch(setUserProfile(data))
+
+}
+export const setProfilePhoto = (photo: FormData): ThunkType => async (dispatch: DispatchType) => {
+  const data = await profileAPI.setProfilePhoto(photo)
+  //обработка ошибок
+}
+export const setProfileDetail = (aboutMe: ProfileDetailType): ThunkType => async (dispatch: DispatchType) => {
+  const data = await profileAPI.setProfileDetail(aboutMe)
+  console.log("data", data)
+  // обработка ошибок
 
 }
 export const getStatus = (userId: number): ThunkType => async (dispatch: DispatchType) => {

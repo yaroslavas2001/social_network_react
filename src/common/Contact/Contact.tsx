@@ -1,10 +1,10 @@
 import style from "./Contact.module.css"
 import React, { FC } from "react"
-type propsType = {
+export type ContactType = {
     link: string
     linkName: string
 }
-let Contact: FC<propsType> = ({ link, linkName }) => {
+let Contact: FC<ContactType> = ({ link, linkName }) => {
     return (<div className={style.contact}>
         {link ?
             <a href={link}

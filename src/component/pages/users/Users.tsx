@@ -17,7 +17,7 @@ type propsType = {
   setCurrentPortion: (portion: number) => void
 
 }
-const Users: FC<propsType> = ({ followingInProgress, users, follow,setCurrentPortion, unFollow, onPageCanged,...props }) => {
+const Users: FC<propsType> = ({ followingInProgress, users, follow, setCurrentPortion, unFollow, onPageCanged, ...props }) => {
   return (
     <div className={style.content}>
       <Paginator currentPage={props.pagination.currentPage}
@@ -26,15 +26,15 @@ const Users: FC<propsType> = ({ followingInProgress, users, follow,setCurrentPor
         currentPortion={props.pagination.currentPortion}
         onPageCanged={onPageCanged}
         setCurrentPortion={setCurrentPortion}
-        portionSize={300}
+        portionSize={15}
       />
       {
         users.map(user =>
-          <User user={user} 
-          unFollow={unFollow} 
-          follow={follow} 
-          followingInProgress={followingInProgress} 
-          key={user.id} 
+          <User user={user}
+            unFollow={unFollow}
+            follow={follow}
+            followingInProgress={followingInProgress}
+            key={user.id}
           />
         )
       }

@@ -1,44 +1,50 @@
-import Contact from "../../../../common/Contact/Contact";
+import Contact, { ContactType } from "../../../../common/Contact/Contact";
 import Preloader from "../../../../common/Preloader/Preloader";
 import ProfilePhoto from "../../../../common/ProfilePhoto/ProfilePhoto";
 import style from "./ProfileInfo.module.css"
 import ProfileStatusWithHook from "./ProfileStatusWithHook";
 import React, { FC } from "react"
-import { ProfileContactsType, ProfileType } from "../../../../api/api";
+import { ProfileContactsType, ProfileDetailType, ProfileType } from "../../../../api/api";
 import styleMain from "./../../../../App.module.css"
 import { join } from "../../../../utils/function";
+import ProfileContacts from "./ProfileContacts";
 type propsType = {
   profile: ProfileType
   status: string
+  isAuth: boolean
   updateStatus: (status: string) => void
+  setProfilePhoto: (photo: FormData) => void
+  setProfileDetail: (aboutMe: ProfileDetailType) => void
 }
 const ProfileInfo: FC<propsType> = (props) => {
   if (!props.profile) {
     return <Preloader isFetching={!props.profile} />
   }
-  const contacts: ProfileContactsType = props.profile.contacts
+  // const contacts: ProfileContactsType = props.profile.contacts
+  // let test: Array<ContactType> = [
+  //   { link: contacts.github, linkName: 'Github' },
+  //   { link: contacts.vk, linkName: 'VK' },
+  //   { link: contacts.facebook, linkName: 'Facebook' },
+  //   { link: contacts.instagram, linkName: 'Instagram' },
+  //   { link: contacts.twitter, linkName: 'Twitter' },
+  //   { link: contacts.website, linkName: 'Website' },
+  //   { link: contacts.mainLink, linkName: 'MainLink' },
+  // ]
+  // const contact = test.map((el, index) => <Contact key={index} link={el.link} linkName={el.linkName} />)
   return (
-    <div className={join([style.content,styleMain.content])}>
-      <ProfilePhoto photo={props.profile.photos.large} lookingForAJob={props.profile.lookingForAJob} />
+    <div className={join([style.content, styleMain.content])}>
+      <ProfilePhoto photo={props.profile.photos.large}
+        setProfilePhoto={props.setProfilePhoto}
+        lookingForAJob={props.profile.lookingForAJob} />
       <div className={style.info}>
-        <p className={style.name}> {props.profile.fullName} </p>
-        <b>Contacts:</b>
-        <Contact link={contacts.github} linkName='Github' />
-        <Contact link={contacts.vk} linkName='VK' />
-        <Contact link={contacts.facebook} linkName='Facebook' />
-        <Contact link={contacts.instagram} linkName='Instagram' />
-        <Contact link={contacts.twitter} linkName='Twitter' />
-        <Contact link={contacts.website} linkName='Website' />
-        <Contact link={contacts.youtube} linkName='Youtube' />
-        <Contact link={contacts.mainLink} linkName='MainLink' />
-        {props.profile.lookingForAJob ? (<div>
-          <b>Description : </b>
-          <div>{props.profile.lookingForAJobDescription}</div>
-        </div>
-        ) : null}
-        Статус:
-        <ProfileStatusWithHook status={props.status} updateStatus={props.updateStatus} />
-
+        <ProfileContacts
+          profile={props.profile}
+          isAuth={props.isAuth}
+          setProfileDetail={props.setProfileDetail}
+        />
+        <ProfileStatusWithHook status={props.status}
+          isAuth={props.isAuth}
+          updateStatus={props.updateStatus} />
       </div>
     </div>);
 }

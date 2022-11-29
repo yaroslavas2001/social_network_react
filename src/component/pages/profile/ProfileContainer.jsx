@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { setProfile, getStatus, updateStatus } from "../../../redux/profile-reducer"
+import { setProfile, getStatus, updateStatus, setProfilePhoto ,setProfileDetail} from "../../../redux/profile-reducer"
 import Profile from "./Profile";
 import { compose } from "redux";
 import { withRouter } from "../../../hoc/withRouter"
@@ -18,24 +18,24 @@ import { Navigate } from "react-router-dom";
 // }
 // type propsType = MapStateToPropsType & MapDispatchToPropsType
 class ProfileContainer extends React.Component {
-  renderRedirect = () => {
-    return <Navigate to="/login" />;
-  };
+  constructor(props) {
+    super(props);
+    this.profileId = this.props.router.params.profileId ? this.props.router.params.profileId : this.props.autorizedUserId
+  }
   refreshProfile() {
     let profileId = this.props.router.params.profileId ? this.props.router.params.profileId : this.props.autorizedUserId
-    if (!profileId) {
-      profileId = 26414
+    // if (!profileId) {
+    // profileId = 26414
+    // this.props.navigation("/login", {})
 
-      // this.props.navigation("/login", {})
 
-
-      // console.log("router",this.props.router)
-      // navigation нужно использовать в useEffect
-      // не сработает, потому что редиректы не тут нужно сделать
-      // this.props.router.navigate("/login"); 
-      // не сработает потому что history - undefined 
-      // this.props.history.push('/login')
-    }
+    // console.log("router",this.props.router)
+    // navigation нужно использовать в useEffect
+    // не сработает, потому что редиректы не тут нужно сделать
+    // this.props.router.navigate("/login"); 
+    // не сработает потому что history - undefined 
+    // this.props.history.push('/login')
+    // }
     if (profileId) {
       this.props.setProfile(profileId)
       this.props.getStatus(profileId)
@@ -52,6 +52,7 @@ class ProfileContainer extends React.Component {
       this.refreshProfile()
   }
   render() {
+    if (!this.profileId) return <Navigate to="/login" />;
     return (<Profile {...this.props} />)
   }
 }
@@ -82,7 +83,7 @@ let mapStateToProps = (state) => {
 
 export default compose(
   withRouter,
-  connect(mapStateToProps, { setProfile, getStatus, updateStatus }),
+  connect(mapStateToProps, { setProfile, getStatus, updateStatus, setProfilePhoto ,setProfileDetail}),
 
   // withAuthRedirect
 )(ProfileContainer)

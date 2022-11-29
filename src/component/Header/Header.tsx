@@ -12,8 +12,10 @@ const Header: FC<propstype> = ({ isAuth, login, logoutMe }) => {
     <header className={style.header}>
       <img className={style.header_logo} src={imageLogo} alt="logo" />
       <div className={style.header_text}>Social network</div>
-      {isAuth ? login : <NavLink to='/login'>Войти</NavLink>}
-      {isAuth ? <button onClick={logoutMe}>Выйти</button> : ''}
+      {isAuth ? <>
+        {login}<button onClick={logoutMe}>Выйти</button>
+      </> : ''}
+      {!isAuth ? <NavLink to='/login'>Войти</NavLink> : ''}
     </header>
   );
 }

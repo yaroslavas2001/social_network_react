@@ -7,6 +7,14 @@ const instance = axios.create({
         "API-KEY": "b67629cf-3e35-4a5e-a5dc-feb693c91523"
     }
 })
+const instancePhoto = axios.create({
+    withCredentials: true,
+    baseURL: `https://social-network.samuraijs.com/api/1.0/`,
+    headers: {
+        "API-KEY": "b67629cf-3e35-4a5e-a5dc-feb693c91523",
+        "Content-Type": " multipart/form-data"
+    }
+})
 // axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {
 //   withCredentials: true, headers: {
 //     "API-KEY": "7741aeff-4475-4c99-8e86-0fb98b53e58f"
@@ -45,14 +53,19 @@ export type ProfileType = {
     contacts: ProfileContactsType
     photos: PhotosType
 }
-
+export type ProfileDetailType={
+    aboutMe:string
+    contacts:ProfileContactsType
+    lookingForAJob:boolean
+    lookingForAJobDescription:string
+    fullName:string
+}
 export const profileAPI = {
     async getProfile(profileId: number) {
         const response = await instance.get<ProfileType>(`profile/${profileId}`)
         return response.data
     },
     async getStatus(userId: number) {
-        // statys in body
         const response = await instance.get(`profile/status/${userId}`)
         return response.data
     },
@@ -60,8 +73,57 @@ export const profileAPI = {
         const response = await instance.put<ResponseType<{}>>(`profile/status`, { status: statusText })
         return response.data
     },
+    async setProfileDetail(aboutMe: ProfileDetailType) {
+        const response = await instance.put(`profile`, { aboutMe })
+        return response.data
+    },
+    async setProfilePhoto(formData: FormData) {
+        const response = await instancePhoto.put(`profile/photo`, formData)
+        return response.data
+    },
 }
-
+export const dialogAPI = {
+    async getDialogs() {
+        const response = await instance.get(`dialogs`)
+        return response.data
+    },
+    async startDialog(dialogId: number) {
+        const response = await instance.put<any>(`dialogs/${dialogId}`)
+        return response.data
+    },
+    async getListOfMessage(userId: number) {
+        const response = await instance.get<any>(`dialogs/${userId}/messages`)
+        return response.data
+    },
+    async sendMessage(userIdFriend: number, message: string) {
+        const response = await instance.post<any>(`dialogs/${userIdFriend}/messages`, { message })
+        return response.data
+    },
+    async isYourMessageViewed(messageId: number) {
+        const response = await instance.get<any>(`dialogs/messages/${messageId}/viewed`,)
+        return response.data
+    },
+    async spamMessage(messageId: number) {
+        const response = await instance.post<any>(`dialogs/messages/${messageId}/spam`,)
+        return response.data
+    },
+    async deleteForMe(messageId: number) {
+        const response = await instance.delete<any>(`dialogs/messages/${messageId}`,)
+        return response.data
+    },
+    async restoreMessage(messageId: number) {
+        const response = await instance.get<any>(`dialogs/messages/${messageId}/restore`,)
+        return response.data
+    },
+    async returnMessage(userId: number, date: Date) {
+        const response = await instance.get<any>(`dialogs/${userId}/messages/new?newerThen=${date}`,)
+        return response.data
+    },
+    async listOfNewMessages(userId: number, date: Date) {
+        const response = await instance.get<any>(`dialogs/messages/new/count`,)
+        return response.data
+    },
+}
 type authMeType = {
     id: number
     email: string

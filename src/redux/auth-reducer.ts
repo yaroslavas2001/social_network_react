@@ -1,8 +1,9 @@
 import { AuthAPI, ResultCodeEnum, securityAPI } from "../api/api"
 import { stopSubmit } from "redux-form"
-import {  Dispatch } from "redux"
+import { Dispatch } from "redux"
 import { ThunkAction } from 'redux-thunk'
 import { AppReducerType } from "./redux-store"
+import Cookies from 'js-cookie'
 
 const SET_USER_DATA = "auth/SET_USER_DATA"
 const LOGIN = "auth/LOGIN"
@@ -84,7 +85,7 @@ const authReducer = (state: InitialStateType = initialState, action: ActionsType
   }
 }
 type ActionsType = setAuthUserDataType | setAuthUserLoginType | setAuthUserLogoutType |
-  showCapchaType | setCapchaType | setCapchaStatusType 
+  showCapchaType | setCapchaType | setCapchaStatusType
 
 type setAuthUserDataPreloadType = {
   userId: number | null
@@ -148,6 +149,10 @@ export const authMe = (): ThunkType => {
     const data = await AuthAPI.authMe()
     if (data.resultCode === ResultCodeEnum.Success) {
       let date = data.data
+      Cookies.set("UserId", date.id.toString())
+      Cookies.set("UserLogin", date.login)
+      Cookies.set("UserEmail", date.email)
+
       dispatch(setAuthUserData(date.id, date.email, date.login))
     }
   }
@@ -168,7 +173,7 @@ export const getCapchaUrl = (): ThunkType =>
   }
 
 export const logintMe = (email: string, password: string, rememberMe: boolean, captcha: string) =>
-  async (dispatch:any) => {
+  async (dispatch: any) => {
     const data = await AuthAPI.login(email, password, rememberMe, captcha)
     if (data.resultCode === ResultCodeEnum.Success) {
       dispatch(authMe())
@@ -184,7 +189,7 @@ export const logintMe = (email: string, password: string, rememberMe: boolean, c
     if (data.resultCode === ResultCodeEnum.Error) {
       // не правильное значение
       let errorText = data.messages.length > 0 ? data.messages[0] : "Some error"
-      dispatch(stopSubmit("login", { _error: errorText })) 
+      dispatch(stopSubmit("login", { _error: errorText }))
     }
 
   }
@@ -192,6 +197,10 @@ export const logoutMe = (): ThunkType =>
   async (dispatch: DispatchType) => {
     const data = await AuthAPI.logout()
     if (data.resultCode === ResultCodeEnum.Success) {
+      Cookies.set("UserId", '')
+      Cookies.set("UserLogin", '')
+      Cookies.set("UserEmail", '')
+
       dispatch(setAuthUserLogout(null, '', ''))
     }
 

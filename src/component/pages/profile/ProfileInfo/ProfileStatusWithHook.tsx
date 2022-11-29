@@ -3,6 +3,7 @@ import React, { FC, useEffect, useState } from "react";
 
 type propstype = {
   status: string
+  isAuth:boolean
   updateStatus: (status: string) => void
 }
 const ProfileStatusWithHook: FC<propstype> = (props) => {
@@ -16,6 +17,7 @@ const ProfileStatusWithHook: FC<propstype> = (props) => {
     setStatus(props.status)
   }, [props.status])
   const activateEditMode = () => {
+    if(props.isAuth)
     setEditMode(true)
   }
   const deActivateEditMode = () => {
@@ -28,6 +30,7 @@ const ProfileStatusWithHook: FC<propstype> = (props) => {
 
   }
   return (<div>
+    Статус:
     {!editMode &&
       <div onDoubleClick={activateEditMode}>{
         status || "---"}</div>
