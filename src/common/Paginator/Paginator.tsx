@@ -3,16 +3,16 @@ import style from "./Paginator.module.css"
 import back from "./../../style/back.png"
 import forward from "./../../style/forward.png"
 import { useEffect } from "react";
+import { join } from "../../utils/function";
 
 type propsType = {
   totalItemsCount: number
   pageSize: number
-  onPageCanged: (page: number) => void
   currentPage: number
   portionSize?: number
   currentPortion: number
+  onPageCanged: (page: number) => void
   setCurrentPortion: (portion: number) => void
-
 }
 const Paginator: FC<propsType> = ({ totalItemsCount, pageSize, currentPage, currentPortion, onPageCanged, setCurrentPortion, portionSize = 10 }) => {
   let pagesCount = Math.ceil(totalItemsCount / pageSize)
@@ -22,68 +22,69 @@ const Paginator: FC<propsType> = ({ totalItemsCount, pageSize, currentPage, curr
 
   let isShowLeft = currentPortion !== 0
   let isShowRight = portionCount !== currentPortion + 1
+  const changePortionPages = (): Array<number> => {
+    let test: Array<number> = []
+    for (let i = 1; i <= portionSize; i++) {
+      let pageNumber = i + (portionSize * currentPortion)
+      let passedItems = pageNumber * pageSize
+      let isAllShown = (passedItems - totalItemsCount) < pageSize
+      if (isAllShown) {
+        test.push(pageNumber)
+      }
+    }
+    return test
+  }
+  let [pages, changePortion] = useState<Array<number>>(changePortionPages())
+  useEffect(() => {
+    // выполняется после отрисовки
+    changePortion(changePortionPages())
+  }, [currentPortion])
+
   const right = () => {
     setCurrentPortion(currentPortion + 1)
   }
   const left = () => {
     setCurrentPortion(currentPortion - 1)
   }
-  useEffect(() => {
-    // выполняется после отрисовки
-    changePortion(changePortionPages())
-  }, [currentPortion])
 
-  const changePortionPages = (): Array<number> => {
-    let test: Array<number> = []
-    for (let i = 1; i <= portionSize; i++) {
-      let passedItems = (i + (portionSize * currentPortion)) * pageSize
-      let isAllShown = (passedItems - totalItemsCount) < pageSize
-      if (isAllShown) {
-        test.push(i + (portionSize * currentPortion))
-      }
-    }
-    return test
-  }
-  let [pages, changePortion] = useState<Array<number>>(changePortionPages())
 
-  function changePage(page: number) {
+  const changePage = (page: number) => () => {
     onPageCanged(page)
   }
-  const test = () => {
+  const toFinish = () => {
     setCurrentPortion(portionCount - 1)
     onPageCanged(pagesCount)
-
   }
-  const test1 = () => {
+  const toStart = () => {
     setCurrentPortion(0)
     onPageCanged(1)
   }
-  return (<>
+  const isCurrentPage = (curentPage: number, anyPage: number): string => {
+    return curentPage === anyPage ? style.select : style.item
+  }
+  return (<div className={style.paginator}>
     {isShowLeft && <> <img src={back} alt="back" className={style.btn} onClick={left} />
-      <span
-        className={currentPage === 1 ? style.select : style.item}
-        onClick={() => test1()}
-      > {1}</span>----
+      <div className={join([isCurrentPage(currentPage, 1),style.base, style.left])}
+        onClick={toStart}
+      > {1}</div>
     </>
     }
     {pages.map(p =>
-      <span key={p}
-        className={currentPage === p ? style.select : style.item}
-        onClick={() => changePage(p)}
-      > {p}</span>
+      <div key={p}
+        className={join([isCurrentPage(currentPage, p),style.base])}
+        onClick={changePage(p)}
+      > {p}</div>
     )}
     {isShowRight && <>
-      ----
-      <span
-        className={currentPage === pagesCount ? style.select : style.item}
-        onClick={() => test()}
-      > {pagesCount}</span>
+      <div className={join([isCurrentPage(currentPage, pagesCount), style.base,style.right])}
+        onClick={toFinish}
+      > {pagesCount}</div>
       <img src={forward} alt="back" className={style.btn} onClick={right} />
 
     </>
     }
     {/* <input type="number" onBlur={changePage()} val /> */}
-  </>)
+  </div>)
 }
 
 export default Paginator;

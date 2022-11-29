@@ -1,14 +1,41 @@
-.select {
-  color: blueviolet;
-  font-size: 20px;
-  cursor: pointer;
+.paginator {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }
-.btn{
+
+.left {
+  margin-right: 20px !important;
+}
+
+.right {
+  margin-left: 20px !important;
+}
+
+.btn {
   height: 20px;
   width: 20px;
   cursor: pointer;
 }
-.item {
-  color: blue;
+
+.base {
+  height: 25px;
+  padding: 0px 8px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  margin: 0px 1px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.item {
+  color: #254e77;
+}
+
+.select {
+  color: #fff;
+  background-color: #447bba;
 }

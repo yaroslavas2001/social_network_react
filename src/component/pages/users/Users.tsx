@@ -26,7 +26,7 @@ const Users: FC<propsType> = ({ followingInProgress, users, follow, setCurrentPo
         currentPortion={props.pagination.currentPortion}
         onPageCanged={onPageCanged}
         setCurrentPortion={setCurrentPortion}
-        portionSize={15}
+        portionSize={10}
       />
       {
         users.map(user =>
