@@ -9,23 +9,31 @@ const FOLLOW = "user/FOLLOW"
 const UN_FOLLOW = 'user/UN_FOLLOW'
 const SET_USERS = 'user/SET_USERS'
 const SET_CURRENT_PAGE = 'user/SET_CURRENT_PAGE'
+const SET_CURRENT_PORTION = 'user/SET_CURRENT_PORTION'
+
 const SET_TOTAL_USERS_COUNT = 'user/SET_TOTAL_USERS_COUNT'
 const TOOGLE_IS_FETCHING = 'user/TOOGLE_IS_FETCHING'
 const TOOGLE_IS_FOLLOWING_PROGRESS = 'user/TOOGLE_IS_FOLLOWING_PROGRESS'
-
-export type InitialState = {
-  users: Array<UsersType>
+export type PaginationType = {
   pageSize: number
   totalUsersCount: number
   currentPage: number
+  currentPortion: number
+}
+export type InitialState = {
+  users: Array<UsersType>
+  pagination: PaginationType
   isFetching: boolean
   followingInProgress: Array<number>
 }
 let initialState: InitialState = {
   users: [],
-  pageSize: 15,
-  totalUsersCount: 10,
-  currentPage: 1,
+  pagination: {
+    pageSize: 15,
+    totalUsersCount: 10,
+    currentPage: 1,
+    currentPortion: 0
+  },
   isFetching: false,
   followingInProgress: []
 }
@@ -46,22 +54,34 @@ const usersReducer = (state: InitialState = initialState, action: ActionsType) =
     case SET_USERS: {
       return {
         ...state,
-        // склеиваем два оператора
         users: [...action.users]
       }
     }
     case SET_CURRENT_PAGE: {
       return {
         ...state,
-        // склеиваем два оператора
-        currentPage: action.currentPage,
-        // users: [...state.users, ...action.users]
+        pagination: {
+          ...state.pagination,
+          currentPage: action.currentPage,
+        }
+      }
+    }
+    case SET_CURRENT_PORTION: {
+      return {
+        ...state,
+        pagination: {
+          ...state.pagination,
+          currentPortion: action.currentPortion,
+        }
       }
     }
     case SET_TOTAL_USERS_COUNT: {
       return {
         ...state,
-        totalUsersCount: action.totalUsersCount
+        pagination: {
+          ...state.pagination,
+          totalUsersCount: action.totalUsersCount,
+        }
       }
     }
     case TOOGLE_IS_FETCHING: {
@@ -110,7 +130,13 @@ type SetCurrentPageType = {
 export const setCurrentPage = (currentPage: number): SetCurrentPageType => ({
   type: SET_CURRENT_PAGE, currentPage
 })
-
+type SetCurrentPortionType = {
+  type: typeof SET_CURRENT_PORTION
+  currentPortion: number
+}
+export const setCurrentPortion = (currentPortion: number): SetCurrentPortionType => ({
+  type: SET_CURRENT_PORTION, currentPortion
+})
 type SetTotalUsersCountType = {
   type: typeof SET_TOTAL_USERS_COUNT
   totalUsersCount: number
@@ -135,7 +161,7 @@ type SetIsFollowingProgressType = {
 export const setIsFollowingProgress = (isFetching: boolean, userId: number): SetIsFollowingProgressType => ({
   type: TOOGLE_IS_FOLLOWING_PROGRESS, isFetching, userId
 })
-type ActionsType = FollowSuccessType | UnFollowSuccessType | SetUsersType
+type ActionsType = FollowSuccessType | UnFollowSuccessType | SetUsersType | SetCurrentPortionType
   | SetUsersType | SetCurrentPageType | SetTotalUsersCountType | SetIsFetchingType | SetIsFollowingProgressType
 
 type ThunkType = ThunkAction<Promise<void>, AppReducerType, unknown, ActionsType>

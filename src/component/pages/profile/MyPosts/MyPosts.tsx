@@ -11,13 +11,15 @@ type MapStateToPropsType = {
 }
 type MapDispatchToPropsType = {
   addPost: (newPostText: string) => void
-  deletePost:(id:number)=>void
+  deletePost: (id: number) => void
+  updatePost: (idPost: number, newText: string) => void
 }
 type propsType = MapStateToPropsType & MapDispatchToPropsType
 
 const MyPosts = (props: propsType) => {
+
   let postsElements = props.posts.map((el: PostType, index: number) =>
-    <Post key={index} post={el} deletePost={props.deletePost} />)
+    <Post key={el.id} post={el} deletePost={props.deletePost} updatePost={props.updatePost} />)
 
   const onSubmit = (value: string) => {
     props.addPost(value)

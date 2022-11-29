@@ -7,39 +7,40 @@ import { useEffect } from "react";
 type propsType = {
   totalItemsCount: number
   pageSize: number
-  onPageCanged: (page: number) => void
   currentPage: number
-  portionSize?: number
   currentPortion: number
+  portionSize?: number
+  onPageCanged: (page: number) => void
   setCurrentPortion: (portion: number) => void
-
 }
-const Paginator: FC<propsType> = ({ totalItemsCount, pageSize, currentPage, currentPortion, onPageCanged, setCurrentPortion, portionSize = 10 }) => {
+const Paginator: FC<propsType> = ({ totalItemsCount, pageSize, currentPage, currentPortion,
+  onPageCanged, setCurrentPortion, portionSize = 10 }) => {
+  //по currentPage узнать в какой порции находимся, после перехода на 
   let pagesCount = Math.ceil(totalItemsCount / pageSize)
   // количество порций этих страничек
   let portionCount = Math.ceil(pagesCount / portionSize)
-  // let [portionNumber, setPortionNumber] = useState<number>(currentPortion)
+  let [portionNumber, setPortionNumber] = useState<number>(0)
 
-  let isShowLeft = currentPortion !== 0
-  let isShowRight = portionCount !== currentPortion + 1
+  let isShowLeft = portionNumber !== 0
+  let isShowRight = portionCount !== portionNumber + 1
   const right = () => {
-    setCurrentPortion(currentPortion + 1)
+    setPortionNumber(portionNumber + 1)
   }
   const left = () => {
-    setCurrentPortion(currentPortion - 1)
+    setPortionNumber(portionNumber - 1)
   }
   useEffect(() => {
     // выполняется после отрисовки
     changePortion(changePortionPages())
-  }, [currentPortion])
+  }, [portionNumber])
 
   const changePortionPages = (): Array<number> => {
     let test: Array<number> = []
     for (let i = 1; i <= portionSize; i++) {
-      let passedItems = (i + (portionSize * currentPortion)) * pageSize
+      let passedItems = (i + (portionSize * portionNumber)) * pageSize
       let isAllShown = (passedItems - totalItemsCount) < pageSize
       if (isAllShown) {
-        test.push(i + (portionSize * currentPortion))
+        test.push(i + (portionSize * portionNumber))
       }
     }
     return test
@@ -50,18 +51,15 @@ const Paginator: FC<propsType> = ({ totalItemsCount, pageSize, currentPage, curr
     onPageCanged(page)
   }
   const test = () => {
-    setCurrentPortion(portionCount - 1)
-    onPageCanged(pagesCount)
-
+    setPortionNumber(portionCount - 1)
   }
   const test1 = () => {
-    setCurrentPortion(0)
-    onPageCanged(1)
+    setPortionNumber(0)
   }
   return (<>
     {isShowLeft && <> <img src={back} alt="back" className={style.btn} onClick={left} />
       <span
-        className={currentPage === 1 ? style.select : style.item}
+        className={style.item}
         onClick={() => test1()}
       > {1}</span>----
     </>
@@ -75,8 +73,9 @@ const Paginator: FC<propsType> = ({ totalItemsCount, pageSize, currentPage, curr
     {isShowRight && <>
       ----
       <span
-        className={currentPage === pagesCount ? style.select : style.item}
         onClick={() => test()}
+        className={currentPage === pagesCount ? style.select : style.item}
+
       > {pagesCount}</span>
       <img src={forward} alt="back" className={style.btn} onClick={right} />
 

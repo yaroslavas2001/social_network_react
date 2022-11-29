@@ -5,6 +5,7 @@ import { join } from "../../../../utils/function";
 import { ProfileType } from "../../../../api/api";
 import defaultPhoto from "./../../../../style/default_user.png"
 import TextareaAutosize from 'react-textarea-autosize';
+import { checkTextEmpty } from "../../../../utils/validator/validators";
 
 type AddPostFormType = {
   profile: ProfileType
@@ -19,16 +20,12 @@ const AddPostForm: FC<AddPostFormType> = ({ profile, onSubmit }) => {
   let [error, setErrorText] = useState('')
 
   const sentPostText = () => {
-    const textWithoutLetters = value.replace(/[\n\r]/g, '')
-    if (textWithoutLetters.length === 0 && value.length > 0)
-      setErrorText("Don't post empty space")
-    else if (textWithoutLetters.length === 0 && value.length === 0)
-      setErrorText("Don't post empty post")
-    else if (value.replace(/[\n\r]/g, '').length > 0 && value.length > 0) {
+    if (checkTextEmpty(value) === undefined) {
       onSubmit(value)
       setTextPost("")
       setErrorText("")
     }
+    else setErrorText(checkTextEmpty(value))
 
   }
   useEffect(() => {

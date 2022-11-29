@@ -1,4 +1,4 @@
-import { addPost, PostType ,deletePost} from "../../../../redux/profile-reducer";
+import { addPost, PostType ,deletePost,updatePost} from "../../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
 import { connect } from "react-redux"
 import { AppReducerType } from "../../../../redux/redux-store";
@@ -12,6 +12,7 @@ type MapStateToPropsType = {
 type MapDispatchToPropsType = {
   addPost: (newPostText: string) => void
   deletePost:(postId:number)=>void
+  updatePost: (idPost: number, newText: string) => void
 }
 let mapStateToProps = (state: AppReducerType): MapStateToPropsType => {
   return {
@@ -20,4 +21,4 @@ let mapStateToProps = (state: AppReducerType): MapStateToPropsType => {
     profile: state.profilePage.profile
   }
 }
-export default connect<MapStateToPropsType, MapDispatchToPropsType>(mapStateToProps, { addPost ,deletePost})(MyPosts)
+export default connect<MapStateToPropsType, MapDispatchToPropsType>(mapStateToProps, { addPost ,deletePost,updatePost})(MyPosts)

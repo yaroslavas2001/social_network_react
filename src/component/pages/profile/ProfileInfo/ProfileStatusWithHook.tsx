@@ -1,6 +1,5 @@
-import React, { FC } from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { FC, useEffect, useState } from "react";
+
 
 type propstype = {
   status: string

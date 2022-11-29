@@ -4,24 +4,28 @@ import { UsersType } from "../../../types/types";
 import User from "./user/User";
 import React from "react"
 import style from "./../../../App.module.css"
+import { PaginationType } from "../../../redux/users-reducer";
 
 type propsType = {
-  totalUsersCount: number
-  pageSize: number
-  currentPage: number
+  pagination: PaginationType
+
   users: Array<UsersType>
   followingInProgress: Array<number>
   follow: (id: number) => void
   unFollow: (id: number) => void
   onPageCanged: (page: number) => void
+  setCurrentPortion: (portion: number) => void
+
 }
-const Users: FC<propsType> = ({ totalUsersCount, pageSize, currentPage, followingInProgress, users, follow, unFollow, onPageCanged }) => {
+const Users: FC<propsType> = ({ followingInProgress, users, follow,setCurrentPortion, unFollow, onPageCanged,...props }) => {
   return (
     <div className={style.content}>
-      <Paginator currentPage={currentPage}
-        totalItemsCount={totalUsersCount}
-        pageSize={pageSize}
+      <Paginator currentPage={props.pagination.currentPage}
+        totalItemsCount={props.pagination.totalUsersCount}
+        pageSize={props.pagination.pageSize}
+        currentPortion={props.pagination.currentPortion}
         onPageCanged={onPageCanged}
+        setCurrentPortion={setCurrentPortion}
         portionSize={300}
       />
       {

@@ -2,22 +2,21 @@ import { connect } from "react-redux"
 import {
   follow,
   unFollow,
-  getUsersThunkCreator
+  getUsersThunkCreator,
+  PaginationType, setCurrentPortion,
 } from "../../../redux/users-reducer"
 import React from "react"
 import Preloader from "../../../common/Preloader/Preloader"
 import {
-  getCurrentPage, getFollowingInProgress, getIsFetching,
-  getPageSize, getTotalUsersCount, getUsers
+  getFollowingInProgress, getIsFetching,
+  getUsers, getUsersPagination
 } from "../../../redux/users-selectors"
 import Users from "./Users"
 import { UsersType } from "../../../types/types"
 import { AppReducerType } from "../../../redux/redux-store"
 type MapStateToPropsType = {
-  currentPage: number
-  pageSize: number
+  pagination: PaginationType
   isFetching: boolean
-  totalUsersCount: number
   users: Array<UsersType>
   followingInProgress: Array<number>
 }
@@ -25,6 +24,7 @@ type MapDispatchToPropsType = {
   unFollow: (id: number) => void
   follow: (id: number) => void
   getUsers: (pageNumber: number, pageSize: number) => void
+  setCurrentPortion: (portion: number) => void
 }
 type OwnPropsType = {
   pageTitle: string
@@ -41,22 +41,21 @@ class UsersContainer extends React.Component<PropsType> {
   //   super(props)
   // }
   componentDidMount() {
-    this.props.getUsers(this.props.currentPage, this.props.pageSize)
+    this.props.getUsers(this.props.pagination.currentPage, this.props.pagination.pageSize)
   }
   onPageCanged = (pageNumber: number) => {
-    this.props.getUsers(pageNumber, this.props.pageSize)
+    this.props.getUsers(pageNumber, this.props.pagination.pageSize)
   }
   render() {
     if (this.props.isFetching)
       return (<Preloader isFetching={this.props.isFetching} />)
     return (
-      <Users totalUsersCount={this.props.totalUsersCount}
-        pageSize={this.props.pageSize}
-        currentPage={this.props.currentPage}
+      <Users pagination={this.props.pagination}
         users={this.props.users}
         onPageCanged={this.onPageCanged}
         unFollow={this.props.unFollow}
         follow={this.props.follow}
+        setCurrentPortion={this.props.setCurrentPortion}
         followingInProgress={this.props.followingInProgress}
       />
     )
@@ -64,10 +63,8 @@ class UsersContainer extends React.Component<PropsType> {
 }
 let mapStateToProps = (state: AppReducerType): MapStateToPropsType => {
   return {
+    pagination: getUsersPagination(state),
     users: getUsers(state),
-    pageSize: getPageSize(state),
-    totalUsersCount: getTotalUsersCount(state),
-    currentPage: getCurrentPage(state),
     isFetching: getIsFetching(state),
     followingInProgress: getFollowingInProgress(state)
   }
@@ -76,7 +73,8 @@ let mapStateToProps = (state: AppReducerType): MapStateToPropsType => {
 export default connect<MapStateToPropsType, MapDispatchToPropsType>(mapStateToProps,
   {
     follow, unFollow,
-    getUsers: getUsersThunkCreator
+    getUsers: getUsersThunkCreator,
+    setCurrentPortion
   }
 )(UsersContainer)
 // let mapDispatchToProps = (dispatch) => {

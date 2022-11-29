@@ -2,9 +2,10 @@ import { profileAPI, ProfileType, ResultCodeEnum } from "../api/api"
 import { Dispatch } from "redux"
 import { ThunkAction } from 'redux-thunk'
 import { AppReducerType } from "./redux-store"
+import { updateObjectInArray } from "../utils/objects-helper/objects-helper"
 
 const ADD_POST = "profile/ADD-POST"
-const UPDATE_POST = "profile/ADD-POST"
+const UPDATE_POST = "profile/UPDATE_POST"
 
 const SET_USER_PROFILE = "profile/SET_USER_PROFILE"
 const SET_STATUS = "profile/SET_STATUS"
@@ -33,13 +34,19 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionsT
   switch (action.type) {
     case ADD_POST: {
       let newPost = {
-        id: Math.random() ,
+        id: Math.random(),
         text: action.newPostText,
         userId: 0
       }
       return {
         ...state,
         posts: [...state.posts, newPost],
+      }
+    }
+    case UPDATE_POST: {
+      return {
+        ...state,
+        posts: updateObjectInArray(state.posts, action.idPost, "id", { text: action.newText }),
       }
     }
     case SET_USER_PROFILE: {
@@ -55,19 +62,29 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionsT
       }
     }
     case DELETE_POST: {
+      let newPosts = state.posts.filter((el) => el.id !== action.idPost)
       return {
         ...state,
-        posts: state.posts.filter((el) => el.id !== action.idPost)
+        posts: [...newPosts]
       }
     }
     default: return state
   }
 }
 type AddPostType = {
-  type: typeof ADD_POST
+  type: typeof ADD_POST,
   newPostText: string
 }
-export const addPost = (newPostText: string): AddPostType => ({ type: ADD_POST, newPostText })
+export const addPost = (newPostText: string): AddPostType => ({ type: ADD_POST, newPostText: newPostText })
+
+
+type UpdatePostType = {
+  type: typeof UPDATE_POST
+  newText: string
+  idPost: number
+}
+export const updatePost = (idPost: number, newText: string): UpdatePostType =>
+  ({ type: UPDATE_POST, idPost, newText })
 
 type DeletePostType = {
   type: typeof DELETE_POST
@@ -90,7 +107,7 @@ type SetStatusType = {
 export const setStatus = (status: string): SetStatusType => ({
   type: SET_STATUS, status
 })
-type ActionsType = AddPostType | DeletePostType | SetUserProfileType | SetStatusType
+type ActionsType = UpdatePostType | AddPostType | DeletePostType | SetUserProfileType | SetStatusType
 type ThunkType = ThunkAction<Promise<void>, AppReducerType, unknown, ActionsType>
 type DispatchType = Dispatch<ActionsType>
 
