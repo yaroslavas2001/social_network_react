@@ -58,24 +58,7 @@
   align-items: center;
 }
 
-.btn {
-  border: 0px;
-  border-radius: 20px;
-  cursor: pointer;
-  height: 32px;
-  border-radius: 12px;
-  padding: 0px 16px;
-  font-size: 13px;
-  font-weight: 600;
-}
-
 .unfollow {
   background-color: #e5ebf1;
   color: #346297;
-}
-
-.follow {
-  background-color: #447bba;
-  color: #fff;
-
 }

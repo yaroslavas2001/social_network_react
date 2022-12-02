@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Header from './Header';
 import { logoutMe } from "../../redux/auth-reducer"
 import { AppReducerType } from '../../redux/redux-store';
+import { ProfileType } from '../../api/api';
 type MapStateToPropsType = {
   login: string
   isAuth: boolean

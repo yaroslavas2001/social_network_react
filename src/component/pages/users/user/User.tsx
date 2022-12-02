@@ -3,10 +3,8 @@ import style from "./User.module.css"
 import imgDefault from "./../../../../style/default_user.png"
 import React, { FC } from 'react';
 import { UsersType } from "../../../../types/types"
-import { join } from "../../../../utils/function";
-// import React from "react"
+import BaseButton from "../../../../common/Button/BaseButton";
 type propsType = {
-
   user: UsersType
   unFollow: (id: number) => void
   follow: (id: number) => void
@@ -38,25 +36,24 @@ const User: FC<propsType> = ({ user, unFollow, follow, followingInProgress, ...p
         </div>
         <div className={style.btn_clock}>
           {user.followed ?
-            <button disabled={disabled()}
-              className={join([style.btn, style.unfollow])}
-              onClick={unfollowUser(user.id)}>
-              UnFollow
-            </button> :
-            <button disabled={disabled()}
-              className={join([style.btn, style.follow])}
-              onClick={followUser(user.id)}>
-              Follow
-            </button>
-          }
+            // <button disabled={disabled()}
+            //   className={join([style.btn, style.unfollow])}
+            //   onClick={unfollowUser(user.id)}>
+            //   UnFollow
+            // </button> 
+            <BaseButton isDisabled={disabled()} className={[style.unfollow]}
+              value="UnFollow" onClick={unfollowUser(user.id)} />
+            :
+            // <button disabled={disabled()}
+            //   className={join([style.btn, style.follow])}
+            //   onClick={followUser(user.id)}>
+            //   Follow
+            // </button>
+            <BaseButton isDisabled={disabled()}
+              value="Follow" onClick={followUser(user.id)} />}
         </div>
-
-
-
       </div>
-
     </div>)
-
 }
 
 export default User;
