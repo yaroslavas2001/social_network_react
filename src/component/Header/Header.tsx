@@ -19,15 +19,13 @@ const Header: FC<propstype> = ({ isAuth, login, logoutMe }) => {
         <div className={style.row}>
           {isAuth ? <>
             <div className={style.header_login}>{login}</div>
-            <BaseButton value="Log out" onClick={logoutMe} />
+            <BaseButton  isMutedStyle={true} value="Log out" isSmall onClick={logoutMe} />
           </> : ''}
           {!isAuth ? <NavLink to='/login'>
-            <BaseButton value="Log in" onClick={() => { }} />
+            <BaseButton  isSmall value="Log in" onClick={() => { }} />
           </NavLink> : ''}
         </div>
-
       </div>
-
     </header>
   );
 }

@@ -38,12 +38,12 @@ export const createField = (placeholder: string, name: string,
     validators: Array<FielddValidatorType>,
     component: string | React.Component | React.FC,
     props = {}, text = "") => {
-    return <>
+    return <div className={style.row}>
         <Field name={name} component={component}
             placeholder={placeholder}
             validate={validators}
             {...props}
         />
         {text}
-    </>
+    </div>
 }

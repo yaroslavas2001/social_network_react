@@ -7,6 +7,20 @@
     padding: 0px 16px;
     font-size: 13px;
     font-weight: 600;
+width: auto;
+}
+
+.btn_small {
+    height: 22px;
+    font-size: 12px;
+}
+
+.colorful {
     background-color: #447bba;
     color: #fff;
+}
+
+.muted {
+    background-color: #e5ebf1;
+    color: #346297;
 }

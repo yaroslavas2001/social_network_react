@@ -6,9 +6,9 @@ import { UsersType } from "../../../../types/types"
 import BaseButton from "../../../../common/Button/BaseButton";
 type propsType = {
   user: UsersType
+  followingInProgress: Array<number>
   unFollow: (id: number) => void
   follow: (id: number) => void
-  followingInProgress: Array<number>
 }
 const User: FC<propsType> = ({ user, unFollow, follow, followingInProgress, ...props }) => {
   const photo = user.photos.large ? user.photos.large : imgDefault
@@ -19,6 +19,7 @@ const User: FC<propsType> = ({ user, unFollow, follow, followingInProgress, ...p
     return () => { follow(id) }
   }
   const disabled = () => {
+    // Добавить обработку на не залогиневшихся полльзователей
     return followingInProgress.some((id: number) => id === user.id)
   }
 
@@ -41,7 +42,7 @@ const User: FC<propsType> = ({ user, unFollow, follow, followingInProgress, ...p
             //   onClick={unfollowUser(user.id)}>
             //   UnFollow
             // </button> 
-            <BaseButton isDisabled={disabled()} className={[style.unfollow]}
+            <BaseButton isDisabled={disabled()} isMutedStyle={true} 
               value="UnFollow" onClick={unfollowUser(user.id)} />
             :
             // <button disabled={disabled()}

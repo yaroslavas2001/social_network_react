@@ -5,12 +5,16 @@ export type BaseButtonType = {
     value: string
     className?: Array<string>
     isDisabled?: boolean
+    isSmall?: boolean
+    isMutedStyle?: boolean
     onClick?: () => void
 }
-let BaseButton: FC<BaseButtonType> = ({ isDisabled, className, value = "text", onClick }) => {
+let BaseButton: FC<BaseButtonType> = ({ isDisabled, className, isSmall, isMutedStyle =false, value = "text", onClick }) => {
 
     const porpsClassName = join(className)
-    const listClassName = join([porpsClassName ? porpsClassName : '', style.btn])
+    const BtnStyle = isMutedStyle ? style.muted:style.colorful  
+    const listClassName = join([porpsClassName ? porpsClassName : '', BtnStyle, style.btn,
+    isSmall ? style.btn_small : ''])
 
     return (<button disabled={isDisabled}
         className={listClassName} onClick={() => onClick()} >
