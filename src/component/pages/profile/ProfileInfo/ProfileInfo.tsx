@@ -12,6 +12,7 @@ type propsType = {
   profile: ProfileType
   status: string
   isAuth: boolean
+  isAutorizedUserId:boolean
   updateStatus: (status: string) => void
   setProfilePhoto: (photo: FormData) => void
   setProfileDetail: (aboutMe: ProfileDetailType) => void
@@ -31,16 +32,19 @@ const ProfileInfo: FC<propsType> = (props) => {
   //   { link: contacts.mainLink, linkName: 'MainLink' },
   // ]
   // const contact = test.map((el, index) => <Contact key={index} link={el.link} linkName={el.linkName} />)
+ 
   return (
     <div className={join([style.content, styleMain.content])}>
       <ProfilePhoto photo={props.profile.photos.large}
         setProfilePhoto={props.setProfilePhoto}
-        lookingForAJob={props.profile.lookingForAJob} />
+        lookingForAJob={props.profile.lookingForAJob} 
+        isAutorizedUserId={props.isAutorizedUserId}/>
       <div className={style.info}>
         <ProfileContacts
           profile={props.profile}
           isAuth={props.isAuth}
           setProfileDetail={props.setProfileDetail}
+          isAutorizedUserId={props.isAutorizedUserId}
         />
         <ProfileStatusWithHook status={props.status}
           isAuth={props.isAuth}

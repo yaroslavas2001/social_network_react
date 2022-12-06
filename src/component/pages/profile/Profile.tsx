@@ -22,6 +22,7 @@ const Profile = (props: propsType) => {
       isAuth={props.isAuth}
       setProfilePhoto={props.setProfilePhoto}
       setProfileDetail={props.setProfileDetail}
+      isAutorizedUserId={isAutorizedUserId}
     />
     {isAutorizedUserId &&
       <MyPostsContainer />

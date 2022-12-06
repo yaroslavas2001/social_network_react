@@ -1,11 +1,12 @@
 import style from "./ProfilePhoto.module.css"
-import photo from "./../../style/avatar.png"
+import photo from "./../../assets/avatar.png"
 import React, { FC } from "react"
+import LoadPhoto from "./../../assets/load-photo.png"
 type propsType = {
     photo: string
     lookingForAJob: boolean
+    isAutorizedUserId: boolean
     setProfilePhoto: (photo: FormData) => void
-
 }
 const ProfilePhoto: FC<propsType> = (props: propsType) => {
     let userPhoto = props.photo ? props.photo : photo
@@ -19,10 +20,14 @@ const ProfilePhoto: FC<propsType> = (props: propsType) => {
     return (<>
         <div className={style.photo_block} >
             <img src={userPhoto} alt="profile_photo" className={style.photo} />
+            {props.isAutorizedUserId ?
+                <label className={style.input_new_photo} title="Change a photo">
+                    <img src={LoadPhoto} alt="Load Photo" />
+                    <input type="file" onChange={test} />
+                </label>
+                : ''}
             {props.lookingForAJob ? <div className={style.islookingForAJob}>Open to work</div> : null}
         </div>
-        <input type="file" onChange={test} />
-        {/* <button>upDatePhoto</button> */}
     </>
 
     )

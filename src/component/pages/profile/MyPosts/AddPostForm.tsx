@@ -3,9 +3,10 @@ import styleMain from "./../../../../App.module.css"
 import style from "./MyPosts.module.css"
 import { join } from "../../../../utils/function";
 import { ProfileType } from "../../../../api/api";
-import defaultPhoto from "./../../../../style/default_user.png"
+import defaultPhoto from "./../../../../assets/default_user.png"
 import TextareaAutosize from 'react-textarea-autosize';
 import { checkTextEmpty } from "../../../../utils/validator/validators";
+import BaseButton from "../../../../common/Button/BaseButton";
 
 type AddPostFormType = {
   profile: ProfileType
@@ -39,9 +40,10 @@ const AddPostForm: FC<AddPostFormType> = ({ profile, onSubmit }) => {
       <TextareaAutosize value={value}
         onChange={ev => setTextPost(ev.target.value)}
         placeholder="Anything new?"
+        className={style.test}
       />
-      <button className={style.btn} onClick={sentPostText}>Add post</button>
       <div>{error}</div>
+      <BaseButton value="Add post" onClick={sentPostText} className={[style.btn]} />
     </form>
   )
 }

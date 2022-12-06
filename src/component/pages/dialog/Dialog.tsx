@@ -12,7 +12,8 @@ const Dialog = (props: any) => {
     props.sentMessage(formData.newMessageText)
   }
   return (<div className={join([style.dialogs, styleMain.content])}>
-    <div className={style.dialogs_items}>
+    This block is under development
+    {/* <div className={style.dialogs_items}>
       {dialogsElement}
     </div>
     <div className={style.messages}>
@@ -20,7 +21,7 @@ const Dialog = (props: any) => {
         {messagesElement}
       </div>
       <ReduxDialogForm onSubmit={onSubmit} />
-    </div>
+    </div> */}
   </div>);
 }
 

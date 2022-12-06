@@ -1,16 +1,17 @@
 import { NavLink } from "react-router-dom"
 import style from "./User.module.css"
-import imgDefault from "./../../../../style/default_user.png"
+import imgDefault from "./../../../../assets/default_user.png"
 import React, { FC } from 'react';
 import { UsersType } from "../../../../types/types"
 import BaseButton from "../../../../common/Button/BaseButton";
 type propsType = {
   user: UsersType
   followingInProgress: Array<number>
+  isAuth: boolean
   unFollow: (id: number) => void
   follow: (id: number) => void
 }
-const User: FC<propsType> = ({ user, unFollow, follow, followingInProgress, ...props }) => {
+const User: FC<propsType> = ({ user, unFollow, follow, isAuth, followingInProgress, ...props }) => {
   const photo = user.photos.large ? user.photos.large : imgDefault
   const unfollowUser = (id: number) => {
     return () => { unFollow(id) }
@@ -36,22 +37,20 @@ const User: FC<propsType> = ({ user, unFollow, follow, followingInProgress, ...p
           <div className={style.user_status}>{user.status}</div>
         </div>
         <div className={style.btn_clock}>
-          {user.followed ?
-            // <button disabled={disabled()}
-            //   className={join([style.btn, style.unfollow])}
-            //   onClick={unfollowUser(user.id)}>
-            //   UnFollow
-            // </button> 
-            <BaseButton isDisabled={disabled()} isMutedStyle={true} 
-              value="UnFollow" onClick={unfollowUser(user.id)} />
-            :
-            // <button disabled={disabled()}
-            //   className={join([style.btn, style.follow])}
-            //   onClick={followUser(user.id)}>
-            //   Follow
-            // </button>
-            <BaseButton isDisabled={disabled()}
-              value="Follow" onClick={followUser(user.id)} />}
+          {
+            isAuth ? <>
+              {user.followed ?
+                <BaseButton isDisabled={disabled()} isMutedStyle={true}
+                  value="UnFollow" onClick={unfollowUser(user.id)} />
+                :
+                <BaseButton isDisabled={disabled()}
+                  value="Follow" onClick={followUser(user.id)} />}
+
+            </> :
+              <NavLink to={`/profile/` + user.id}>
+                <BaseButton value="Show profile" onClick={() => { }} />
+              </NavLink>
+          }
         </div>
       </div>
     </div>)

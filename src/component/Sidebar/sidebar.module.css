@@ -43,3 +43,8 @@
   vertical-align: middle;
 
 }
+@media (max-width: 450px) {
+  .nav {
+    display: none;
+  }
+}

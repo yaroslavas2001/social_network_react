@@ -1,4 +1,4 @@
-import loading from "./../../style/Loading.gif"
+import loading from "./../../assets/Loading.gif"
 import React, { FC } from "react"
 type propsType = {
     isFetching: boolean

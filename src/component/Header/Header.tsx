@@ -1,5 +1,5 @@
 import style from './header.module.css'
-import imageLogo from "./../../style/blue-flower.png"
+import imageLogo from "./../../assets/blue-flower.png"
 import { NavLink } from 'react-router-dom';
 import React, { FC } from "react"
 import BaseButton from '../../common/Button/BaseButton';

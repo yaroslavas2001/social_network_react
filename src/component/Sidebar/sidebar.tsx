@@ -1,11 +1,11 @@
 
 import { NavLink } from "react-router-dom";
 import style from "./sidebar.module.css"
-import profile from "./../../style/Sidebar/profile.png"
-import dialog from "./../../style/Sidebar/dialog.png"
-import users from "./../../style/Sidebar/users.png"
-import news from "./../../style/Sidebar/news.png"
-import setting from "./../../style/Sidebar/setting.png"
+import profile from "./../../assets/Sidebar/profile.png"
+import dialog from "./../../assets/Sidebar/dialog.png"
+import users from "./../../assets/Sidebar/users.png"
+import news from "./../../assets/Sidebar/news.png"
+import setting from "./../../assets/Sidebar/setting.png"
 import React from "react"
 const Sidebar = () => {
   const sidebar = [

@@ -1,6 +1,5 @@
 .photo_block {
     position: relative;
-
 }
 
 .photo {
@@ -20,4 +19,23 @@
     /* margin-bottom: 7px; */
     background: radial-gradient(rgba(70, 112, 49, 1), rgba(253, 254, 255, 0.0));
     color: #fff;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.input_new_photo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    margin: 15px;
+    display: flex;
+    cursor: pointer;
+    border-radius: 14px;
+    justify-content: center;
+    background-color: #fff;
+    box-shadow: 2px 2px 2px 1px rgba(68, 123, 186, 0.5);
 }

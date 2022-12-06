@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react"
 import style from "./Paginator.module.css"
-import back from "./../../style/back.png"
-import forward from "./../../style/forward.png"
+import back from "./../../assets/back.png"
+import forward from "./../../assets/forward.png"
 import { useEffect } from "react";
 import { join } from "../../utils/function";
 

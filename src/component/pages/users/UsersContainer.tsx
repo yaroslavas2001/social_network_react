@@ -19,6 +19,7 @@ type MapStateToPropsType = {
   isFetching: boolean
   users: Array<UsersType>
   followingInProgress: Array<number>
+  isAuth:boolean
 }
 type MapDispatchToPropsType = {
   unFollow: (id: number) => void
@@ -57,6 +58,7 @@ class UsersContainer extends React.Component<PropsType> {
         follow={this.props.follow}
         setCurrentPortion={this.props.setCurrentPortion}
         followingInProgress={this.props.followingInProgress}
+        isAuth={this.props.isAuth}
       />
     )
   }
@@ -66,7 +68,8 @@ let mapStateToProps = (state: AppReducerType): MapStateToPropsType => {
     pagination: getUsersPagination(state),
     users: getUsers(state),
     isFetching: getIsFetching(state),
-    followingInProgress: getFollowingInProgress(state)
+    followingInProgress: getFollowingInProgress(state),
+    isAuth:state.auth.isAuth
   }
 }
 //connect - state , dispatch , own , statef

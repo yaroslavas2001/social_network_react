@@ -1,24 +1,26 @@
 import Contact, { ContactType } from "../../../../common/Contact/Contact";
 import Preloader from "../../../../common/Preloader/Preloader";
-import ProfilePhoto from "../../../../common/ProfilePhoto/ProfilePhoto";
 import style from "./ProfileInfo.module.css"
-import ProfileStatusWithHook from "./ProfileStatusWithHook";
-import React, { FC } from "react"
+import React, { FC, useState } from "react"
 import { ProfileContactsType, ProfileDetailType, ProfileType } from "../../../../api/api";
-import styleMain from "./../../../../App.module.css"
-import { join } from "../../../../utils/function";
 import ReduxProfileContactsForm, { ProfileContactsFormFieldType } from "./ProfileContactsForm";
+import BaseButton from "../../../../common/Button/BaseButton";
 type propsType = {
   profile: ProfileType
   isAuth: boolean
+  isAutorizedUserId: boolean
   setProfileDetail: (aboutMe: ProfileDetailType) => void
 }
-const ProfileContacts: FC<propsType> = ({ profile, isAuth, setProfileDetail }) => {
+const ProfileContacts: FC<propsType> = ({ profile, isAuth, isAutorizedUserId, setProfileDetail }) => {
+  let [editMode, setEditMode] = useState(false)
+
+
   if (!profile) {
     return <Preloader isFetching={!profile} />
   }
+
   const contacts: ProfileContactsType = profile.contacts
-  let test: Array<ContactType> = [
+  let contactArray: Array<ContactType> = [
     { link: contacts.github, linkName: 'Github' },
     { link: contacts.vk, linkName: 'VK' },
     { link: contacts.facebook, linkName: 'Facebook' },
@@ -27,21 +29,28 @@ const ProfileContacts: FC<propsType> = ({ profile, isAuth, setProfileDetail }) =
     { link: contacts.website, linkName: 'Website' },
     { link: contacts.mainLink, linkName: 'MainLink' },
   ]
+
   const onSubmit = (data: any) => {
-    console.log("data",data)
-    debugger
+    
+    console.log("data", data)
   }
-  const contact = test.map((el, index) => <Contact key={index} link={el.link} linkName={el.linkName} />)
+  const editData = () => () => {
+    setEditMode(true)
+  }
+  const contactElement = contactArray.map((el, index) => <Contact key={el.linkName} link={el.link} linkName={el.linkName} />)
   return (
     <>
       <p className={style.name}> {profile.fullName} </p>
       Contacts:
-      {contact}
+      {contactElement}
       {profile.lookingForAJob ? (<>
         Description :
         {profile.lookingForAJobDescription}
       </>) : null}
-      <ReduxProfileContactsForm contacts={profile.contacts} onSubmit={onSubmit} />
+      {isAutorizedUserId && !editMode ?
+        <BaseButton value="Edit information" onClick={editData()} />
+        : ''}
+      {editMode && <ReduxProfileContactsForm contacts={profile.contacts} onSubmit={onSubmit} />}
     </>);
 }
 

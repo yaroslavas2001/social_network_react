@@ -1,9 +1,7 @@
 .block{
   display: flex;
 }
-.block div{
-  width: 100%;
-}
+
 textarea {
   resize: none;
   height: auto;
@@ -15,16 +13,9 @@ textarea {
   height: 28px;
   width: 28px;
   border-radius: 50%;
-}
-/* .test{
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-} */
-.inpute{
-  width: 100%;
-
+  margin-right: 12px;
 }
 .btn{
-  width: 40px;
+  height: 28px;
+  
 }

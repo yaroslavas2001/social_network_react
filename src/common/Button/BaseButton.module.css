@@ -2,12 +2,13 @@
     border: 0px;
     border-radius: 20px;
     cursor: pointer;
-    height: 32px;
+    height: auto;
     border-radius: 12px;
-    padding: 0px 16px;
+    padding: 4px 16px;
     font-size: 13px;
     font-weight: 600;
-width: auto;
+    width: auto;
+    white-space: nowrap;
 }
 
 .btn_small {

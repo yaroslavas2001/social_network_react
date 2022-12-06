@@ -8,7 +8,7 @@ import { PaginationType } from "../../../redux/users-reducer";
 
 type propsType = {
   pagination: PaginationType
-
+  isAuth:boolean
   users: Array<UsersType>
   followingInProgress: Array<number>
   follow: (id: number) => void
@@ -35,6 +35,7 @@ const Users: FC<propsType> = ({ followingInProgress, users, follow, setCurrentPo
             follow={follow}
             followingInProgress={followingInProgress}
             key={user.id}
+            isAuth={props.isAuth}
           />
         )
       }
