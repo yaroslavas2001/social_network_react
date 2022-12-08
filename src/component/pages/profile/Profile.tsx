@@ -7,14 +7,14 @@ type propsType = {
   status: string
   autorizedUserId: number
   profileId: number
-  isAuth:boolean
+  isAuth: boolean
   updateStatus: (status: string) => void
-  setProfilePhoto:(photo:FormData)=>void
-  setProfileDetail:(aboutMe:ProfileDetailType)=>void
+  setProfilePhoto: (photo: FormData) => void
+  setProfileDetail: (aboutMe: ProfileDetailType) => void
 }
 const Profile = (props: propsType) => {
   const isAutorizedUserId = props.autorizedUserId === props.profile?.userId
-  
+
   return (<>
     <ProfileInfo profile={props.profile}
       status={props.status}

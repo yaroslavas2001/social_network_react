@@ -35,7 +35,9 @@ class App extends React.Component {
       <div className={style.app}  >
         <HeaderContainer />
         <div className={style.row}>
-          <Sidebar />
+          <div className={style.nav}>
+            <Sidebar />
+          </div>
           <div className={style.content_block}>
             <Suspense fallback={<div><Preloader /></div>}>
               <Routes >

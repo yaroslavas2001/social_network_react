@@ -1,15 +1,13 @@
 import React, { FC, useEffect, useState } from "react";
-
+import style from "./../ProfileInfo.module.css"
 
 type propstype = {
   status: string
-  isAuth:boolean
+  isAuth: boolean
+  isAutorizedUserId: boolean
   updateStatus: (status: string) => void
 }
 const ProfileStatusWithHook: FC<propstype> = (props) => {
-  // let stateWithSetState = useState(true)
-  // let editMode = stateWithSetState[0]
-  // let setEditMode = stateWithSetState[1]
   let [editMode, setEditMode] = useState(false)
   let [status, setStatus] = useState(props.status)
   useEffect(() => {
@@ -17,8 +15,8 @@ const ProfileStatusWithHook: FC<propstype> = (props) => {
     setStatus(props.status)
   }, [props.status])
   const activateEditMode = () => {
-    if(props.isAuth)
-    setEditMode(true)
+    if (props.isAuth && props.isAutorizedUserId)
+      setEditMode(true)
   }
   const deActivateEditMode = () => {
     setEditMode(false)
@@ -27,20 +25,21 @@ const ProfileStatusWithHook: FC<propstype> = (props) => {
   }
   const changeStatus = (e: any) => {
     setStatus(e.currentTarget.value)
-
+  }
+  let getStatus = (status: string) => {
+    if (status) return status
+    else if (!status && !props.isAutorizedUserId) return "The user has not entered a status"
+    else return "Enter status"
   }
   return (<div>
-    Статус:
+    Status:
     {!editMode &&
-      <div onDoubleClick={activateEditMode}>{
-        status || "---"}</div>
+      <div className={style.set_status} onDoubleClick={activateEditMode}>{getStatus(status)}</div>
     }
     {editMode &&
-      <div>
-        <input autoFocus={true} onChange={changeStatus}
-          value={status}
-          onBlur={deActivateEditMode} type="text" />
-      </div>
+      <input autoFocus={true} onChange={changeStatus}
+        value={status}
+        onBlur={deActivateEditMode} type="text" />
     }
   </div>)
 }

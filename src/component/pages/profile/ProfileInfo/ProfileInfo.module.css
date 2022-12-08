@@ -1,12 +1,24 @@
-.content{
+.content {
   display: flex;
   flex-wrap: wrap;
 }
-.info{
-  padding: 5px 0px 0px 20px;
+
+.info {
+  padding: 0px 20px;
 }
-.name{
+
+.name {
   margin: 0px 0px 20px 0px;
   font-size: 21px;
   font-weight: bold;
+}
+
+.set_status {
+  cursor: pointer;
+}
+
+@media (max-width: 450px) {
+  .info {
+    padding: 0px;
+  }
 }

@@ -46,7 +46,7 @@ const LoginForm: FC<LoginFormPropsType> = ({ handleSubmit, _error, capchaUrl, is
                     {createField("captha", 'captha', [required, maxLenght50],
                         Input, { type: "text" })}
                 </> : null}
-            <BaseButton isSmall value="Login" onClick={() => { }} />
+            <BaseButton value="Login" onClick={() => { }} />
             {/* <button >Login</button> */}
         </form>
     )

@@ -2,6 +2,7 @@ body{
   margin: 0px;
   padding: 0px;
   min-height: 100vh;
+  min-width: 200px;
   font-family:'Times New Roman', Times, sans-serif ;
 
 }
@@ -38,4 +39,13 @@ body{
   padding: 20px;
   margin: 20px 10px;
   height: auto;
+}
+.nav {
+  display: block;
+  width: 20%;
+}
+@media (max-width: 450px) {
+  .nav {
+    display: none;
+  }
 }

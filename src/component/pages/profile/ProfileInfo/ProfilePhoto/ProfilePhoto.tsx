@@ -1,7 +1,8 @@
 import style from "./ProfilePhoto.module.css"
-import photo from "./../../assets/avatar.png"
+import photo from "./../../../../../assets/avatar.png"
 import React, { FC } from "react"
-import LoadPhoto from "./../../assets/load-photo.png"
+import LoadPhoto from "./../../../../../assets/load-photo.png"
+
 type propsType = {
     photo: string
     lookingForAJob: boolean

@@ -1,6 +1,5 @@
 .user {
   display: flex;
-  /* text-align: center; */
   align-items: center;
   vertical-align: middle;
   height: 90px;
@@ -46,11 +45,14 @@
   font-size: 13px;
   font-weight: 700;
   margin-bottom: 10px;
+  word-wrap: break-word;
 }
 
 .user_status {
   color: #626d7a;
   font-size: 13px;
+  word-wrap: break-word;
+
 }
 
 .btn_clock {
@@ -58,3 +60,51 @@
   align-items: center;
 }
 
+@media (max-width: 450px) {
+  .user_block {
+    flex-direction: column;
+    justify-content: center;
+    padding: 0px;
+  }
+  .user_name {
+    margin-bottom: 5px;
+  }
+
+  .user_status {
+    margin-bottom: 5px;
+  }
+}
+
+@media (max-width: 300px) {
+  .user {
+    height: auto;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+  }
+
+  .user_block {
+    flex-direction: column;
+    justify-content: start;
+  }
+
+  .img_block {
+    margin-right: 0px;
+  }
+
+  .btn_clock {
+    display: flex;
+    justify-content: center;
+  }
+
+
+
+  /* .img_block,
+  .photo {
+    height: 40px;
+    width: 40px;
+  } */
+
+
+}

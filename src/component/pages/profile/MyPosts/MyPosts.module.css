@@ -6,7 +6,7 @@ textarea {
   resize: none;
   height: auto;
   outline: none;
-  border:0px;
+  border:0px !important;
   width: 100%;
 }
 .photo_user{
@@ -17,5 +17,14 @@ textarea {
 }
 .btn{
   height: 28px;
+  
+}
+@media (max-width: 450px) {
+  .photo_user{
+    display: none;
+  }
+  .block{
+    flex-direction: column;
+  }
   
 }

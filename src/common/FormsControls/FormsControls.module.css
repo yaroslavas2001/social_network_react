@@ -1,15 +1,46 @@
 .error input,
-.error textarea{
-    border: 6px solid red;
+.error textarea {
+    border: 1px solid red;
 }
-.error_text{
+
+.error_text {
     color: red;
+    padding: 0px 4px;
 }
-.formSummaryError{
+
+.formSummaryError {
     border: red 1px solid;
     padding: 5px;
-    color:blueviolet
+    color: blueviolet
 }
-.row{
+
+.row {
     display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: flex-start;
+    box-sizing: border-box;
+}
+
+input[type=checkbox] {
+    border: 1px solid #d3d9de;
+    margin-right: 7px;
+    height: 15px;
+    min-width: 15px;
+    width: 15px;
+
+}
+
+input,
+textarea {
+    border: 1px solid #d3d9de;
+    border-radius: 6px;
+    padding: 7px 12px 9px;
+    font-size: 13px;
+    height: auto;
+    cursor: pointer;
+    margin: 4px 0px;
+    min-width: 100px;
+    width: 100%;
+    box-sizing: border-box;
 }

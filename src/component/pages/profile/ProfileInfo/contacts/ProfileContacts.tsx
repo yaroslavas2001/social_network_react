@@ -1,10 +1,10 @@
-import Contact, { ContactType } from "../../../../common/Contact/Contact";
-import Preloader from "../../../../common/Preloader/Preloader";
-import style from "./ProfileInfo.module.css"
+import Contact, { ContactType } from "../../../../../common/Contact/Contact";
+import Preloader from "../../../../../common/Preloader/Preloader";
+import style from "./../ProfileInfo.module.css"
 import React, { FC, useState } from "react"
-import { ProfileContactsType, ProfileDetailType, ProfileType } from "../../../../api/api";
+import { ProfileContactsType, ProfileDetailType, ProfileType } from "../../../../../api/api";
 import ReduxProfileContactsForm, { ProfileContactsFormFieldType } from "./ProfileContactsForm";
-import BaseButton from "../../../../common/Button/BaseButton";
+import BaseButton from "../../../../../common/Button/BaseButton";
 type propsType = {
   profile: ProfileType
   isAuth: boolean
@@ -31,7 +31,7 @@ const ProfileContacts: FC<propsType> = ({ profile, isAuth, isAutorizedUserId, se
   ]
 
   const onSubmit = (data: any) => {
-    
+
     console.log("data", data)
   }
   const editData = () => () => {
@@ -44,7 +44,7 @@ const ProfileContacts: FC<propsType> = ({ profile, isAuth, isAutorizedUserId, se
       Contacts:
       {contactElement}
       {profile.lookingForAJob ? (<>
-        Description :
+        Description: 
         {profile.lookingForAJobDescription}
       </>) : null}
       {isAutorizedUserId && !editMode ?

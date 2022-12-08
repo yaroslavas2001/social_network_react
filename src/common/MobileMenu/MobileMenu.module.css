@@ -1,0 +1,21 @@
+body {
+    overflow: hidden;
+}
+
+.modal_window {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    min-width: 100%;
+    background-color: #fff;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    padding: 20px 0px;
+    z-index: 2;
+}
+.not_show{
+    display: none;
+}

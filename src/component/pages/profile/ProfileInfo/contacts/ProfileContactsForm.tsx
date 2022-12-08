@@ -1,10 +1,8 @@
 import { reduxForm } from "redux-form"
-import style from "./../../../common/FormsControls/FormsControls.module.css"
 import React, { FC, FormEvent } from "react"
-import { createField, Input } from "../../../../common/FormsControls/FormsControls"
-import { maxLenghtCreator, required } from "../../../../utils/validator/validators"
-import { ProfileContactsType, ProfileDetailType } from "../../../../api/api"
-import BaseButton from "../../../../common/Button/BaseButton"
+import { createField, Input } from "../../../../../common/FormsControls/FormsControls"
+import { maxLenghtCreator, required } from "../../../../../utils/validator/validators"
+import { ProfileContactsType } from "../../../../../api/api"
 
 const maxLenght50 = maxLenghtCreator(50)
 type LoginFormPropsType = {

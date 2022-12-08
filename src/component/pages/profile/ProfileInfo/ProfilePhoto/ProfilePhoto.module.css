@@ -39,3 +39,9 @@ input[type="file"] {
     background-color: #fff;
     box-shadow: 2px 2px 2px 1px rgba(68, 123, 186, 0.5);
 }
+@media (max-width: 450px) {
+    .photo {
+        height: auto;
+        width: 100%;
+    }
+}

@@ -22,9 +22,14 @@
     justify-content: center;
 }
 
+.desctop_btn {
+    display: block;
+}
+
 .header_logo {
     height: 25px;
     width: 25px;
+    margin-right: 5px;
 }
 
 .header_text {
@@ -39,7 +44,27 @@
     margin-right: 10px;
 }
 
-@media (max-width: 450px) {
+.mobile_mune {
+    display: none;
+}
 
-    
+.mobile_menu_btn {
+    border: 0px;
+    background-color: transparent;
+
+}
+
+.mobile_menu_btn img {
+    height: 40px;
+    width: 40px;
+}
+
+@media (max-width: 450px) {
+    .desctop_btn {
+        display: none;
+    }
+
+    .mobile_mune {
+        display: block;
+    }
 }
