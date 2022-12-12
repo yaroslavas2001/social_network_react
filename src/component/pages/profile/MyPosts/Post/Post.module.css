@@ -1,10 +1,16 @@
-.profile_img{
+.profile_img {
   height: 20px;
   width: 200px;
 }
+
 .btn_indent {
   margin-right: 7px;
 }
-textarea{
+
+.textarea_block textarea {
   cursor: inherit !important;
+  resize: none;
+  outline: none;
+  border: 0px !important;
+  width: 100%;
 }

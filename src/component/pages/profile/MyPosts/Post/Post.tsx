@@ -1,5 +1,5 @@
 import style from "./Post.module.css"
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import styleMain from "./../../../../../App.module.css"
 import ReactTextareaAutosize from "react-textarea-autosize";
 import { PostType } from "../../../../../redux/profile-reducer";
@@ -44,9 +44,12 @@ const Post = (props: propsType) => {
     setshowWindowDelete(false)
   }
   return (<div className={styleMain.content}>
-    <ReactTextareaAutosize readOnly={!editMode} value={value}
-      onChange={ev => setTextPost(ev.target.value)}
-    />
+    <div className={style.textarea_block}>
+      <ReactTextareaAutosize readOnly={!editMode} value={value}
+        onChange={ev => setTextPost(ev.target.value)}
+      />
+    </div>
+
     <div>{error}</div>
     {!editMode && <>
       <BaseButton isSmall onClick={updateText()} value="Edit" className={[style.btn_indent]} />

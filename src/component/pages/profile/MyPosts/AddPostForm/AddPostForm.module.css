@@ -1,0 +1,33 @@
+.block {
+  display: flex;
+}
+
+.block textarea {
+  resize: none;
+  outline: none;
+  border: 0px !important;
+  width: 100%;
+} 
+
+.photo_user {
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+  margin-right: 12px;
+}
+
+.btn {
+  height: 28px;
+
+}
+
+@media (max-width: 450px) {
+  .photo_user {
+    display: none;
+  }
+
+  .block {
+    flex-direction: column;
+  }
+
+}

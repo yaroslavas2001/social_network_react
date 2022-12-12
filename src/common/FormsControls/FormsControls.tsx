@@ -2,6 +2,7 @@ import { Field } from "redux-form"
 import style from "./FormsControls.module.css"
 import React, { FC } from "react"
 import { FielddValidatorType } from "../../utils/validator/validators"
+import { join } from "../../utils/function"
 type FormcontrolTYpe = {
     children: React.ReactNode
     meta: {
@@ -15,7 +16,7 @@ const Formcontrol: FC<FormcontrolTYpe> = (props) => {
     // мы берем отдельно input,meta, а все оставшиеся штуки оставляем в пропсах
     const hasError = touched && error
     return (
-        <div className={hasError ? style.error : ""}>
+        <div className={join([hasError ? style.error : "",style.form_Control])}>
             {children}
             {hasError && <span className={style.error_text}>{error}</span>}
         </div>

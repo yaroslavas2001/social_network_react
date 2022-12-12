@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
-import style from "./../ProfileInfo.module.css"
+import LableBlock from "../../../../../common/LableBlock/LableBlock";
+import style from "./ProfileStatusWithHook.module.css"
 
 type propstype = {
   status: string
@@ -32,15 +33,17 @@ const ProfileStatusWithHook: FC<propstype> = (props) => {
     else return "Enter status"
   }
   return (<div>
-    Status:
-    {!editMode &&
-      <div className={style.set_status} onDoubleClick={activateEditMode}>{getStatus(status)}</div>
-    }
-    {editMode &&
-      <input autoFocus={true} onChange={changeStatus}
-        value={status}
-        onBlur={deActivateEditMode} type="text" />
-    }
+    <LableBlock name="Status:" isBold margin={6}>
+      {editMode ?
+        <input autoFocus={true} onChange={changeStatus}
+          value={status}
+          onBlur={deActivateEditMode} type="text" />
+        :
+        <div title={props.isAutorizedUserId ? "Double click" : null} className={props.isAutorizedUserId ? style.set_status : ''}
+          onDoubleClick={activateEditMode}>{getStatus(status)}
+        </div>
+      }
+    </LableBlock>
   </div>)
 }
 

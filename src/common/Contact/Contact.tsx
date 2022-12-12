@@ -5,13 +5,15 @@ export type ContactType = {
     linkName: string
 }
 let Contact: FC<ContactType> = ({ link, linkName }) => {
-    return (<div className={style.contact}>
+    return (<>
         {link ?
-            <a href={link}
-                rel="noreferrer" target="_blank"
-                title={link} className={style.link}>
-                {linkName}</a>
+            <div className={style.contact}>
+                <a href={link}
+                    rel="noreferrer" target="_blank"
+                    title={link} className={style.link}>
+                    {linkName}</a>
+            </div>
             : null}
-    </div>)
+    </>)
 }
 export default Contact

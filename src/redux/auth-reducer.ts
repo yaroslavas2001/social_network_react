@@ -181,7 +181,6 @@ export const logintMe = (email: string, password: string, rememberMe: boolean, c
     }
     if (data.resultCode === ResultCodeEnum.Capcha) {
       //капча
-      // console.log("nen")
       dispatch(showCapcha(true))
       dispatch(setCapchaStatus(true))
       dispatch(getCapchaUrl())

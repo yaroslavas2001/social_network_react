@@ -1,0 +1,13 @@
+.label_block {
+    display: flex;
+    flex-direction: column;
+    /* margin: 6px 0px; */
+}
+
+.label {
+    font-weight: normal;
+}
+
+.label_bold {
+    font-weight: bold;
+}

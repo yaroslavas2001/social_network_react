@@ -1,5 +1,6 @@
 .photo_block {
     position: relative;
+    height: fit-content;
 }
 
 .photo {

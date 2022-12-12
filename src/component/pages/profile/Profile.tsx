@@ -1,7 +1,7 @@
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import React from "react"
-import { ProfileDetailType, ProfileType } from "../../../api/api";
+import {  ProfileType } from "../../../api/api";
 type propsType = {
   profile: ProfileType
   status: string
@@ -10,7 +10,7 @@ type propsType = {
   isAuth: boolean
   updateStatus: (status: string) => void
   setProfilePhoto: (photo: FormData) => void
-  setProfileDetail: (aboutMe: ProfileDetailType) => void
+  setProfileDetail: (aboutMe: ProfileType) => void
 }
 const Profile = (props: propsType) => {
   const isAutorizedUserId = props.autorizedUserId === props.profile?.userId

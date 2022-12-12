@@ -1,8 +1,9 @@
-import { profileAPI, ProfileDetailType, ProfileType, ResultCodeEnum } from "../api/api"
+import { profileAPI, ProfileType, ResultCodeEnum } from "../api/api"
 import { Dispatch } from "redux"
 import { ThunkAction } from 'redux-thunk'
 import { AppReducerType } from "./redux-store"
 import { updateObjectInArray } from "../utils/objects-helper/objects-helper"
+import { stopSubmit } from "redux-form"
 
 const ADD_POST = "profile/ADD-POST"
 const UPDATE_POST = "profile/UPDATE_POST"
@@ -122,11 +123,16 @@ export const setProfilePhoto = (photo: FormData): ThunkType => async (dispatch: 
   const data = await profileAPI.setProfilePhoto(photo)
   //обработка ошибок
 }
-export const setProfileDetail = (aboutMe: ProfileDetailType): ThunkType => async (dispatch: DispatchType) => {
+export const setProfileDetail = (aboutMe: ProfileType): ThunkType => async (dispatch: any) => {
   const data = await profileAPI.setProfileDetail(aboutMe)
-  console.log("data", data)
-  // обработка ошибок
-
+  if (data.resultCode === ResultCodeEnum.Success) {
+    dispatch(setProfile(aboutMe.userId))
+  }
+  else if (data.resultCode === ResultCodeEnum.Error) {
+    // не правильное заполнено какое-то поле
+    let errorText = data.messages.length > 0 ? data.messages[0] : "Some error"
+    dispatch(stopSubmit("contact-user", { _error: errorText }))
+  }
 }
 export const getStatus = (userId: number): ThunkType => async (dispatch: DispatchType) => {
   const data = await profileAPI.getStatus(userId)

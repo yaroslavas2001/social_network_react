@@ -36,11 +36,16 @@ type ResponseType<T> = {
     messages: Array<string>
 }
 export type ProfileContactsType = {
-    github: string
+    // skype?: string
+    // icq?: string
+    // email?: string
+    // googlePlus?: string
+    // whatsApp?: string
+    twitter: string
+    instagram: string
     vk: string
     facebook: string
-    instagram: string
-    twitter: string
+    github: string
     website: string
     youtube: string
     mainLink: string
@@ -48,18 +53,21 @@ export type ProfileContactsType = {
 export type ProfileType = {
     userId: number
     lookingForAJob: boolean
-    lookingForAJobDescription: boolean
+    lookingForAJobDescription: string
     fullName: string
     contacts: ProfileContactsType
     photos: PhotosType
+    aboutMe: string
+
 }
-export type ProfileDetailType={
-    aboutMe:string
-    contacts:ProfileContactsType
-    lookingForAJob:boolean
-    lookingForAJobDescription:string
-    fullName:string
-}
+// export type ProfileDetailType = {
+//     userId: number
+//     lookingForAJob: boolean
+//     lookingForAJobDescription: string
+//     fullName: string
+//     contacts: ProfileContactsType
+//     aboutMe: string
+// }
 export const profileAPI = {
     async getProfile(profileId: number) {
         const response = await instance.get<ProfileType>(`profile/${profileId}`)
@@ -73,8 +81,8 @@ export const profileAPI = {
         const response = await instance.put<ResponseType<{}>>(`profile/status`, { status: statusText })
         return response.data
     },
-    async setProfileDetail(aboutMe: ProfileDetailType) {
-        const response = await instance.put(`profile`, { aboutMe })
+    async setProfileDetail(aboutMe: ProfileType) {
+        const response = await instance.put(`profile`, aboutMe)
         return response.data
     },
     async setProfilePhoto(formData: FormData) {

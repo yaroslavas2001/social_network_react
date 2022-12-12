@@ -1,12 +1,13 @@
 import React, { FC, useState, useEffect } from "react";
-import styleMain from "./../../../../App.module.css"
-import style from "./MyPosts.module.css"
-import { join } from "../../../../utils/function";
-import { ProfileType } from "../../../../api/api";
-import defaultPhoto from "./../../../../assets/default_user.png"
+import styleMain from "./../../../../../App.module.css"
+import style from "./AddPostForm.module.css"
+import { join } from "../../../../../utils/function";
+import { ProfileType } from "../../../../../api/api";
+import defaultPhoto from "./../../../../../assets/default_user.png"
+
 import TextareaAutosize from 'react-textarea-autosize';
-import { checkTextEmpty } from "../../../../utils/validator/validators";
-import BaseButton from "../../../../common/Button/BaseButton";
+import { checkTextEmpty } from "../../../../../utils/validator/validators";
+import BaseButton from "../../../../../common/Button/BaseButton";
 
 type AddPostFormType = {
   profile: ProfileType

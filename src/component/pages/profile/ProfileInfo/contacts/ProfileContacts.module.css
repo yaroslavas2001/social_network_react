@@ -1,0 +1,25 @@
+.name {
+  margin: 0px 0px 6px 0px;
+  font-size: 21px;
+  font-weight: bold;
+}
+
+.contact_block {
+  margin-bottom: 12px;
+}
+
+.contacts {
+  font-size: 18px;
+  font-weight: bold;
+  padding: 0px;
+}
+
+.set_status {
+  cursor: pointer;
+}
+
+.lookingForAJobDescription {
+  word-wrap: break-word;
+}
+
+@media (max-width: 450px) {}

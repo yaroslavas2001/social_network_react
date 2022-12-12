@@ -3,7 +3,7 @@ import ProfilePhoto from "./ProfilePhoto/ProfilePhoto";
 import style from "./ProfileInfo.module.css"
 import ProfileStatusWithHook from "./status/ProfileStatusWithHook";
 import React, { FC } from "react"
-import { ProfileDetailType, ProfileType } from "../../../../api/api";
+import {  ProfileType } from "../../../../api/api";
 import styleMain from "./../../../../App.module.css"
 import { join } from "../../../../utils/function";
 import ProfileContacts from "./contacts/ProfileContacts";
@@ -14,7 +14,7 @@ type propsType = {
   isAutorizedUserId: boolean
   updateStatus: (status: string) => void
   setProfilePhoto: (photo: FormData) => void
-  setProfileDetail: (aboutMe: ProfileDetailType) => void
+  setProfileDetail: (aboutMe: ProfileType) => void
 }
 const ProfileInfo: FC<propsType> = (props) => {
   if (!props.profile) {
@@ -27,6 +27,7 @@ const ProfileInfo: FC<propsType> = (props) => {
         lookingForAJob={props.profile.lookingForAJob}
         isAutorizedUserId={props.isAutorizedUserId} />
       <div className={style.info}>
+        
         <ProfileContacts
           profile={props.profile}
           isAuth={props.isAuth}

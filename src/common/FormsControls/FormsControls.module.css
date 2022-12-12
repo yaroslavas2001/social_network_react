@@ -22,7 +22,7 @@
     box-sizing: border-box;
 }
 
-input[type=checkbox] {
+.form_Control input[type=checkbox] {
     border: 1px solid #d3d9de;
     margin-right: 7px;
     height: 15px;
@@ -30,17 +30,18 @@ input[type=checkbox] {
     width: 15px;
 
 }
-
-input,
-textarea {
+.form_Control input,
+.form_Control textarea {
     border: 1px solid #d3d9de;
     border-radius: 6px;
     padding: 7px 12px 9px;
     font-size: 13px;
-    height: auto;
     cursor: pointer;
     margin: 4px 0px;
     min-width: 100px;
     width: 100%;
     box-sizing: border-box;
+}
+.form_Control textarea {
+    resize: vertical;
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import Post from "./Post/Post"
 import style from "./MyPosts.module.css"
-import ReduxAddPostForm, { AddPostFormFieldType } from "./AddPostForm";
+import ReduxAddPostForm, { AddPostFormFieldType } from "./AddPostForm/AddPostForm";
 import { PostType } from "../../../../redux/profile-reducer";
 import { ProfileType } from "../../../../api/api";
 type MapStateToPropsType = {
