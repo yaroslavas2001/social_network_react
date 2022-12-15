@@ -19,6 +19,7 @@ let ModalWindow: FC<ModalWindowType> = ({ children, isShow }) => {
         setScrollY(window.scrollY)
         document.body.style.setProperty('overflow', isShow ? 'hidden' : 'visible');
         return () => {
+            document.body.style.setProperty('overflow', 'visible');
             window.removeEventListener('resize', (e: any) => { resize(e) });
         }
     }, [isShow, width])
