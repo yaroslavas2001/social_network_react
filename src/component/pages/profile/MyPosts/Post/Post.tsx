@@ -5,7 +5,7 @@ import ReactTextareaAutosize from "react-textarea-autosize";
 import { PostType } from "../../../../../redux/profile-reducer";
 import { checkTextEmpty } from "../../../../../utils/validator/validators";
 import BaseButton from "../../../../../common/Button/BaseButton";
-import ModalWindow from "../../../../../common/ModalWindow/ModalWindow";
+import DialogWindow from "../../../../../common/DialogWindow/DialogWindow";
 type propsType = {
   post: PostType
   deletePost: (id: number) => void
@@ -57,9 +57,12 @@ const Post = (props: propsType) => {
     {editMode && <>
       <BaseButton isSmall value="Save" onClick={save()} className={[style.btn_indent]} />
       <BaseButton isSmall isMutedStyle={true} value="Cansel" onClick={cansel()} />    </>}
-    {showWindowDelete && <ModalWindow id={props.post.id}
+    {/* {showWindowDelete &&  */}
+    <DialogWindow id={props.post.id}
+      isShow={showWindowDelete}
       text="Are you sure you want to delete the post?"
-      agreement={agreement} cansel={canselDalete} />}
+      agreement={agreement} cansel={canselDalete} />
+    
   </div>);
 }
 

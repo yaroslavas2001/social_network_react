@@ -10,9 +10,13 @@ const maxLenght100 = maxLenghtCreator(100)
 type LoginFormPropsType = {
   handleSubmit?: () => void
   _error?: any
+
+}
+type ErrorType = {
+  _error: any
 }
 const ProfileContactsForm: FC<LoginFormPropsType> = ({ handleSubmit, _error }) => {
-  console.log("error",_error)
+  // console.log("error", _error)
   return (
     <form onSubmit={handleSubmit}>
       <LableBlock name="About Me">
@@ -69,8 +73,8 @@ const ProfileContactsForm: FC<LoginFormPropsType> = ({ handleSubmit, _error }) =
   )
 }
 
-const ReduxProfileContactsForm = reduxForm<ProfileType, LoginFormPropsType>({
-  form: 'contact-user',
+const ReduxProfileContactsForm = reduxForm<ProfileType, LoginFormPropsType, ErrorType>({
+  form: 'contact',
 })(ProfileContactsForm)
 
 export default ReduxProfileContactsForm

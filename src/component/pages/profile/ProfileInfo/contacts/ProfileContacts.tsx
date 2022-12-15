@@ -39,7 +39,7 @@ const ProfileContacts: FC<propsType> = ({ profile, isAuth, isAutorizedUserId, se
 
   const onSubmit = (data: ProfileType) => {
     setProfileDetail(data)
-    // setEditMode(false)
+    setEditMode(false)
   }
   const editData = () => () => {
     setEditMode(true)

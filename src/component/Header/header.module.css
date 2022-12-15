@@ -58,7 +58,12 @@
     height: 40px;
     width: 40px;
 }
+.mobile_menu{
+    background-color: #fff;
+    width: 100%;
+    padding: 20px;
 
+}
 @media (max-width: 450px) {
     .desctop_btn {
         display: none;

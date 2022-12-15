@@ -25,6 +25,10 @@ export type InitialState = {
   pagination: PaginationType
   isFetching: boolean
   followingInProgress: Array<number>
+  filter: {
+    term: string
+    friend: null | boolean
+  }
 }
 let initialState: InitialState = {
   users: [],
@@ -35,7 +39,11 @@ let initialState: InitialState = {
     currentPortion: 0
   },
   isFetching: false,
-  followingInProgress: []
+  followingInProgress: [],
+  filter: {
+    term: '',
+    friend: null
+  }
 }
 const usersReducer = (state: InitialState = initialState, action: ActionsType) => {
   switch (action.type) {
@@ -167,10 +175,10 @@ type ActionsType = FollowSuccessType | UnFollowSuccessType | SetUsersType | SetC
 type ThunkType = ThunkAction<Promise<void>, AppReducerType, unknown, ActionsType>
 type DispatchType = Dispatch<ActionsType>
 
-export const getUsersThunkCreator = (currentPage: number, pageSize: number): ThunkType =>
+export const getUsersThunkCreator = (currentPage: number, pageSize: number, term: string): ThunkType =>
   async (dispatch: DispatchType) => {
     dispatch(setIsFetching(true))
-    const response = await usersAPI.getUsers(currentPage, pageSize)
+    const response = await usersAPI.getUsers(currentPage, pageSize, term)
     dispatch(setCurrentPage(currentPage))
     dispatch(setUsers(response.items))
     dispatch(setTotalUsersCount(response.totalCount))

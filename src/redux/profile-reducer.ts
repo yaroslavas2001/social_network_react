@@ -131,7 +131,8 @@ export const setProfileDetail = (aboutMe: ProfileType): ThunkType => async (disp
   else if (data.resultCode === ResultCodeEnum.Error) {
     // не правильное заполнено какое-то поле
     let errorText = data.messages.length > 0 ? data.messages[0] : "Some error"
-    dispatch(stopSubmit("contact-user", { _error: errorText }))
+    // console.log("errorText",errorText)
+    dispatch(stopSubmit("contact", { _error: errorText }))
   }
 }
 export const getStatus = (userId: number): ThunkType => async (dispatch: DispatchType) => {

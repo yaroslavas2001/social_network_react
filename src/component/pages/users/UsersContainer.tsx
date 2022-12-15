@@ -19,12 +19,12 @@ type MapStateToPropsType = {
   isFetching: boolean
   users: Array<UsersType>
   followingInProgress: Array<number>
-  isAuth:boolean
+  isAuth: boolean
 }
 type MapDispatchToPropsType = {
   unFollow: (id: number) => void
   follow: (id: number) => void
-  getUsers: (pageNumber: number, pageSize: number) => void
+  getUsers: (pageNumber: number, pageSize: number, term: string) => void
   setCurrentPortion: (portion: number) => void
 }
 type OwnPropsType = {
@@ -42,10 +42,10 @@ class UsersContainer extends React.Component<PropsType> {
   //   super(props)
   // }
   componentDidMount() {
-    this.props.getUsers(this.props.pagination.currentPage, this.props.pagination.pageSize)
+    this.props.getUsers(this.props.pagination.currentPage, this.props.pagination.pageSize, '')
   }
-  onPageCanged = (pageNumber: number) => {
-    this.props.getUsers(pageNumber, this.props.pagination.pageSize)
+  onPageCanged = (pageNumber: number, term: string) => {
+    this.props.getUsers(pageNumber, this.props.pagination.pageSize, term)
   }
   render() {
     if (this.props.isFetching)
@@ -69,7 +69,7 @@ let mapStateToProps = (state: AppReducerType): MapStateToPropsType => {
     users: getUsers(state),
     isFetching: getIsFetching(state),
     followingInProgress: getFollowingInProgress(state),
-    isAuth:state.auth.isAuth
+    isAuth: state.auth.isAuth
   }
 }
 //connect - state , dispatch , own , statef

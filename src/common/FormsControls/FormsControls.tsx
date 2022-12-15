@@ -16,7 +16,7 @@ const Formcontrol: FC<FormcontrolTYpe> = (props) => {
     // мы берем отдельно input,meta, а все оставшиеся штуки оставляем в пропсах
     const hasError = touched && error
     return (
-        <div className={join([hasError ? style.error : "",style.form_Control])}>
+        <div className={join([hasError ? style.error : "", style.form_Control])}>
             {children}
             {hasError && <span className={style.error_text}>{error}</span>}
         </div>
@@ -35,16 +35,16 @@ export const Input = (props: any) => {
     </Formcontrol>)
 }
 
-export const createField = (placeholder: string, name: string,
+export function createField<KeysType extends string>(placeholder: string, name: KeysType,
     validators: Array<FielddValidatorType>,
     component: string | React.Component | React.FC,
-    props = {}, text = "") => {
-    return <div className={style.row}>
+    props = {}, text = ""): any {
+    return (<div className={style.row}>
         <Field name={name} component={component}
             placeholder={placeholder}
             validate={validators}
             {...props}
         />
         {text}
-    </div>
+    </div>)
 }

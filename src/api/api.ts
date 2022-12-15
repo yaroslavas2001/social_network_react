@@ -168,8 +168,11 @@ type UserSType = {
     error: string
 }
 export const usersAPI = {
-    async getUsers(currentPage = 1, pageSize = 10) {
-        const response = await instance.get<UserSType>(`users?page=${currentPage}&count=${pageSize}`)
+    async getUsers(currentPage = 1, pageSize = 10, term: string = '', friend?: boolean) {
+        let url = `users?page=${currentPage}&count=${pageSize}`
+        if (term.length > 0) url = url + `&term=${term}`
+        if (friend != (undefined || null)) url = url + `&friend=${friend}`
+        const response = await instance.get<UserSType>(url)
         return response.data
     },
     async followUser(userId: number) {

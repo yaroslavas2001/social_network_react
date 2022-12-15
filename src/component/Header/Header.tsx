@@ -3,7 +3,7 @@ import imageLogo from "./../../assets/blue-flower.png"
 import React, { FC, useState } from "react"
 import iconModileMenu from "./../../assets/mobile-menu.png"
 import HeaderButton from './HeaderButton';
-import MobileMenu from '../../common/MobileMenu/MobileMenu';
+import ModalWindow from '../../common/ModalWindow/ModalWindow';
 import Sidebar from '../Sidebar/sidebar';
 import { join } from '../../utils/function';
 type propstype = {
@@ -44,14 +44,12 @@ const Header: FC<propstype> = ({ isAuth, login, logoutMe }) => {
             <img src={iconModileMenu} alt="mobile menu" />
           </button>
 
-          <MobileMenu isShow={isShowMobileMenu}>
-            <div>
+          <ModalWindow isShow={isShowMobileMenu}>
+            <div className={style.mobile_menu}>
               <HeaderButton login={login} isAuth={isAuth} logoutMe={logOutMe} loginMe={loginMe} />
               <Sidebar changePage={changePage} />
             </div>
-          </MobileMenu>
-
-
+          </ModalWindow>
         </div>
       </div>
     </header>

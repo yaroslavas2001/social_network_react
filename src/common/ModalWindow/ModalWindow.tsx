@@ -1,27 +1,35 @@
 import style from "./ModalWindow.module.css"
-import styleMain from "./../../App.module.css"
-import React, { FC } from "react"
-import BaseButton from "../Button/BaseButton"
-import { join } from "./../../utils/function"
+import React, { FC, useEffect, useState } from "react"
 export type ModalWindowType = {
-    text: string
-    agreementTextButton?: string
-    canselTextButton?: string
-    id?: number
-    agreement: (id: number) => void
-    cansel: () => void
+    children: JSX.Element
+    isShow: boolean
 }
-let ModalWindow: FC<ModalWindowType> = ({ text, agreementTextButton = "Ok",
-    canselTextButton = "Сancel", id, agreement, cansel }) => {
-    return (<div className={style.modal_window}>
-        <div className={join([style.modal_window_block, styleMain.content])}>
-            <div className={style.modal_window_text}>{text}</div>
-            <div className={style.btn_block}>
-                <BaseButton className={[style.btn_indent]} value={agreementTextButton} onClick={() => agreement(id)} />
-                <BaseButton value={canselTextButton} onClick={cansel} />
-            </div>
+let ModalWindow: FC<ModalWindowType> = ({ children, isShow }) => {
+    let [width, setWidth] = useState(window.innerWidth)
+    let [height, setHeight] = useState(window.innerHeight)
+    let [scrollY, setScrollY] = useState(window.scrollY)
 
-        </div>
+    let resize = (e: any) => {
+        setWidth(e.target.innerWidth)
+        setHeight(e.target.innerHeight)
+        document.body.style.setProperty('overflow', isShow ? 'hidden' : 'visible');
+    }
+    useEffect(() => {
+        window.addEventListener('resize', (e: any) => { resize(e) });
+        setScrollY(window.scrollY)
+        document.body.style.setProperty('overflow', isShow ? 'hidden' : 'visible');
+        return () => {
+            window.removeEventListener('resize', (e: any) => { resize(e) });
+        }
+    }, [isShow, width])
+
+    let styleBase = {
+        width: width + 'px',
+        height: height + 'px',
+        paddingTop: scrollY + 'px'
+    }
+    return (<div style={styleBase} className={isShow ? style.modal_window : style.not_show}>
+        {children}
     </div>)
 }
 export default ModalWindow
