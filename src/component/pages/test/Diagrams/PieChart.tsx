@@ -5,7 +5,8 @@ import style from "./PieChart.module.css"
 export type PieType = {
   backgroundColor: string
   label: string
-  value: number
+  value: number,
+  id:number
 }
 type propsType = {
   title: string
@@ -57,7 +58,7 @@ const PieChart: FC<propsType> = ({ title, data }) => {
         start_angle += slice_angle
       }
     }
-  }, [canvas.current])
+  }, [canvas.current,data])
 
 
   return (<div>
