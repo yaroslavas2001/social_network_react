@@ -18,6 +18,8 @@ const DialogContainer = React.lazy(() => import('./component/pages/dialog/Dialog
 const ProfileContainer = React.lazy(() => import('./component/pages/profile/ProfileContainer'))
 const UsersContainer = React.lazy(() => import('./component/pages/users/UsersContainer'))
 const LoginContainer = React.lazy(() => import('./component/pages/login/LoginContainer'))
+const TestContainer = React.lazy(() => import('./component/pages/test/TestContainer'))
+
 class App extends React.Component {
   componentDidMount() {
     this.props.initializeApp()
@@ -49,6 +51,8 @@ class App extends React.Component {
                 <Route path="/dialog/" element={<DialogContainer />} />
                 <Route path="/users/*" element={<UsersContainer pageTitle='test' />} />
                 <Route path="/login" element={<LoginContainer />} />
+                <Route path="/test" element={<TestContainer />} />
+
               </Routes>
             </Suspense>
           </div>

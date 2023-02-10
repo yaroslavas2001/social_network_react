@@ -13,7 +13,7 @@ const Sidebar: FC<propsType> = ({ changePage }) => {
     { path: "/profile", name: "Profile", icon: profile },
     // { path: "/dialog", name: "Dialog", icon: dialog },
     { path: "/users", name: "Users", icon: users },
-    // { path: "/news", name: "News", icon: news },
+    { path: "/test", name: "Test", icon: '' },
     // { path: "/settings", name: "Settings", icon: setting },
   ]
   // const ar = [1, 2, 3]
