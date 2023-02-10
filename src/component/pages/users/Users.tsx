@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC, useEffect, useState } from "react"
 import Paginator from "../../../common/Paginator/Paginator";
 import { UsersType } from "../../../types/types";
 import User from "./user/User";
@@ -21,9 +21,16 @@ type propsType = {
 
 }
 const Users: FC<propsType> = ({ followingInProgress, users, follow, setCurrentPortion, unFollow, onPageCanged, ...props }) => {
+  let [search, setSearchText] = useState('')
   const onPageCanged2 = (page: number) => {
-    onPageCanged(page, '')
+    onPageCanged(page, search)
   }
+  useEffect(() => {
+    // выполняется после отрисовки
+    if (search.length > 0)
+      onPageCanged(1, search)
+    console.log("search", search)
+  }, [search])
   return (
     <div className={style.content}>
       <Paginator currentPage={props.pagination.currentPage}
@@ -34,7 +41,7 @@ const Users: FC<propsType> = ({ followingInProgress, users, follow, setCurrentPo
         setCurrentPortion={setCurrentPortion}
         portionSize={10}
       />
-      {/* <UserSearchForm></UserSearchForm> */}
+      <UserSearchForm setSearchText={setSearchText}></UserSearchForm>
       {
         users.map(user =>
           <User user={user}
@@ -48,16 +55,13 @@ const Users: FC<propsType> = ({ followingInProgress, users, follow, setCurrentPo
       }
     </div>);
 }
-const UserSearchForm = () => {
-  const onSubmit = () => {
-    // async (values: any) => {
-    //   await new Promise((resolve) => setTimeout(resolve, 500));
-    //   alert(JSON.stringify(values, null, 2));
-    // }
+const UserSearchForm = (props: any) => {
+  const onSubmit = (values: any) => {
+    props.setSearchText(values.term);
   }
   return (
     <Formik
-      initialValues={{ term: "" }}
+      initialValues={{ term: '' }}
       onSubmit={onSubmit}
     >
       <Form>

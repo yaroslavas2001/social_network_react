@@ -34,10 +34,15 @@ const Paginator: FC<propsType> = ({ totalItemsCount, pageSize, currentPage, curr
     }
     return test
   }
+  let [isShowPagination, changeIsShowPagination] = useState<boolean>(true)
+
   let [pages, changePortion] = useState<Array<number>>(changePortionPages())
   useEffect(() => {
     // выполняется после отрисовки
     changePortion(changePortionPages())
+    if (totalItemsCount == 0) {
+      changeIsShowPagination(false)
+    }
   }, [currentPortion])
 
   const right = () => {
@@ -62,29 +67,31 @@ const Paginator: FC<propsType> = ({ totalItemsCount, pageSize, currentPage, curr
   const isCurrentPage = (curentPage: number, anyPage: number): string => {
     return curentPage === anyPage ? style.select : style.item
   }
-  return (<div className={style.paginator}>
-    {isShowLeft && <> <img src={back} alt="back" className={style.btn} onClick={left} />
-      <div className={join([isCurrentPage(currentPage, 1),style.base, style.left])}
-        onClick={toStart}
-      > {1}</div>
-    </>
-    }
-    {pages.map(p =>
-      <div key={p}
-        className={join([isCurrentPage(currentPage, p),style.base])}
-        onClick={changePage(p)}
-      > {p}</div>
-    )}
-    {isShowRight && <>
-      <div className={join([isCurrentPage(currentPage, pagesCount), style.base,style.right])}
-        onClick={toFinish}
-      > {pagesCount}</div>
-      <img src={forward} alt="back" className={style.btn} onClick={right} />
+  return (
+    isShowPagination ?
+      <div className={style.paginator}>
+        {isShowLeft && <> <img src={back} alt="back" className={style.btn} onClick={left} />
+          <div className={join([isCurrentPage(currentPage, 1), style.base, style.left])}
+            onClick={toStart}
+          > {1}</div>
+        </>
+        }
+        {pages.map(p =>
+          <div key={p}
+            className={join([isCurrentPage(currentPage, p), style.base])}
+            onClick={changePage(p)}
+          > {p}</div>
+        )}
+        {isShowRight && <>
+          <div className={join([isCurrentPage(currentPage, pagesCount), style.base, style.right])}
+            onClick={toFinish}
+          > {pagesCount}</div>
+          <img src={forward} alt="back" className={style.btn} onClick={right} />
 
-    </>
-    }
-    {/* <input type="number" onBlur={changePage()} val /> */}
-  </div>)
+        </>
+        }
+        {/* <input type="number" onBlur={changePage()} val /> */}
+      </div> : <></>)
 }
 
 export default Paginator;

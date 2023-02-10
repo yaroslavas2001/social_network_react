@@ -16,6 +16,11 @@ const Sidebar: FC<propsType> = ({ changePage }) => {
     // { path: "/news", name: "News", icon: news },
     // { path: "/settings", name: "Settings", icon: setting },
   ]
+  // const ar = [1, 2, 3]
+  // console.log("reduce", ar.reduce((totla, number) => {
+  //   // console.log("total", totla, number)
+  //   return totla + number
+  // }))
   const activeStyle = () => {
     return (navData: any) => navData.isActive ? style.active : style.item
   }
