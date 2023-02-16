@@ -1,16 +1,12 @@
 import React, { FC } from "react";
 import { useState, useEffect, useRef } from "react";
+import { PieTypeModel } from "../Models/Models";
 
 import style from "./PieChart.module.css"
-export type PieType = {
-  backgroundColor: string
-  label: string
-  value: number,
-  id:number
-}
+
 type propsType = {
   title: string
-  data: Array<PieType>
+  data: Array<PieTypeModel>
 }
 const PieChart: FC<propsType> = ({ title, data }) => {
   // let canvas = document.getElementById('canvas') as
@@ -44,7 +40,6 @@ const PieChart: FC<propsType> = ({ title, data }) => {
     ctx.fill();
   }
   useEffect(() => {
-    // console.log("canva", canvas)
     if (canvas.current) {
       let context = canvas.current.getContext("2d")
 
@@ -54,14 +49,15 @@ const PieChart: FC<propsType> = ({ title, data }) => {
       for (let i = 0; i < data.length; i++) {
         const element = data[i];
         let slice_angle = 2 * Math.PI * element.value / totalValue
-        drawPieSlice(context, 60, 60, 50, start_angle, slice_angle + start_angle, element.backgroundColor);
+        // x y radius
+        drawPieSlice(context, 60, 60, 60, start_angle, slice_angle + start_angle, element.backgroundColor);
         start_angle += slice_angle
       }
     }
-  }, [canvas.current,data])
+  }, [data, canvas.current])
 
 
-  return (<div>
+  return (<div className={style.block}>
     <div>{title}</div>
     <canvas className={style.canvas} ref={canvas} id="canvas"></canvas>
   </div>

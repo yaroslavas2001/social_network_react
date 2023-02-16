@@ -29,7 +29,7 @@ const Users: FC<propsType> = ({ followingInProgress, users, follow, setCurrentPo
     // выполняется после отрисовки
     if (search.length > 0)
       onPageCanged(1, search)
-    console.log("search", search)
+    // console.log("search", search)
   }, [search])
   return (
     <div className={style.content}>

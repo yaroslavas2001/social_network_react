@@ -25,7 +25,7 @@ class ProfileStatus extends React.Component<propsType> {
         status: this.props.status
       })
     }
-    console.log("componentDidUpdate")
+    // console.log("componentDidUpdate")
     //если вызвать setState то компонент зациклится
     //если все таки нужно, то обязательно исппользовать условие
   }
