@@ -42,7 +42,8 @@ const PieChart: FC<propsType> = ({ title, data }) => {
   useEffect(() => {
     if (canvas.current) {
       let context = canvas.current.getContext("2d")
-
+      console.log("weight",context.lineWidth)
+      context.clearRect(0,0, canvas.current.width,canvas.current.height)
       // drawPieSlice(context, 30, 30, 26, Math.PI / 2, Math.PI / 3 + Math.PI / 4, '#ff0000');
       // drawPieSlice(context, 30, 30, 26, 0, Math.PI / 2, 'blue');
       let start_angle = 0

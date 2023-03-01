@@ -6,9 +6,10 @@ import dialog from "./../../assets/Sidebar/dialog.png"
 import users from "./../../assets/Sidebar/users.png"
 import React, { FC } from "react"
 type propsType = {
+  isDarkTheme: boolean
   changePage?: () => void
 }
-const Sidebar: FC<propsType> = ({ changePage }) => {
+const Sidebar: FC<propsType> = ({ changePage, isDarkTheme }) => {
   const sidebar = [
     { path: "/profile", name: "Profile", icon: profile },
     // { path: "/dialog", name: "Dialog", icon: dialog },
@@ -21,16 +22,26 @@ const Sidebar: FC<propsType> = ({ changePage }) => {
   //   // console.log("total", totla, number)
   //   return totla + number
   // }))
-  const activeStyle = () => {
-    return (navData: any) => navData.isActive ? style.active : style.item
+  let addStyle = (style: string) => {
+    return `item ${style}`
   }
+  const activeStyle = () => (navData: any) => {
+    return navData.isActive ?
+      isDarkTheme ? style.activeDark : style.activeLight
+      : isDarkTheme ? style.itemDark : style.itemLight
+  }
+  // let color = { Color: isDarkTheme ? '#333333' : '#dce1e6' }
+
   let element = sidebar.map((el) =>
     <NavLink key={el.name} to={el.path} className={activeStyle()} onClick={changePage}>
-      <img src={el.icon} alt="icon" className={style.icon} />
-      <span>{el.name}</span>
+      <div className={style.block}>
+        <img src={el.icon} alt="" className={style.icon} />
+        <span className={style.text}>{el.name}</span>
+      </div>
+
     </NavLink>)
 
-  return (<nav className={style.nav}>
+  return (<nav className={style.nav} >
     {/* className={`${s.link} ${s.active}`} */}
     {element}
   </nav>);

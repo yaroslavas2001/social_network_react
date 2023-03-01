@@ -29,16 +29,18 @@ class App extends React.Component {
     if (userId && userLogin && userEmail)
       this.props.setAuthUserData(Number(userId), userEmail, userLogin)
   }
+
   render() {
+    let styleFon = { backgroundColor: this.props.isDarkTheme ? '#333333' : '#dce1e6' }
     if (!this.props.initialized)
       return <Preloader isFetching={!this.props.initialized} />
 
     return (
-      <div className={style.app}  >
+      <div className={style.app} style={styleFon} >
         <HeaderContainer />
         <div className={style.row}>
           <div className={style.nav}>
-            <Sidebar />
+            <Sidebar isDarkTheme={this.props.isDarkTheme}/>
           </div>
           <div className={style.content_block}>
             <Suspense fallback={<div><Preloader /></div>}>
@@ -65,6 +67,7 @@ class App extends React.Component {
 let mapStateToProps = (state) => {
   return {
     initialized: state.app.initialized,
+    isDarkTheme: state.app.isDarkTheme
   }
 }
 let AppContainer = compose(

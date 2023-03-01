@@ -27,6 +27,7 @@ const MyPosts = (props: propsType) => {
 
   return (< >
     <ReduxAddPostForm onSubmit={onSubmit} profile={props.profile} />
+    <p>My posts:</p>
     {postsElements}
   </>);
 }
