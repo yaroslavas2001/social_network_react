@@ -7,8 +7,17 @@
   outline: none;
   border: 0px !important;
   width: 100%;
+  background-color: transparent;
 } 
-
+.black textarea{
+  color: #fff;
+}
+.black textarea::placeholder{
+  color: #cbd2cd;
+}
+.light textarea{
+  color: #000;
+}
 .photo_user {
   height: 28px;
   width: 28px;

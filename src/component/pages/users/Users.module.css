@@ -1,9 +1,6 @@
-.content {
-    border: 1px solid rgba(0, 0, 0, 0.16);
-    border-radius: 14px;
-    background-color: #fff;
-    box-sizing: border-box;
-    padding: 20px;
-    margin: 20px 10px;
-    height: auto;
+.form{
+    display: flex;
+}
+.search_form_btn{
+    margin: 0px 12px ;
 }

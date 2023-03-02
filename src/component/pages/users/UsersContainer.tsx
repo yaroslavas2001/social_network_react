@@ -20,6 +20,7 @@ type MapStateToPropsType = {
   users: Array<UsersType>
   followingInProgress: Array<number>
   isAuth: boolean
+  isDarkTheme:boolean
 }
 type MapDispatchToPropsType = {
   unFollow: (id: number) => void
@@ -59,6 +60,7 @@ class UsersContainer extends React.Component<PropsType> {
         setCurrentPortion={this.props.setCurrentPortion}
         followingInProgress={this.props.followingInProgress}
         isAuth={this.props.isAuth}
+        isDarkTheme={this.props.isDarkTheme}
       />
     )
   }
@@ -69,7 +71,8 @@ let mapStateToProps = (state: AppReducerType): MapStateToPropsType => {
     users: getUsers(state),
     isFetching: getIsFetching(state),
     followingInProgress: getFollowingInProgress(state),
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
+    isDarkTheme:state.app.isDarkTheme
   }
 }
 //connect - state , dispatch , own , statef

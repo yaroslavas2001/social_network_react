@@ -44,7 +44,8 @@ body{
   display: block;
   width: 20%;
 }
-@media (max-width: 450px) {
+
+@media (max-width: 550px) {
   .nav {
     display: none;
   }

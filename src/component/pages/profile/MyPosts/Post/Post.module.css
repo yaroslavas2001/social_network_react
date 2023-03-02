@@ -13,4 +13,12 @@
   outline: none;
   border: 0px !important;
   width: 100%;
+  background-color: transparent;
+}
+.black textarea{
+  color: aliceblue;
+
+}
+.light textarea{
+  color: black;
 }

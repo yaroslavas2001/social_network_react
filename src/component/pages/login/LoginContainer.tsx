@@ -9,6 +9,7 @@ type MapStateToPropsType = {
     capchaUrl: string
     isWaitingCapcha: boolean
     isShowCapcha: boolean
+    isDarkTheme:boolean
 }
 type MapDispatchToPropsType = {
     getCapchaUrl: () => void
@@ -28,7 +29,8 @@ let mapStateToProps = (state: AppReducerType): MapStateToPropsType => {
         isAuth: state.auth.isAuth,
         capchaUrl: state.auth.capchaUrl,
         isWaitingCapcha: state.auth.isWaitingCapcha,
-        isShowCapcha: state.auth.isShowCapcha
+        isShowCapcha: state.auth.isShowCapcha,
+        isDarkTheme:state.app.isDarkTheme
     }
 }
 

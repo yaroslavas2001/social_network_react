@@ -8,6 +8,7 @@ type MapStateToPropsType = {
   newPostText: string
   posts: Array<PostType>
   profile: ProfileType
+  isDarkTheme:boolean
 }
 type MapDispatchToPropsType = {
   addPost: (newPostText: string) => void
@@ -19,14 +20,14 @@ type propsType = MapStateToPropsType & MapDispatchToPropsType
 const MyPosts = (props: propsType) => {
 
   let postsElements = props.posts.map((el: PostType, index: number) =>
-    <Post key={el.id} post={el} deletePost={props.deletePost} updatePost={props.updatePost} />)
+    <Post key={el.id} isDarkTheme={props.isDarkTheme} post={el} deletePost={props.deletePost} updatePost={props.updatePost} />)
 
   const onSubmit = (value: string) => {
     props.addPost(value)
   }
 
   return (< >
-    <ReduxAddPostForm onSubmit={onSubmit} profile={props.profile} />
+    <ReduxAddPostForm isDarkTheme={props.isDarkTheme} onSubmit={onSubmit} profile={props.profile} />
     <p>My posts:</p>
     {postsElements}
   </>);

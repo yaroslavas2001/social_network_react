@@ -64,7 +64,7 @@
     padding: 20px;
 
 }
-@media (max-width: 450px) {
+@media (max-width: 550px) {
     .desctop_btn {
         display: none;
     }

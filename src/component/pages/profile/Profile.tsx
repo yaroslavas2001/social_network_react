@@ -8,6 +8,7 @@ type propsType = {
   autorizedUserId: number
   profileId: number
   isAuth: boolean
+  isDarkTheme:boolean
   updateStatus: (status: string) => void
   setProfilePhoto: (photo: FormData) => void
   setProfileDetail: (aboutMe: ProfileType) => void
@@ -47,6 +48,7 @@ const Profile = (props: propsType) => {
       setProfilePhoto={props.setProfilePhoto}
       setProfileDetail={props.setProfileDetail}
       isAutorizedUserId={isAutorizedUserId}
+      isDarkTheme={props.isDarkTheme}
     />
     {isAutorizedUserId &&
       <MyPostsContainer />

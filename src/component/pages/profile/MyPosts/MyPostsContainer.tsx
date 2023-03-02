@@ -8,6 +8,7 @@ type MapStateToPropsType = {
   newPostText: string
   posts: Array<PostType>
   profile: ProfileType
+  isDarkTheme:boolean
 }
 type MapDispatchToPropsType = {
   addPost: (newPostText: string) => void
@@ -18,7 +19,8 @@ let mapStateToProps = (state: AppReducerType): MapStateToPropsType => {
   return {
     newPostText: state.profilePage.newPostText,
     posts: state.profilePage.posts,
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
+    isDarkTheme:state.app.isDarkTheme
   }
 }
 export default connect<MapStateToPropsType, MapDispatchToPropsType>(mapStateToProps, { addPost ,deletePost,updatePost})(MyPosts)
