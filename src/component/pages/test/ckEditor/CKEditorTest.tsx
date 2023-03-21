@@ -81,7 +81,6 @@ const CKEditorTest: FC<propsType> = (props) => {
     // this.ckeditorTextStyleHide;
   }
   let getSelectionData = (target: any, container: any) => {
-    return
     var sel, range;
     var res = {
       x: 0,
