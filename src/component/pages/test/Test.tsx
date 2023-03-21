@@ -5,10 +5,14 @@ import PieChartList from "./PieChartList/PieChartList";
 import PieChart from "./PieChart/PieChart";
 import { PieTypeModel } from "./Models/Models";
 import style from "./Test.module.css"
+import CKEditorTest from "./ckEditor/CKEditorTest";
+
 type propsType = {
   data: Array<PieTypeModel>
 }
 const Test: FC<propsType> = (props) => {
+  let value: string =
+    `cthcftycrty <strike>rtymftyub</strike> <b>tybdr</b> ybeyey <i>thcftycrty</i> rtymftyub <u>tybdr</u> ybeye <span style='color:rgb(242, 48, 81)'>thcftycrty</span> rtymftyub tybdr ybeye thcftycrty rtymftyub tybdr ybeye thcftycrty rtymftyub tybdr ybeye`;
 
   let [data, changeData] = useState<Array<PieTypeModel>>(props.data)
 
@@ -21,7 +25,7 @@ const Test: FC<propsType> = (props) => {
   let daleteItem = (id: number) => {
     changeData(data.filter((el) => el.id !== id))
   }
-// стили на добавление, стили таблицы и размеры канвы подогнать
+  // стили на добавление, стили таблицы и размеры канвы подогнать
   return (<div className={style.block}>
     <PieChart title="Fruit" data={data} />
     <div>
@@ -31,6 +35,7 @@ const Test: FC<propsType> = (props) => {
         daleteItem={daleteItem}
       />
     </div>
+    <CKEditorTest value={value} />
   </div>);
 }
 

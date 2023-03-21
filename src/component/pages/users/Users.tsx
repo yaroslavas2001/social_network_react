@@ -13,6 +13,7 @@ import ContentBlock from "../../../common/ContentBlock/ContentBlock";
 import TextareaAutosizeCustom from "./../../../common/TextareaAutosizeCustom/TextareaAutosizeCustom"
 import BaseButton from "../../../common/Button/BaseButton";
 import UserSearchForm from "./UserSearchForm";
+import CKEditorTest from "../test/ckEditor/CKEditorTest";
 type propsType = {
   pagination: PaginationType
   isAuth: boolean
@@ -29,6 +30,8 @@ const Users: FC<propsType> = ({ isDarkTheme, followingInProgress, users, follow,
   const onPageCanged2 = (page: number) => {
     onPageCanged(page, search)
   }
+  let value = "cthcftycrty rtymftyub tybdr ybeyey thcftycrty rtymftyub tybdr ybeye thcftycrty rtymftyub tybdr ybeye thcftycrty rtymftyub tybdr ybeye thcftycrty rtymftyub tybdr ybeye";
+
   useEffect(() => {
     // выполняется после отрисовки
     if (search.length > 0)
@@ -37,8 +40,8 @@ const Users: FC<propsType> = ({ isDarkTheme, followingInProgress, users, follow,
   }, [search])
   return (
     <ContentBlock isDarkTheme={isDarkTheme}>
-     
-      <UserSearchForm setSearchText={setSearchText}/>
+
+      <UserSearchForm setSearchText={setSearchText} />
       <>
         {
           users.map(user =>
@@ -60,6 +63,8 @@ const Users: FC<propsType> = ({ isDarkTheme, followingInProgress, users, follow,
         setCurrentPortion={setCurrentPortion}
         portionSize={10}
       />
+      <CKEditorTest value={value} />
+
     </ContentBlock>
   );
 }

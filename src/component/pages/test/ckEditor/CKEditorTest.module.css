@@ -1,0 +1,29 @@
+.main_block {
+  position: relative;
+}
+ 
+.main_block [contenteditable="true"]:empty:before {
+  content: attr(placeholder);
+  font-size: 18px;
+  line-height: 1.44;
+  font-weight: bold;
+  opacity: 0.3;
+  pointer-events: none;
+  display: none;
+  /* For Firefox */
+}
+
+.main_block [contenteditable="true"] {
+  outline: none;
+  height: 100%;
+  width: 100%;
+  background-color: #bebedd;
+}
+
+.main_block .cke_inner {
+  display: none !important;
+}
+
+.ckeditor {
+  /* height: 100%; */
+}
