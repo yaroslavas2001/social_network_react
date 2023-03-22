@@ -5,6 +5,7 @@ import ContentBlock from "../../../common/ContentBlock/ContentBlock"
 
 const Login = (props: any) => {
     const onSubmit = (formData: LoginFormFieldType) => {
+        console.log("submit",formData)
         const captha = formData.captha ? formData.captha : ""
         props.logintMe(formData.email, formData.password,
             formData.rememberMe, captha

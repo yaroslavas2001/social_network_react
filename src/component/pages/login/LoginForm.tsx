@@ -7,13 +7,13 @@ import Preloader from "../../../common/Preloader/Preloader"
 import BaseButton from "../../../common/Button/BaseButton"
 import style from "./Login.module.css"
 import { Form } from "formik"
-import { Formik } from "formik/dist/Formik"
+import { Formik } from "formik"
 
 const maxLenght50 = maxLenghtCreator(50)
 type LoginFormPropsType = {
     isShowCapcha: boolean
     isWaitingCapcha: boolean
-    _error: any
+    errorLogin: string
     capchaUrl: string
     handleSubmit: () => void
 }
@@ -24,39 +24,31 @@ export type LoginFormFieldType = {
     captha?: string
 }
 type LoginFormFieldTypeKeys = Extract<keyof LoginFormFieldType, string>
-const LoginForm: FC<LoginFormPropsType> = ({ handleSubmit, _error, capchaUrl, isShowCapcha, isWaitingCapcha }) => {
+const LoginForm: FC<LoginFormPropsType> = ({ handleSubmit, errorLogin, capchaUrl, isShowCapcha, isWaitingCapcha }) => {
     return (
-        <form onSubmit={handleSubmit} >
-            {/* <Formik initialValues={{ password: "", email: "", rememberMe: false, captha: '' }} onSubmit={handleSubmit} >
-                <Form> */}
-                    {createField<LoginFormFieldTypeKeys>("Login", 'email', [required, maxLenght50], Input)}
-                    {/* <Field name={'email'} component={Input}
-                    placeholder="Login"
-                    validate={[required, maxLenght50]}
-                /> */}
-                    {createField<LoginFormFieldTypeKeys>("Password", 'password', [required, maxLenght50],
-                        Input, { type: "password" })}
+        <Formik initialValues={{ password: "", email: "", rememberMe: false, captha: '' }} onSubmit={() => { handleSubmit() }}             >
+            <Form>
+                {createField<LoginFormFieldTypeKeys>("Login", 'email', [required, maxLenght50], Input)}
+                {createField<LoginFormFieldTypeKeys>("Password", 'password', [required, maxLenght50],
+                    Input, { type: "password" })}
 
-                    {createField<LoginFormFieldTypeKeys>(null, 'rememberMe', [],
-                        'input', { type: "checkbox" }, "Remember me")}
-                    {_error && <div className={styleFormsControl.formSummaryError}>
-                        {_error}
-                    </div>}
+                {createField<LoginFormFieldTypeKeys>(null, 'rememberMe', [],
+                    'input', { type: "checkbox" }, "Remember me")}
+                {errorLogin && <div className={styleFormsControl.formSummaryError}>
+                    {errorLogin}
+                </div>}
 
-                    {isShowCapcha ?
-                        <>
-                            Капча
-                            <Preloader isFetching={isWaitingCapcha} />
-                            <img src={capchaUrl} alt="capchaUrl" />
-                            {createField<LoginFormFieldTypeKeys>("captha", 'captha', [required, maxLenght50],
-                                Input, { type: "text" })}
-                        </> : null}
-                {/* </Form>
-            </Formik> */}
-
-            <BaseButton value="Login" onClick={() => { }} />
-            {/* <button >Login</button> */}
-        </form>
+                {isShowCapcha ?
+                    <>
+                        Капча
+                        <Preloader isFetching={isWaitingCapcha} />
+                        <img src={capchaUrl} alt="capchaUrl" />
+                        {createField<LoginFormFieldTypeKeys>("captha", 'captha', [required, maxLenght50],
+                            Input, { type: "text" })}
+                    </> : null}
+                <BaseButton isDisabled={errorLogin.length > 0 || capchaUrl.length > 0} type="submit" value="Login" onClick={() => { }} />
+            </Form>
+        </Formik>
     )
 }
 

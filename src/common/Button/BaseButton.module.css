@@ -10,7 +10,11 @@
     width: auto;
     white-space: nowrap;
 }
-
+.btn:disabled{
+    background-color: #95a3b3;
+    color: #fff;
+    cursor: auto;
+}
 .btn_small {
     height: 22px;
     font-size: 12px;

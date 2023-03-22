@@ -1,6 +1,7 @@
 
-import React, { FC, useRef, useState } from "react";
-import { CKEditor, CKEditorInstance, CKEditorNamespace, CKEditorNamespaceEventName, CKEditorNamespaceHandler } from 'ckeditor4-react';
+import React, { FC, useEffect, useRef, useState } from "react";
+import { CKEditor, CKEditorInstance, CKEditorNamespaceEventName, } from 'ckeditor4-react';
+// import Ckeditor from "ckeditor4"
 import CKEditorTestStyle from "./styleBlock/CKEditorTestStyle"
 import EditorModel from "./styleBlock/EditorModel";
 import style from "./CKEditorTest.module.css"
@@ -12,7 +13,9 @@ type propsType = {
 
 const CKEditorTest: FC<propsType> = (props) => {
   let [value, setValue] = useState(props.value)
-  let [ckEditor, setCkEditior] = useState<CKEditorNamespace>()
+  let [ckEditor, setCkEditior] = useState<any>()
+  let [XPositon, setXPositon] = useState<any>(0)
+  let [YPositon, setYPositon] = useState<any>(0)
 
   let [isShow, setIsShow] = useState(false)
   let [editorModel, setEditorModel] = useState<EditorModel>(
@@ -33,32 +36,47 @@ const CKEditorTest: FC<propsType> = (props) => {
     pasteFromWordRemoveFontStyles: true,
     pasteFromWordRemoveStyles: true,
     forcePasteAsPlainText: true,
-    toolbar: [{}],
+    toolbar: [{ name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike'] }],
     allowedContent: "strike b i u;" + "span{!color}",
     disallowedContent: "p;" + "script;",
-    removeButtons: "Subscript,Superscript,PasteFromWord",
+    // removeButtons: "Subscript,Superscript,PasteFromWord",
     extraPlugins: "autogrow,colorbutton",
     enterMode: Number(2),
     removePlugins:
-      "liststyle,tableselection,tabletools,tableresize,contextmenu,pastefromword",
+      `tableresize,contextmenu,pastefromword,liststyle,tableselection,tabletools`,
     title: false,
     fillEmptyBlocks: false,
+    floatSpaceDockedOffsetX:XPositon,
+    floatSpaceDockedOffsetY :YPositon
   }
+  let [configObjectFull, setconfigObjectFull] = useState<any>(configObject)
+  useEffect((()=>{
+    setconfigObjectFull(configObject)
+  }),[YPositon,XPositon])
+  // tableresize,
+  // contextmenu,
+  // pastefromword
+  //    liststyle,
+  // tableselection,
+  // tabletools,
   let chooseLetter = (letter: string) => {
     if (letter === 'Bbold') {
 
     } else if (letter === 'italic') {
-
       console.log("editor", ckEditor)
-      return
-      if (isItalicActive) {
 
+      console.log("editor", ckEditor.currentInstance)
+      // return
+      if (isItalicActive) {
+        // ckEditor.editor.removeStyle(new CKEDITOR.style({ element: "i" }))
+        // ckEditor.removeStyle(new CKEDITOR.style({ element: "i" }));
         // ckEditor.instance.removeStyle(new CKEDITOR.style({ element: "i" }));
-        // // ckEditor.instance.removeStyle(new CKEDITOR.style({ element: "i" }));
         // setIsItalicActive(false)
         // console.log("value",value)
       } else {
-        ckEditor.instance.applyStyle(new CKEDITOR.style({ element: "i" }));
+        // ckEditor.applyStyle(new CKEDITOR.style({ element: "i" }));
+        // ckEditor.editor.applyStyle(new CKEDITOR.style({ element: "i" }))
+        // console.log("css", ckEditor.addCss(new CKEDITOR.style({ element: "i" })))
 
         // ckEditor.instance.applyStyle(new CKEDITOR.style({ element: "i" }));
         setIsItalicActive(true)
@@ -68,8 +86,10 @@ const CKEditorTest: FC<propsType> = (props) => {
     } else if (letter === 'strike') {
 
     }
-
+    console.log("value", value)
+    setIsShow(false)
   }
+
 
   let chooseColor = (color: string) => {
     setActiveColor(color)
@@ -109,6 +129,8 @@ const CKEditorTest: FC<propsType> = (props) => {
             x: res.x,
             y: res.y
           }
+          setXPositon(res.x)
+          setYPositon(res.y)
           setEditorModel(test)
           return res;
         }
@@ -151,7 +173,7 @@ const CKEditorTest: FC<propsType> = (props) => {
     const start = range.startContainer;
     const end = range.endContainer;
     const commonAncestorContainer = range.commonAncestorContainer;
-    let ck = editor;
+    // let ck = editor;
     // let root = ck.querySelector(".cke_editable");
     // if (start == root && end == root) {
     //   setIsShow(false)
@@ -181,15 +203,20 @@ const CKEditorTest: FC<propsType> = (props) => {
     else setiIUnderlineActive(false)
     if (Number(End.fontWeight) == 700) setIsBoldActive(true);
     else setIsBoldActive(false);
+    // setCkEditior(editor)
+  }
+  let test=()=>{
+    // let dashboard = docu
   }
   return (<div className={style.main_block}>
     <CKEditor
-      config={configObject}
+      config={configObjectFull}
       // debug={true}
       initData={value}
 
-      name="my-ckeditor"
+      name="editor"
       onNamespaceLoaded={CKEDITOR => {
+        // test()
         // console.log("CKEDITOR",CKEDITOR)
         // Handles `namespaceLoaded` event which is fired once the CKEDITOR namespace is loaded.
         // This event is emitted only once.
@@ -200,7 +227,7 @@ const CKEditorTest: FC<propsType> = (props) => {
         // Handles `beforeLoad` event which is fired before an editor instance is created.
       }}
       onInstanceReady={({ editor }) => {
-        onReady(editor)
+        // onReady(editor)
         // Handles native `instanceReady` event.
       }}
       onFocus={({ editor }) => {

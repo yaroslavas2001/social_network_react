@@ -27,3 +27,6 @@
 .ckeditor {
   /* height: 100%; */
 }
+.cke_toolbar {
+  width: 400px;
+}

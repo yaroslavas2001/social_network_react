@@ -11,6 +11,8 @@ const LOGOUT = "auth/LOGOUT"
 const ISSHOWCAPTCHA = "auth/ISSHOWCAPTCHA"
 const SETCAPTCHA = "auth/SETCAPTCHA"
 const SETCAPTCHASTATUS = "auth/SETCAPTCHASTATUS"
+const SETERRORLOGIN = "auth/SETERRORLOGIN"
+
 // const FINISHСHECKINGCAPCHA = "auth/FINISHСHECKINGCAPCHA"
 export type InitialStateType = {
   userId: number | null,
@@ -21,6 +23,7 @@ export type InitialStateType = {
   capchaUrl: string,
   isWaitingCapcha: boolean
   rememberMe: boolean
+  errorLogin:string
 }
 let initialState: InitialStateType = {
   userId: null,
@@ -30,7 +33,8 @@ let initialState: InitialStateType = {
   isShowCapcha: false,
   capchaUrl: '',
   isWaitingCapcha: false,
-  rememberMe: false
+  rememberMe: false,
+  errorLogin:''
 }
 
 const authReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
@@ -73,6 +77,12 @@ const authReducer = (state: InitialStateType = initialState, action: ActionsType
         isShowCapcha: action.isShowCapcha,
       }
     }
+    case SETERRORLOGIN: {
+      return {
+        ...state,
+        errorLogin: action.errorLogin ,
+      }
+    }
     // case FINISHСHECKINGCAPCHA: {
     //   return {
     //     ...state,
@@ -85,7 +95,7 @@ const authReducer = (state: InitialStateType = initialState, action: ActionsType
   }
 }
 type ActionsType = setAuthUserDataType | setAuthUserLoginType | setAuthUserLogoutType |
-  showCapchaType | setCapchaType | setCapchaStatusType
+  showCapchaType | setCapchaType | setCapchaStatusType | setErrorLoginType
 
 type setAuthUserDataPreloadType = {
   userId: number | null
@@ -135,6 +145,12 @@ type setCapchaStatusType = {
   isWaitingCapcha: boolean
 }
 export const setCapchaStatus = (isWaitingCapcha: boolean): setCapchaStatusType => ({ type: SETCAPTCHASTATUS, isWaitingCapcha })
+type setErrorLoginType = {
+  type: typeof SETERRORLOGIN
+  errorLogin: string
+}
+export const setErrorLogin = (errorLogin: string): setErrorLoginType => 
+({ type: SETERRORLOGIN, errorLogin:errorLogin })
 
 // type finishСheckingCapchaType = {
 //   type: typeof FINISHСHECKINGCAPCHA
@@ -188,7 +204,9 @@ export const logintMe = (email: string, password: string, rememberMe: boolean, c
     if (data.resultCode === ResultCodeEnum.Error) {
       // не правильное значение
       let errorText = data.messages.length > 0 ? data.messages[0] : "Some error"
-      dispatch(stopSubmit("login", { _error: errorText }))
+      // dispatch(stopSubmit("login", { _error: errorText }))
+      dispatch(setErrorLogin(errorText))
+      // console.log("error",errorText)
     }
 
   }
