@@ -23,7 +23,7 @@ export type InitialStateType = {
   capchaUrl: string,
   isWaitingCapcha: boolean
   rememberMe: boolean
-  errorLogin:string
+  errorLogin: string
 }
 let initialState: InitialStateType = {
   userId: null,
@@ -34,7 +34,7 @@ let initialState: InitialStateType = {
   capchaUrl: '',
   isWaitingCapcha: false,
   rememberMe: false,
-  errorLogin:''
+  errorLogin: ''
 }
 
 const authReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
@@ -80,7 +80,7 @@ const authReducer = (state: InitialStateType = initialState, action: ActionsType
     case SETERRORLOGIN: {
       return {
         ...state,
-        errorLogin: action.errorLogin ,
+        errorLogin: action.errorLogin,
       }
     }
     // case FINISHСHECKINGCAPCHA: {
@@ -149,8 +149,8 @@ type setErrorLoginType = {
   type: typeof SETERRORLOGIN
   errorLogin: string
 }
-export const setErrorLogin = (errorLogin: string): setErrorLoginType => 
-({ type: SETERRORLOGIN, errorLogin:errorLogin })
+export const setErrorLogin = (errorLogin: string): setErrorLoginType =>
+  ({ type: SETERRORLOGIN, errorLogin: errorLogin })
 
 // type finishСheckingCapchaType = {
 //   type: typeof FINISHСHECKINGCAPCHA
@@ -159,17 +159,29 @@ export const setErrorLogin = (errorLogin: string): setErrorLoginType =>
 
 type ThunkType = ThunkAction<Promise<void>, AppReducerType, unknown, ActionsType>
 type DispatchType = Dispatch<ActionsType>
+export const getCapchaUrl = (): ThunkType =>
+  async (dispatch: DispatchType) => {
+    const data = await securityAPI.getCaptchaURL()
+    dispatch(showCapcha(true))
+    dispatch(setCapcha(data.url))
+    dispatch(setCapchaStatus(false))
+  }
 
 export const authMe = (): ThunkType => {
-  return async (dispatch: DispatchType) => {
+  return async (dispatch: any) => {
     const data = await AuthAPI.authMe()
     if (data.resultCode === ResultCodeEnum.Success) {
       let date = data.data
       Cookies.set("UserId", date.id.toString())
       Cookies.set("UserLogin", date.login)
       Cookies.set("UserEmail", date.email)
-
       dispatch(setAuthUserData(date.id, date.email, date.login))
+    } else if (data.resultCode === ResultCodeEnum.Error) {
+      let errorText = data.messages.length > 0 ? data.messages[0] : "Some error"
+      dispatch(showCapcha(true))
+      dispatch(setCapchaStatus(true))
+      dispatch(getCapchaUrl())
+      dispatch(setErrorLogin(`${errorText} or you entered the wrong captcha`))
     }
   }
 }
@@ -181,12 +193,6 @@ export const authMe = (): ThunkType => {
 //     })
 //   }
 // }
-export const getCapchaUrl = (): ThunkType =>
-  async (dispatch: DispatchType) => {
-    const data = await securityAPI.getCaptchaURL()
-    dispatch(setCapcha(data.url))
-    dispatch(setCapchaStatus(false))
-  }
 
 export const logintMe = (email: string, password: string, rememberMe: boolean, captcha: string) =>
   async (dispatch: any) => {
@@ -202,11 +208,8 @@ export const logintMe = (email: string, password: string, rememberMe: boolean, c
       dispatch(getCapchaUrl())
     }
     if (data.resultCode === ResultCodeEnum.Error) {
-      // не правильное значение
-      let errorText = data.messages.length > 0 ? data.messages[0] : "Some error"
-      // dispatch(stopSubmit("login", { _error: errorText }))
+      let errorText = data.messages.length > 0 ? data.messages[0] : "Some error" 
       dispatch(setErrorLogin(errorText))
-      // console.log("error",errorText)
     }
 
   }

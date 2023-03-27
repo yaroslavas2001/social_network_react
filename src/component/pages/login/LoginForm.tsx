@@ -2,7 +2,7 @@ import { reduxForm } from "redux-form"
 import { createField, Input } from "../../../common/FormsControls/FormsControls"
 import { maxLenghtCreator, required } from "../../../utils/validator/validators"
 import styleFormsControl from "./../../../common/FormsControls/FormsControls.module.css"
-import React, { FC } from "react"
+import React, { FC, useEffect, useState } from "react"
 import Preloader from "../../../common/Preloader/Preloader"
 import BaseButton from "../../../common/Button/BaseButton"
 import style from "./Login.module.css"
@@ -25,6 +25,13 @@ export type LoginFormFieldType = {
 }
 type LoginFormFieldTypeKeys = Extract<keyof LoginFormFieldType, string>
 const LoginForm: FC<LoginFormPropsType> = ({ handleSubmit, errorLogin, capchaUrl, isShowCapcha, isWaitingCapcha }) => {
+    // let isSubmit= isShowCapcha || capchaUrl.length > 0 ? 
+    let [error, setError] = useState(errorLogin)
+    useEffect((()=>{
+        if(error!==errorLogin){
+            console.log("error",error)
+            setError(errorLogin)}
+    }),[errorLogin])
     return (
         <Formik initialValues={{ password: "", email: "", rememberMe: false, captha: '' }} onSubmit={() => { handleSubmit() }}             >
             <Form>
@@ -34,19 +41,22 @@ const LoginForm: FC<LoginFormPropsType> = ({ handleSubmit, errorLogin, capchaUrl
 
                 {createField<LoginFormFieldTypeKeys>(null, 'rememberMe', [],
                     'input', { type: "checkbox" }, "Remember me")}
-                {errorLogin && <div className={styleFormsControl.formSummaryError}>
-                    {errorLogin}
-                </div>}
+               
 
-                {isShowCapcha ?
+                {isShowCapcha || capchaUrl.length > 0 ?
                     <>
                         Капча
                         <Preloader isFetching={isWaitingCapcha} />
                         <img src={capchaUrl} alt="capchaUrl" />
                         {createField<LoginFormFieldTypeKeys>("captha", 'captha', [required, maxLenght50],
                             Input, { type: "text" })}
+                        {/* Введите почту, пароль и капчу */}
                     </> : null}
-                <BaseButton isDisabled={errorLogin.length > 0 || capchaUrl.length > 0} type="submit" value="Login" onClick={() => { }} />
+                {error && <div className={styleFormsControl.formSummaryError}>
+                    {error}
+                </div>}
+                <BaseButton
+                    type="submit" value="Login" onClick={() => { }} />
             </Form>
         </Formik>
     )
