@@ -1,9 +1,11 @@
 .textarea_auto_size {
     resize: none;
     outline: none;
-    border: 0px !important;
     width: 100%;
     background-color: transparent;
+    border:  1px solid #dce1e6;
+    border-radius: 4px;
+    padding: 5px 10px;
 }
 
 .textarea_auto_size textarea {

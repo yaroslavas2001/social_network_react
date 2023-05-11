@@ -14,7 +14,7 @@ const Sidebar: FC<propsType> = ({ changePage, isDarkTheme }) => {
     { path: "/profile", name: "Profile", icon: profile },
     // { path: "/dialog", name: "Dialog", icon: dialog },
     { path: "/users", name: "Users", icon: users },
-    { path: "/test", name: "Test", icon: '' },
+    // { path: "/test", name: "Test", icon: '' },
     // { path: "/settings", name: "Settings", icon: setting },
   ]
   // const ar = [1, 2, 3]
@@ -25,6 +25,7 @@ const Sidebar: FC<propsType> = ({ changePage, isDarkTheme }) => {
   let addStyle = (style: string) => {
     return `item ${style}`
   }
+
   const activeStyle = () => (navData: any) => {
     return navData.isActive ?
       isDarkTheme ? style.activeDark : style.activeLight

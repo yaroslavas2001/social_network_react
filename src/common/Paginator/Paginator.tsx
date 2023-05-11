@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react"
+import React, { FC, useCallback, useState } from "react"
 import style from "./Paginator.module.css"
 import back from "./../../assets/back.png"
 import forward from "./../../assets/forward.png"
@@ -11,10 +11,12 @@ type propsType = {
   currentPage: number
   portionSize?: number
   currentPortion: number
-  onPageCanged: (page: number) => void
+  search: string
+  isDarkTheme: boolean
+  onPageCanged: (page: number, search: string) => void
   setCurrentPortion: (portion: number) => void
 }
-const Paginator: FC<propsType> = ({ totalItemsCount, pageSize, currentPage, currentPortion, onPageCanged, setCurrentPortion, portionSize = 10 }) => {
+const Paginator: FC<propsType> = ({ search, totalItemsCount, isDarkTheme, pageSize, currentPage, currentPortion, onPageCanged, setCurrentPortion, portionSize = 10 }) => {
   let pagesCount = Math.ceil(totalItemsCount / pageSize)
   // количество порций этих страничек
   let portionCount = Math.ceil(pagesCount / portionSize)
@@ -44,28 +46,33 @@ const Paginator: FC<propsType> = ({ totalItemsCount, pageSize, currentPage, curr
       changeIsShowPagination(false)
     }
   }, [currentPortion])
-
-  const right = () => {
+  const goRight = useCallback(() => {
     setCurrentPortion(currentPortion + 1)
-  }
+    // setTodos((t) => [...t, "New Todo"]);
+  }, [currentPortion]);
+  // const right = () => {
+  //   setCurrentPortion(currentPortion + 1)
+  // }
   const left = () => {
     setCurrentPortion(currentPortion - 1)
   }
 
 
   const changePage = (page: number) => () => {
-    onPageCanged(page)
+    onPageCanged(page, search)
   }
   const toFinish = () => {
     setCurrentPortion(portionCount - 1)
-    onPageCanged(pagesCount)
+    onPageCanged(pagesCount, search)
   }
   const toStart = () => {
     setCurrentPortion(0)
-    onPageCanged(1)
+    onPageCanged(1, search)
   }
   const isCurrentPage = (curentPage: number, anyPage: number): string => {
+    if (!isDarkTheme)
     return curentPage === anyPage ? style.select : style.item
+    else  return curentPage === anyPage ? style.select_dark : style.item_dark
   }
   return (
     isShowPagination ?
@@ -73,7 +80,7 @@ const Paginator: FC<propsType> = ({ totalItemsCount, pageSize, currentPage, curr
         {isShowLeft && <> <img src={back} alt="back" className={style.btn} onClick={left} />
           <div className={join([isCurrentPage(currentPage, 1), style.base, style.left])}
             onClick={toStart}
-          > {1}</div>
+          > 1</div>
         </>
         }
         {pages.map(p =>
@@ -86,8 +93,7 @@ const Paginator: FC<propsType> = ({ totalItemsCount, pageSize, currentPage, curr
           <div className={join([isCurrentPage(currentPage, pagesCount), style.base, style.right])}
             onClick={toFinish}
           > {pagesCount}</div>
-          <img src={forward} alt="back" className={style.btn} onClick={right} />
-
+          <img src={forward} alt="back" className={style.btn} onClick={goRight} />
         </>
         }
         {/* <input type="number" onBlur={changePage()} val /> */}

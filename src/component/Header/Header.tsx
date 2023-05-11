@@ -31,14 +31,15 @@ const Header: FC<propstype> = ({ isAuth, login, logoutMe, changeTheme, isDarkThe
     setIsShowMobileMenu(false)
   }
   let styleFon = () => {
-    return isDarkTheme ? { backgroundColor: '#222222', color: "#939393" } : { backgroundColor: '#fff', color: "#000" }
+    return isDarkTheme ? { backgroundColor: '#222222', color: "#939393" } :
+      { backgroundColor: '#fff', color: "#000" }
   }
   return (
     <header className={style.header} style={styleFon()}>
       <div className={style.header_block}>
         <div className={style.row}>
           <img className={style.header_logo} src={imageLogo} alt="logo" />
-          <div className={style.header_text}>Social network</div>
+          <div className={!isDarkTheme? style.header_text:style.header_text_dark}>Social network</div>
         </div>
 
         <div className={join([style.row, style.desctop_btn])}>
@@ -46,13 +47,13 @@ const Header: FC<propstype> = ({ isAuth, login, logoutMe, changeTheme, isDarkThe
             isDarkTheme={isDarkTheme} changeTheme={changeTheme}
           />
         </div>
-        <div className={style.mobile_mune}>
+        <div className={style.mobile_menu_block}>
           <button onClick={showMobileMenu} className={style.mobile_menu_btn}>
             <img src={iconModileMenu} alt="mobile menu" />
           </button>
 
-          <ModalWindow isShow={isShowMobileMenu}>
-            <div className={style.mobile_menu}>
+          <ModalWindow isShow={isShowMobileMenu} >
+            <div className={!isDarkTheme? style.mobile_menu:style.mobile_menu_dark}>
               <HeaderButton isDarkTheme={isDarkTheme} changeTheme={changeTheme} login={login} isAuth={isAuth} logoutMe={logOutMe} loginMe={loginMe} />
               <Sidebar isDarkTheme={isDarkTheme} changePage={changePage} />
             </div>

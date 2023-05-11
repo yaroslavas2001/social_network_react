@@ -18,7 +18,8 @@
   cursor: pointer;
 }
 
-.base {
+.base,
+.base_dark {
   height: 25px;
   padding: 0px 8px;
   cursor: pointer;
@@ -34,8 +35,15 @@
 .item {
   color: #254e77;
 }
-
+.item_dark{
+  color: #81adda;
+}
 .select {
   color: #fff;
   background-color: #447bba;
+}
+
+.select_dark {
+  background-color: white;
+  color: #447bba;
 }

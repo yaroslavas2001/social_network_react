@@ -3,7 +3,7 @@ import {
   follow,
   unFollow,
   getUsersThunkCreator,
-  PaginationType, setCurrentPortion,
+  PaginationType, setCurrentPortion,setSearch
 } from "../../../redux/users-reducer"
 import React from "react"
 import Preloader from "../../../common/Preloader/Preloader"
@@ -20,13 +20,15 @@ type MapStateToPropsType = {
   users: Array<UsersType>
   followingInProgress: Array<number>
   isAuth: boolean
-  isDarkTheme:boolean
+  isDarkTheme: boolean
+  search:string
 }
 type MapDispatchToPropsType = {
   unFollow: (id: number) => void
   follow: (id: number) => void
   getUsers: (pageNumber: number, pageSize: number, term: string) => void
   setCurrentPortion: (portion: number) => void
+  setSearch:(search:string)=>void
 }
 type OwnPropsType = {
   pageTitle: string
@@ -61,6 +63,8 @@ class UsersContainer extends React.Component<PropsType> {
         followingInProgress={this.props.followingInProgress}
         isAuth={this.props.isAuth}
         isDarkTheme={this.props.isDarkTheme}
+        search={this.props.search}
+        setSearch={this.props.setSearch}
       />
     )
   }
@@ -72,7 +76,8 @@ let mapStateToProps = (state: AppReducerType): MapStateToPropsType => {
     isFetching: getIsFetching(state),
     followingInProgress: getFollowingInProgress(state),
     isAuth: state.auth.isAuth,
-    isDarkTheme:state.app.isDarkTheme
+    isDarkTheme: state.app.isDarkTheme,
+    search:state.userPage.search
   }
 }
 //connect - state , dispatch , own , statef
@@ -80,41 +85,7 @@ export default connect<MapStateToPropsType, MapDispatchToPropsType>(mapStateToPr
   {
     follow, unFollow,
     getUsers: getUsersThunkCreator,
-    setCurrentPortion
+    setCurrentPortion,setSearch
+
   }
 )(UsersContainer)
-// let mapDispatchToProps = (dispatch) => {
-//   return {
-//     follow: (userId) => {
-//       dispatch(followAC(userId))
-//     },
-//     unFollow: (userId) => {
-//       dispatch(unFollowAC(userId))
-//     },
-//     setUsers: (users) => {
-//       dispatch(setUsersAC(users))
-//     },
-//     setCurrentPage: (currentPage) => {
-//       dispatch(setCurrentPageAC(currentPage))
-//     },
-//     setTotalUsersCount: (totalUsersCount) => {
-//       dispatch(setTotalUsersCountAC(totalUsersCount))
-//     },
-//     setIsFetching: (isFetching) => {
-//       dispatch(setIsFetchingAC(isFetching))
-//     }
-//   }
-// }
-//mapDispatchToProps - ссылки на вызовы
-// let mapStateToProps = (state) => {
-//   return {
-//     users: state.userPage.users,
-//     pageSize: state.userPage.pageSize,
-//     totalUsersCount: state.userPage.totalUsersCount,
-//     currentPage: state.userPage.currentPage,
-//     isFetching: state.userPage.isFetching,
-//     followingInProgress: state.userPage.followingInProgress
-//   }
-// }
-// export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
-

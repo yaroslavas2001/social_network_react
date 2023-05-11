@@ -8,10 +8,11 @@ type propsType = {
   user: UsersType
   followingInProgress: Array<number>
   isAuth: boolean
+  isDarkTheme:boolean
   unFollow: (id: number) => void
   follow: (id: number) => void
 }
-const User: FC<propsType> = ({ user, unFollow, follow, isAuth, followingInProgress, ...props }) => {
+const User: FC<propsType> = ({ isDarkTheme,user, unFollow, follow, isAuth, followingInProgress, ...props }) => {
   const photo = user.photos.large ? user.photos.large : imgDefault
   const unfollowUser = (id: number) => {
     return () => { unFollow(id) }
@@ -31,7 +32,7 @@ const User: FC<propsType> = ({ user, unFollow, follow, isAuth, followingInProgre
       </NavLink>
       <div className={style.user_block}>
         <div className={style.user_information}>
-          <NavLink to={`/profile/` + user.id} className={style.user_name}>
+          <NavLink to={`/profile/` + user.id} className={isDarkTheme?style.user_name_dark:style.user_name}>
             <div >{user.name}</div>
           </NavLink>
           <div className={style.user_status}>{user.status}</div>

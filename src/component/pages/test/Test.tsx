@@ -6,7 +6,7 @@ import PieChart from "./PieChart/PieChart";
 import { PieTypeModel } from "./Models/Models";
 import style from "./Test.module.css"
 import CKEditorTest from "./ckEditor/CKEditorTest";
-
+import img from "./../../../assets/image.png"
 type propsType = {
   data: Array<PieTypeModel>
 }
@@ -36,6 +36,13 @@ const Test: FC<propsType> = (props) => {
       />
     </div>
     <CKEditorTest value={value} />
+    <div className={style.fon}>
+      <div className={style.block_img}>
+        <img className={style.img} src={img} alt="" />
+        <div className={style.letter}>CR<br/>EATE</div>
+      </div>
+    </div>
+
   </div>);
 }
 

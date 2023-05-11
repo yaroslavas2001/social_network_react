@@ -33,18 +33,30 @@
 }
 
 .header_text {
-    /* color: black; */
     font-size: 20.5px;
     margin-right: 20px;
 }
-
-.header_login {
-    color: black;
+.header_text_dark{
+    font-size: 20.5px;
+    margin-right: 20px;
+    color: white;
+}
+.header_login,
+.header_login_dark {
     font-size: 20.5px;
     margin-right: 10px;
 }
 
-.mobile_mune {
+.header_login {
+    color: black;
+
+}
+
+.header_login_dark {
+    color: white;
+}
+
+.mobile_menu_block {
     display: none;
 }
 
@@ -58,18 +70,27 @@
     height: 40px;
     width: 40px;
 }
-.mobile_menu{
-    background-color: #fff;
+
+.mobile_menu,
+.mobile_menu_dark {
     width: 100%;
     padding: 20px;
-
 }
+
+.mobile_menu {
+    background-color: #fff;
+}
+
+.mobile_menu_dark {
+    background-color: black;
+}
+
 @media (max-width: 550px) {
     .desctop_btn {
         display: none;
     }
 
-    .mobile_mune {
+    .mobile_menu_block {
         display: block;
     }
 }

@@ -21,7 +21,7 @@ const HeaderButton: FC<HeaderButtonType> = ({ isAuth, login, loginMe, logoutMe, 
     <div className={style.row}>
       <Toggle checked={checked} check={check} />
       {isAuth ? <>
-        <div className={style.header_login}>{login}</div>
+        <div className={!isDarkTheme? style.header_login:style.header_login_dark}>{login}</div>
         <BaseButton isMutedStyle={true} value="Log out" isSmall onClick={logoutMe} />
       </> : ''}
       {!isAuth ? <NavLink to='/login'>

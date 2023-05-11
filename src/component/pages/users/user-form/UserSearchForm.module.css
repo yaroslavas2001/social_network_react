@@ -1,0 +1,10 @@
+.form{
+    display: flex;
+}
+.dark textarea{
+    color: white;
+}
+.search_form_btn{
+    margin: 0px 12px ;
+    
+}

@@ -1,6 +1,3 @@
-.form{
-    display: flex;
-}
-.search_form_btn{
-    margin: 0px 12px ;
+.pagination_wrapper{
+    margin: 20px 0px;
 }

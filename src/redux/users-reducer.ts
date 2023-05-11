@@ -10,6 +10,7 @@ const UN_FOLLOW = 'user/UN_FOLLOW'
 const SET_USERS = 'user/SET_USERS'
 const SET_CURRENT_PAGE = 'user/SET_CURRENT_PAGE'
 const SET_CURRENT_PORTION = 'user/SET_CURRENT_PORTION'
+const SET_SEARCH = 'user/SET_SEARCH'
 
 const SET_TOTAL_USERS_COUNT = 'user/SET_TOTAL_USERS_COUNT'
 const TOOGLE_IS_FETCHING = 'user/TOOGLE_IS_FETCHING'
@@ -21,6 +22,7 @@ export type PaginationType = {
   currentPortion: number
 }
 export type InitialState = {
+  search:string
   users: Array<UsersType>
   pagination: PaginationType
   isFetching: boolean
@@ -31,6 +33,7 @@ export type InitialState = {
   }
 }
 let initialState: InitialState = {
+  search:'',
   users: [],
   pagination: {
     pageSize: 15,
@@ -63,6 +66,12 @@ const usersReducer = (state: InitialState = initialState, action: ActionsType) =
       return {
         ...state,
         users: [...action.users]
+      }
+    }
+    case SET_SEARCH: {
+      return {
+        ...state,
+        search: action.search
       }
     }
     case SET_CURRENT_PAGE: {
@@ -114,6 +123,11 @@ type FollowSuccessType = {
   userId: number
 }
 export const followSuccess = (userId: number): FollowSuccessType => ({ type: FOLLOW, userId })
+type setSearchType = {
+  type: typeof SET_SEARCH
+  search: string
+}
+export const setSearch = (search: string): setSearchType => ({ type: SET_SEARCH, search })
 
 type UnFollowSuccessType = {
   type: typeof UN_FOLLOW
@@ -169,7 +183,7 @@ type SetIsFollowingProgressType = {
 export const setIsFollowingProgress = (isFetching: boolean, userId: number): SetIsFollowingProgressType => ({
   type: TOOGLE_IS_FOLLOWING_PROGRESS, isFetching, userId
 })
-type ActionsType = FollowSuccessType | UnFollowSuccessType | SetUsersType | SetCurrentPortionType
+type ActionsType = FollowSuccessType | UnFollowSuccessType | SetUsersType | SetCurrentPortionType |setSearchType
   | SetUsersType | SetCurrentPageType | SetTotalUsersCountType | SetIsFetchingType | SetIsFollowingProgressType
 
 type ThunkType = ThunkAction<Promise<void>, AppReducerType, unknown, ActionsType>

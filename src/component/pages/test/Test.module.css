@@ -3,3 +3,26 @@
     width: 100%;
     flex-wrap:wrap ;
 }
+.fon{
+    height: 500px;
+    width: 500px;
+    background-color: blue;
+}
+.block_img{
+    position: relative;
+    background-color:inherit;
+
+}
+.img{
+    height: 400px;
+}
+
+.letter{
+    position: absolute;
+    font-size: 150px;
+    font-weight: bold;
+    /* line-height: 2px; */
+    top: 0px;
+    /* color: transparent; */
+    background-color:inherit;
+}
